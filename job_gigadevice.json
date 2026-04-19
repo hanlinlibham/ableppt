@@ -1,0 +1,202 @@
+{
+  "mode": "composer",
+  "theme": "tech_blue",
+  "datasources": {
+    "financial": {"type": "csv", "path": "data/gigadevice_financial.csv"},
+    "profitability": {"type": "csv", "path": "data/gigadevice_profitability.csv"},
+    "peers": {"type": "csv", "path": "data/gigadevice_peers.csv"}
+  },
+  "pages": [
+    {
+      "layout": "title_dark",
+      "data": {
+        "title": "兆易创新深度研究",
+        "subtitle": "国产存储+MCU双龙头 · 端侧AI打开成长空间",
+        "date": "2026-02"
+      }
+    },
+    {
+      "layout": "kpi_cards",
+      "data": {
+        "title": "核心指标速览 (截至2026.02)",
+        "cards": [
+          {"label": "股价", "value": "308.70元", "change": "近2年+325%"},
+          {"label": "PE(TTM)", "value": "196.3x", "change": "历史78分位"},
+          {"label": "2024营收", "value": "73.6亿", "change": "+27.7%"},
+          {"label": "2024净利润", "value": "11.0亿", "change": "+584%"},
+          {"label": "ROE", "value": "6.96%", "change": "强力复苏"},
+          {"label": "净现金", "value": "81.3亿", "change": "负债率13.3%"}
+        ],
+        "footnote": "来源: Wind, Tushare, 公司年报"
+      }
+    },
+    {
+      "layout": "bullet_points",
+      "data": {
+        "title": "公司概况: 感存算控连芯片平台",
+        "items": [
+          {"icon": "01", "label": "NOR Flash -- 全球第二", "desc": "市占率18.5%, 中国大陆第一; 512Kb-2Gb全容量, 45nm量产; 车规AEC-Q100认证全覆盖"},
+          {"icon": "02", "label": "MCU -- 国内ARM第一", "desc": "GD32系列63+产品线/700+SKU; 覆盖110nm到22nm全制程; 车规M7内核MCU已量产"},
+          {"icon": "03", "label": "DRAM -- 利基型全球第七", "desc": "DDR3L/DDR4/LPDDR4; 与长鑫深度合作代工; 3D堆叠DRAM为AI时代关键路径"},
+          {"icon": "04", "label": "SLC NAND -- 全球第六", "desc": "1Gb-8Gb全容量, 24nm工艺; 大陆排名最高; 2025年推出高速QSPI新品"},
+          {"icon": "05", "label": "传感器与模拟 -- 多点布局", "desc": "指纹芯片全球第二(0.5亿美元); 触控/MEMS气压传感器; 子公司赛芯为锂电保护龙头"}
+        ],
+        "footnote": "来源: 天风证券, 第一上海, 公司年报"
+      }
+    },
+    {
+      "layout": "two_charts",
+      "data": {
+        "title": "财务表现: 周期底部强势复苏 (2022-2025E)",
+        "left_title": "营收趋势与增速",
+        "right_title": "净利润趋势",
+        "left": {
+          "source": "financial",
+          "categories_col": "年度",
+          "series_config": [
+            {"key": "营收(亿元)", "name": "营收(亿元)", "type": "bar", "axis": "primary"},
+            {"key": "营收增速(%)", "name": "营收增速(%)", "type": "line", "axis": "secondary"}
+          ],
+          "layout_config": {
+            "legend_config": {"font_size_pt": 8, "font_name": "黑体"},
+            "value_axis_config": {"number_format": "#,##0", "font_size_pt": 8, "font_name": "黑体"},
+            "secondary_value_axis_config": {"number_format": "0.0", "font_size_pt": 8}
+          }
+        },
+        "right": {
+          "source": "financial",
+          "categories_col": "年度",
+          "series_config": [
+            {"key": "净利润(亿元)", "name": "净利润(亿元)", "type": "bar", "axis": "primary"}
+          ],
+          "layout_config": {
+            "legend_config": {"font_size_pt": 8, "font_name": "黑体"},
+            "value_axis_config": {"number_format": "#,##0.0", "font_size_pt": 8, "font_name": "黑体"}
+          }
+        },
+        "footnote": "来源: Wind, 公司年报, 天风证券预测"
+      }
+    },
+    {
+      "layout": "two_charts",
+      "data": {
+        "title": "盈利能力与财务健康度 (2022-2024)",
+        "left_title": "盈利能力指标",
+        "right_title": "财务稳健性",
+        "left": {
+          "source": "profitability",
+          "categories_col": "年度",
+          "series_config": [
+            {"key": "毛利率(%)", "name": "毛利率(%)", "type": "line", "axis": "primary"},
+            {"key": "净利率(%)", "name": "净利率(%)", "type": "line", "axis": "primary"},
+            {"key": "ROE(%)", "name": "ROE(%)", "type": "line", "axis": "primary"}
+          ],
+          "layout_config": {
+            "legend_config": {"font_size_pt": 8, "font_name": "黑体"},
+            "value_axis_config": {"number_format": "0.0", "font_size_pt": 8, "font_name": "黑体"}
+          }
+        },
+        "right": {
+          "source": "profitability",
+          "categories_col": "年度",
+          "series_config": [
+            {"key": "经营现金流(元/股)", "name": "经营现金流(元/股)", "type": "bar", "axis": "primary"},
+            {"key": "资产负债率(%)", "name": "资产负债率(%)", "type": "line", "axis": "secondary"}
+          ],
+          "layout_config": {
+            "legend_config": {"font_size_pt": 8, "font_name": "黑体"},
+            "value_axis_config": {"number_format": "0.00", "font_size_pt": 8, "font_name": "黑体"},
+            "secondary_value_axis_config": {"number_format": "0.0", "font_size_pt": 8}
+          }
+        },
+        "footnote": "来源: Wind, 公司年报"
+      }
+    },
+    {
+      "layout": "two_charts",
+      "data": {
+        "title": "半导体设计公司同行对比 (2024年报)",
+        "left_title": "盈利能力对比",
+        "right_title": "估值与杠杆对比",
+        "left": {
+          "source": "peers",
+          "categories_col": "公司",
+          "series_config": [
+            {"key": "毛利率(%)", "name": "毛利率(%)", "type": "bar", "axis": "primary"},
+            {"key": "ROE(%)", "name": "ROE(%)", "type": "line", "axis": "secondary"}
+          ],
+          "layout_config": {
+            "legend_config": {"font_size_pt": 8, "font_name": "黑体"},
+            "value_axis_config": {"number_format": "0.0", "font_size_pt": 8, "font_name": "黑体"},
+            "secondary_value_axis_config": {"number_format": "0.0", "font_size_pt": 8}
+          }
+        },
+        "right": {
+          "source": "peers",
+          "categories_col": "公司",
+          "series_config": [
+            {"key": "PE(倍)", "name": "PE(倍)", "type": "bar", "axis": "primary"},
+            {"key": "资产负债率(%)", "name": "资产负债率(%)", "type": "line", "axis": "secondary"}
+          ],
+          "layout_config": {
+            "legend_config": {"font_size_pt": 8, "font_name": "黑体"},
+            "value_axis_config": {"number_format": "#,##0", "font_size_pt": 8, "font_name": "黑体"},
+            "secondary_value_axis_config": {"number_format": "0.0", "font_size_pt": 8}
+          }
+        },
+        "footnote": "来源: Wind, Tushare, 公司年报"
+      }
+    },
+    {
+      "layout": "comparison_table",
+      "data": {
+        "title": "行业地位与全球市占率",
+        "headers": ["业务线", "全球排名", "市占率", "竞争格局", "趋势判断"],
+        "rows": [
+          ["NOR Flash", "第2", "18.5%", "华邦第1, 旺宏/赛普拉斯跟随", "缺货涨价, 量价齐升"],
+          ["MCU(国内ARM)", "第1", "低个位数(全球)", "英飞凌/瑞萨/恩智浦主导", "车规突破, AI赋能"],
+          ["利基型DRAM", "第7", "1.7%", "三星/海力士/美光占69%", "3D DRAM打开新空间"],
+          ["SLC NAND", "第6", "--", "大陆排名最高", "高速QSPI新品推出"],
+          ["指纹芯片", "第2", "--", "汇顶科技为主要对手", "多模态传感器扩展"]
+        ],
+        "highlight_row": 0,
+        "highlight_cols": [1, 2],
+        "footnote": "来源: 天风证券, 浙商证券, 第一上海, 公司年报"
+      }
+    },
+    {
+      "layout": "bullet_points",
+      "data": {
+        "title": "卖方核心观点与催化剂",
+        "items": [
+          {"icon": "01", "label": "存储周期上行 -- 量价齐升", "desc": "NOR Flash 2025Q3起涨价, Q4继续; DRAM现货价远超合约价; 2026年均价预计再涨10%+"},
+          {"icon": "02", "label": "端侧AI打开增量空间", "desc": "定制化3D堆叠DRAM是AI时代确定性路径; 2026年催化事件密集; 与长鑫深度合作"},
+          {"icon": "03", "label": "国产替代稀缺标的", "desc": "存储+MCU+传感器平台型公司极为稀缺; 港股上市融资41.8亿港元加速全球化布局"},
+          {"icon": "04", "label": "盈利预测共识", "desc": "2025-2027E营收: 92/114/139亿; 净利润: 16.1/25.9/27.7亿; 国信目标价257.4元(2026E 65xPE)"}
+        ],
+        "footnote": "来源: 国信证券, 天风证券, 第一上海, 中泰电子, 国联民生"
+      }
+    },
+    {
+      "layout": "conclusion_dark",
+      "data": {
+        "title": "投资结论",
+        "verdict": "三重共振驱动的平台型芯片龙头, 业绩拐点已确认, 中长期成长空间广阔",
+        "score": "8/10",
+        "conclusions": [
+          {"title": "周期复苏", "desc": "存储行业景气上行, 2024业绩已强势反弹, 2025E净利润+46%"},
+          {"title": "AI赋能", "desc": "3D DRAM + 端侧AI打开全新增长曲线, 2026年催化密集"},
+          {"title": "平台稀缺", "desc": "感存算控连五大产品线, 国产替代核心标的"}
+        ],
+        "items": [
+          {"label": "当前PE", "value": "196.3x"},
+          {"label": "目标价", "value": "257.4元"},
+          {"label": "净现金", "value": "81.3亿"},
+          {"label": "2025E净利增速", "value": "+45.9%"}
+        ],
+        "risk": "主要风险: 存储涨价不及预期; 端侧AI进展缓慢; 行业竞争加剧; 地缘政治制裁"
+      }
+    }
+  ],
+  "output": {"path": "兆易创新深度研究.pptx"}
+}

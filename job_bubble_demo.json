@@ -1,0 +1,24 @@
+{
+  "mode": "composer",
+  "theme": "tech_blue",
+  "datasources": {
+    "pts": {"type": "csv", "path": "data/risk_return_points.csv"}
+  },
+  "pages": [
+    {
+      "layout": "bubble",
+      "data": {
+        "title": "风险收益气泡图",
+        "subtitle": "气泡大小表示组合规模",
+        "source": "pts",
+        "x_col": "波动率",
+        "y_col": "收益率",
+        "size_col": "规模",
+        "series_name": "风险收益规模分布",
+        "insight": "加入规模维度后，可以同时观察收益、风险和体量三个维度，识别对组合贡献最大的高风险资产。",
+        "footnote": "来源: 样例数据"
+      }
+    }
+  ],
+  "output": {"path": "bubble_composer_demo.pptx"}
+}

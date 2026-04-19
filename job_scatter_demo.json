@@ -1,0 +1,23 @@
+{
+  "mode": "composer",
+  "theme": "tech_blue",
+  "datasources": {
+    "pts": {"type": "csv", "path": "data/risk_return_points.csv"}
+  },
+  "pages": [
+    {
+      "layout": "scatter",
+      "data": {
+        "title": "风险收益散点图",
+        "subtitle": "组合在风险收益平面上的位置",
+        "source": "pts",
+        "x_col": "波动率",
+        "y_col": "收益率",
+        "series_name": "风险收益分布",
+        "insight": "高收益组合通常伴随更高波动，散点图可用于快速识别风险收益匹配关系。",
+        "footnote": "来源: 样例数据"
+      }
+    }
+  ],
+  "output": {"path": "scatter_composer_demo.pptx"}
+}

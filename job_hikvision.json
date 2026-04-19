@@ -1,0 +1,139 @@
+{
+  "mode": "composer",
+  "theme": "tech_blue",
+  "datasources": {
+    "revenue": {"type": "csv", "path": "data/hikvision_revenue.csv"},
+    "peers": {"type": "csv", "path": "data/hikvision_peers.csv"}
+  },
+  "pages": [
+    {
+      "layout": "title_dark",
+      "data": {"title": "海康威视竞争壁垒分析", "subtitle": "全球安防龙头 · 智能物联领航者", "date": "2026-02"}
+    },
+    {
+      "layout": "kpi_cards",
+      "data": {
+        "title": "核心财务指标 (2024年报)",
+        "cards": [
+          {"label": "营业收入", "value": "925亿", "change": "+3.5%"},
+          {"label": "净利润", "value": "120亿", "change": "-15.1%"},
+          {"label": "毛利率", "value": "43.8%", "change": "-0.6pp"},
+          {"label": "ROE", "value": "15.3%", "change": "-4.2pp"},
+          {"label": "研发投入", "value": "119亿", "change": "+4.1%"},
+          {"label": "市值", "value": "2968亿", "change": "PE 20.9x"}
+        ]
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "营收与利润趋势 (2021-2024)",
+        "source": "revenue",
+        "categories_col": "年份",
+        "series_config": [
+          {"key": "营收", "name": "营收(亿元)", "type": "bar", "axis": "primary"},
+          {"key": "净利润", "name": "净利润(亿元)", "type": "line", "axis": "secondary"}
+        ],
+        "insight": "2021-2024年营收整体保持韧性，但利润端受行业周期和费用投入影响波动更明显，2024年盈利能力仍处修复阶段。",
+        "style_config": {"color_scheme": "tech_blue", "line_width_pt": 2.5},
+        "layout_config": {
+          "legend_config": {"font_size_pt": 10, "font_name": "微软雅黑"},
+          "value_axis_config": {"number_format": "#,##0", "font_name": "微软雅黑", "font_size_pt": 9}
+        },
+        "footnote": "来源: Wind, 公司年报"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "盈利能力趋势分析",
+        "source": "revenue",
+        "categories_col": "年份",
+        "series_config": [
+          {"key": "毛利率", "name": "毛利率(%)", "type": "line", "axis": "primary"},
+          {"key": "ROE", "name": "ROE(%)", "type": "line", "axis": "secondary"}
+        ],
+        "insight": "毛利率和ROE近年同步回落，说明海康威视在需求承压背景下仍在经历盈利质量调整，后续修复依赖需求回暖与费用效率改善。",
+        "style_config": {"color_scheme": "tech_blue", "line_width_pt": 2.5},
+        "layout_config": {
+          "legend_config": {"font_size_pt": 10, "font_name": "微软雅黑"},
+          "value_axis_config": {"number_format": "0.0", "font_name": "微软雅黑", "font_size_pt": 9}
+        },
+        "footnote": "来源: Wind, 公司年报"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "同行盈利能力对比 (2024年)",
+        "source": "peers",
+        "categories_col": "公司",
+        "series_config": [
+          {"key": "毛利率", "name": "毛利率(%)", "type": "bar", "axis": "primary"},
+          {"key": "ROE", "name": "ROE(%)", "type": "line", "axis": "secondary"}
+        ],
+        "insight": "与主要同行相比，海康威视仍保持较强盈利底盘，但资本回报优势较历史高点已有收敛，估值修复更依赖基本面再验证。",
+        "style_config": {"color_scheme": "tech_blue", "line_width_pt": 2.5},
+        "layout_config": {
+          "legend_config": {"font_size_pt": 10, "font_name": "微软雅黑"},
+          "value_axis_config": {"number_format": "0.0", "font_name": "微软雅黑", "font_size_pt": 9}
+        },
+        "footnote": "来源: Wind, 公司年报"
+      }
+    },
+    {
+      "layout": "comparison_table",
+      "data": {
+        "title": "竞争壁垒评估",
+        "headers": ["壁垒类型", "评分", "评估说明"],
+        "rows": [
+          ["品牌溢价", "★★★★☆", "毛利率43.8%，高于同行5个百分点"],
+          ["规模优势", "★★★★★", "营收925亿，市值2968亿，行业第一"],
+          ["网络效应", "★★☆☆☆", "To B业务为主，生态正在形成"],
+          ["转换成本", "★★★☆☆", "安防系统粘性高，转换有门槛"],
+          ["特许经营", "★★☆☆☆", "无特许权，但有准入资质壁垒"]
+        ]
+      }
+    },
+    {
+      "layout": "bullet_points",
+      "data": {
+        "title": "核心竞争优势",
+        "items": [
+          {"icon": "01", "label": "技术护城河", "desc": "年研发投入超100亿，AI/物联网/大数据领域保持领先"},
+          {"icon": "02", "label": "规模优势", "desc": "全球最大安防设备制造商，供应链议价能力强"},
+          {"icon": "03", "label": "渠道网络", "desc": "覆盖全球150+国家和地区的销售服务网络"},
+          {"icon": "04", "label": "客户粘性", "desc": "To B业务特性决定客户转换成本较高"}
+        ]
+      }
+    },
+    {
+      "layout": "bullet_points",
+      "data": {
+        "title": "风险提示",
+        "items": [
+          {"icon": "01", "label": "地缘政治风险", "desc": "美国制裁可能影响海外业务拓展"},
+          {"icon": "02", "label": "行业周期风险", "desc": "安防投资与宏观经济周期相关"},
+          {"icon": "03", "label": "技术迭代风险", "desc": "AI技术快速发展可能改变竞争格局"},
+          {"icon": "04", "label": "竞争加剧风险", "desc": "华为等巨头进入安防领域"}
+        ]
+      }
+    },
+    {
+      "layout": "conclusion_dark",
+      "data": {
+        "title": "投资结论",
+        "verdict": "具备长期配置价值",
+        "items": [
+          {"label": "护城河类型", "value": "技术+规模双驱动"},
+          {"label": "护城河宽度", "value": "较宽"},
+          {"label": "护城河趋势", "value": "稳定"},
+          {"label": "竞争环境", "value": "稳定略承压"},
+          {"label": "估值水平", "value": "PE 20.9x，处于历史低位"}
+        ],
+        "summary": "海康威视作为全球安防龙头，具备深厚的技术积累和显著的规模优势。当前估值处于历史较低水平，具备长期配置价值。"
+      }
+    }
+  ],
+  "output": {"path": "海康威视竞争壁垒分析.pptx"}
+}

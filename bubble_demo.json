@@ -1,0 +1,11 @@
+{
+  "csv_path": "data/risk_return_points.csv",
+  "x_col": "波动率",
+  "y_col": "收益率",
+  "size_col": "规模",
+  "series_name": "风险收益规模气泡图",
+  "title": "风险收益气泡图",
+  "subtitle": "Standalone bubble chart rendered through pptfi chart-engine compatibility layer",
+  "color": "1E2761",
+  "marker_size": 9
+}

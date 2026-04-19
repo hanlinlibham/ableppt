@@ -1,0 +1,25 @@
+{
+  "mode": "composer",
+  "theme": "jp_finance",
+  "datasources": {
+    "wf": {"type": "csv", "path": "data/waterfall_attribution.csv"}
+  },
+  "pages": [
+    {
+      "layout": "waterfall",
+      "data": {
+        "title": "组合收益归因桥",
+        "subtitle": "2024 年年度归因分析",
+        "source": "wf",
+        "categories_col": "阶段",
+        "value_col": "贡献",
+        "measure_col": "度量",
+        "insight": "权益与债券贡献共同抬升总收益，但汇率因素形成主要拖累，期末收益仍明显高于期初水平。",
+        "show_connectors": true,
+        "show_value_labels": true,
+        "footnote": "来源: 内部归因模型"
+      }
+    }
+  ],
+  "output": {"path": "waterfall_composer_demo.pptx"}
+}

@@ -1,0 +1,125 @@
+"""PPTFI: financial PowerPoint automation system.
+
+Top-level SDK exports expose the most common system and chart interfaces.
+"""
+
+from pptfi.chart_builder import (
+    BIWEEKLY_TICKS,
+    DAILY_TICKS,
+    MONTHLY_TICKS,
+    QUARTERLY_TICKS,
+    WEEKLY_TICKS,
+    YEARLY_TICKS,
+    ChartLayoutConfig,
+    ChartParser,
+    DateAxisConfig,
+    ScatterParseResult,
+    StyleConfig,
+    create_bubble_chart,
+    create_combo_chart,
+    create_scatter_chart,
+    create_waterfall_chart,
+    parse_bubble_chart,
+    parse_bubble_from_pptx,
+    parse_scatter_chart,
+    parse_scatter_from_pptx,
+    parse_waterfall_chart,
+    parse_waterfall_from_pptx,
+    prepare_waterfall_dataframe,
+)
+from pptfi.composer import DEFAULT_THEME, THEMES, PageComposer, TemplateAssembler
+from pptfi.config import settings
+from pptfi.engine import PptEngine
+from pptfi.models import ChartSpec, DataSource, Job, OutputSpec, SlideSpec, TableSpec, TemplateSpec, TextSpec
+from pptfi.operations import (
+    chart_engine_info,
+    describe_chart,
+    demo_waterfall,
+    fetch_data,
+    generate_ppt,
+    list_presets,
+    parse_bubble,
+    parse_ppt,
+    parse_scatter,
+    parse_template,
+    parse_waterfall,
+    rebuild_ppt,
+    render_bubble,
+    render_scatter,
+    render_waterfall,
+    render_job,
+    validate_job,
+    validate_ppt,
+)
+from pptfi.parsers.ppt_parser import PPTParser
+from pptfi.qa.deck_linter import DeckLinter
+from pptfi.renderers.ppt_renderer import PPTRenderer
+from pptfi.template.chart_presets import CHART_PRESET_FUNCTIONS, get_chart_config
+from pptfi.template.replacer import TemplateReplacer, create_template_from_ppt
+
+__version__ = "0.1.0"
+__author__ = "PPTFI Team"
+
+__all__ = [
+    "BIWEEKLY_TICKS",
+    "CHART_PRESET_FUNCTIONS",
+    "ChartLayoutConfig",
+    "ChartParser",
+    "ChartSpec",
+    "DAILY_TICKS",
+    "DEFAULT_THEME",
+    "DataSource",
+    "DateAxisConfig",
+    "DeckLinter",
+    "Job",
+    "MONTHLY_TICKS",
+    "OutputSpec",
+    "PPTRenderer",
+    "PPTParser",
+    "PageComposer",
+    "PptEngine",
+    "QUARTERLY_TICKS",
+    "SlideSpec",
+    "ScatterParseResult",
+    "StyleConfig",
+    "THEMES",
+    "TableSpec",
+    "TemplateAssembler",
+    "TemplateReplacer",
+    "TemplateSpec",
+    "TextSpec",
+    "WEEKLY_TICKS",
+    "YEARLY_TICKS",
+    "chart_engine_info",
+    "create_bubble_chart",
+    "create_combo_chart",
+    "create_scatter_chart",
+    "create_waterfall_chart",
+    "parse_waterfall_chart",
+    "parse_waterfall_from_pptx",
+    "create_template_from_ppt",
+    "describe_chart",
+    "demo_waterfall",
+    "fetch_data",
+    "generate_ppt",
+    "get_chart_config",
+    "list_presets",
+    "parse_bubble",
+    "parse_ppt",
+    "parse_scatter",
+    "parse_template",
+    "parse_bubble_chart",
+    "parse_bubble_from_pptx",
+    "parse_scatter_chart",
+    "parse_scatter_from_pptx",
+    "parse_waterfall",
+    "rebuild_ppt",
+    "render_bubble",
+    "render_scatter",
+    "render_waterfall",
+    "render_job",
+    "settings",
+    "prepare_waterfall_dataframe",
+    "validate_job",
+    "validate_ppt",
+]
