@@ -1,0 +1,57 @@
+# assertions.yaml — golden 关键质量断言
+# L3 测试框架读取本文件做结构性断言，与视觉 diff 互补
+# Schema version: 1
+
+version: 1
+golden_name: <分析类型 snake_case>
+analysis_type: <人类可读名>
+target_version: vX.Y.Z
+status: placeholder        # placeholder / in_progress / accepted / needs_refresh
+last_reviewed: ~           # YYYY-MM-DD
+
+# 全局视觉 diff 阈值，每页可独立覆盖
+visual_diff_threshold: 0.05
+
+# 每页结构断言
+pages:
+  - page: 1
+    title_keywords: []     # 可选，脱敏后语义级匹配关键词
+    families:
+      - <family_name>
+    chart_assertions:
+      - chart_index: 0
+        family: <family_name>
+        # 数值轴范围（min/max 应与数据实际范围匹配，含负值与跨零情况）
+        axes:
+          primary:
+            min: ~         # TODO
+            max: ~         # TODO
+          secondary: ~     # 双轴时填，否则 null
+        # 系列断言
+        series_count: 0
+        legend_order: []   # 必须与 series_config 一致
+        # 日期轴
+        date_axis:
+          tick_count_range: [4, 12]  # 不宜过密导致 label 重叠
+    # 本页独立阈值，覆盖全局
+    visual_diff_threshold: ~
+
+# 颜色合规
+color_compliance:
+  source: COLOR_SCHEMES         # 颜色必须从此 source 取
+  scheme: financial_default     # 具体使用的 scheme
+  forbidden_hex_literals: true  # 禁止源码硬编码 hex
+
+# 字号合规
+font_compliance:
+  legend_size_set: [9, 10, 11]
+  axis_size_set: [8, 9, 10]
+  data_label_size_set: [8, 9]
+
+# PowerPoint 编辑性要求
+editability:
+  must_be_editable_in_powerpoint: true   # 双击图表能进入编辑模式
+  must_have_no_warnings_on_open: true    # 打开无警告对话框
+
+# 自由文本备注
+notes: []
