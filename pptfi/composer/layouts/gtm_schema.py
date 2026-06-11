@@ -74,7 +74,7 @@ def gtm_job_schema() -> Dict[str, Any]:
         "type": "object",
         "properties": {
             "mode": {"const": "composer"},
-            "theme": {"type": "string", "default": "jp_finance"},
+            "theme": {"type": "string", "default": "able_finance"},
             "deck": {
                 "type": "object",
                 "description": "deck 级默认值：自动注入每页 + 页码自增 + 目录生成",

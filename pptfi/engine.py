@@ -149,7 +149,7 @@ class PptEngine:
         from pptfi.composer import PageComposer
         from pptfi.composer.themes import resolve_theme
 
-        theme = resolve_theme(job.theme or "jp_finance", aspect_ratio=job.aspect_ratio)
+        theme = resolve_theme(job.theme or "able_finance", aspect_ratio=job.aspect_ratio)
         composer = PageComposer(theme=theme)
         default_lc = job.default_layout_config
 
@@ -343,7 +343,7 @@ class PptEngine:
         if job.mode == "template" and job.template:
             metadata_lines.append(f"模板: {job.template.path}")
         elif job.mode == "composer":
-            metadata_lines.append(f"模式: composer, 主题: {job.theme or 'jp_finance'}")
+            metadata_lines.append(f"模式: composer, 主题: {job.theme or 'able_finance'}")
 
         if job.params:
             metadata_lines.append(f"参数: {json.dumps(job.params, ensure_ascii=False)}")

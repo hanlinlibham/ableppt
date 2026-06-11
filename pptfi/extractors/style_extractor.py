@@ -86,7 +86,7 @@ class StyleProfile:
         """将提取的系列颜色注册为 COLOR_SCHEMES 中的一个方案
 
         Args:
-            name: 方案名称（如 "extracted" 或 "aim03"）
+            name: 方案名称（如 "extracted" 或 "aim00"）
         """
         COLOR_SCHEMES[name] = list(self.series_colors)
 

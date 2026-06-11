@@ -19,7 +19,7 @@ Token 获取: 注册 https://tushare.pro 后在个人主页获取。
 
 ```json
 {
-  "template": {"path": "aim/aim03.pptx"},
+  "template": {"path": "aim/aim00.pptx"},
   "datasources": {
     "stock": {
       "type": "tushare",

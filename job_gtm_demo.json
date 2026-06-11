@@ -1,6 +1,6 @@
 {
   "mode": "composer",
-  "theme": "jp_finance",
+  "theme": "able_finance",
   "pages": [
     {
       "layout": "gtm_cover",

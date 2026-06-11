@@ -7,7 +7,7 @@
 ### Step 1: 解析模板占位符
 
 ```bash
-python scripts/parse_template.py aim/aim03.pptx
+python scripts/parse_template.py aim/aim00.pptx
 ```
 
 输出示例:
@@ -74,7 +74,7 @@ python scripts/parse_template.py aim/aim03.pptx
 ### Step 4: 生成 PPT
 
 ```bash
-python scripts/generate_ppt.py aim/aim03.pptx config.json /tmp/output.pptx
+python scripts/generate_ppt.py aim/aim00.pptx config.json /tmp/output.pptx
 ```
 
 stdout 输出: `{"status": "ok", "output": "/tmp/output.pptx"}`

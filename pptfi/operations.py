@@ -231,7 +231,7 @@ def validate_job(job_json: str | Path, dry_run: bool = False) -> dict:
         summary["template"] = job.template.path
     else:
         summary["pages"] = len(job.pages)
-        summary["theme"] = job.theme or "jp_finance"
+        summary["theme"] = job.theme or "able_finance"
         summary["layouts"] = [page.layout for page in job.pages]
 
     if job.transforms:

@@ -15,7 +15,7 @@ def test_gtm_panels_registered():
 def test_gtm_two_panel_page_renders():
     from pptfi.composer.page_composer import PageComposer
 
-    composer = PageComposer(theme="jp_finance")
+    composer = PageComposer(theme="able_finance")
     composer.add_page("gtm_panels", {
         "title": "测试页",
         "section": "宏观",
@@ -114,7 +114,7 @@ def test_quilt_layout_renders():
         "资产": ["A股", "黄金", "A股", "黄金"],
         "收益率": [0.05, 0.12, 0.18, 0.07],
     })
-    composer = PageComposer(theme="jp_finance")
+    composer = PageComposer(theme="able_finance")
     composer.add_page("gtm_quilt", {"title": "矩阵", "df": df, "source": "来源：测试"})
     slide = composer.prs.slides[0]
     tables = [s for s in slide.shapes if s.has_table]
@@ -126,7 +126,7 @@ def test_quilt_layout_renders():
 def test_gtm_chart_text_renders():
     from pptfi.composer.page_composer import PageComposer
 
-    composer = PageComposer(theme="jp_finance")
+    composer = PageComposer(theme="able_finance")
     composer.add_page("gtm_chart_text", {
         "title": "观点页", "section": "权益",
         "panel": {"title": "面板",

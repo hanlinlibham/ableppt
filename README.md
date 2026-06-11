@@ -64,8 +64,8 @@ pptfi validate-ppt output/样例公司A竞争壁垒分析.pptx --json
 ### 模板工作流
 
 ```bash
-pptfi parse-template aim/aim03.pptx
-pptfi generate aim/aim03.pptx config.json output/demo.pptx
+pptfi parse-template aim/aim00.pptx
+pptfi generate aim/aim00.pptx config.json output/demo.pptx
 ```
 
 ### Standalone 图表家族
@@ -208,8 +208,8 @@ pptfi render job_gtm_demo.json     # 5 页演示：GDP/通胀/劳动力/估值/�
 入口：
 
 ```bash
-pptfi parse-template aim/aim03.pptx
-pptfi generate aim/aim03.pptx config.json output/demo.pptx
+pptfi parse-template aim/aim00.pptx
+pptfi generate aim/aim00.pptx config.json output/demo.pptx
 ```
 
 ### Flow B — Job JSON 编排

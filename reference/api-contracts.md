@@ -128,7 +128,7 @@ ValueAxisConfig(
 ```python
 from pptfi.composer import PageComposer
 
-composer = PageComposer(theme="jp_finance")  # 主题名（从 theme 自动读取 slide_w/slide_h）
+composer = PageComposer(theme="able_finance")  # 主题名（从 theme 自动读取 slide_w/slide_h）
 
 # 方式一：注册布局
 composer.add_page("layout_name", data_dict)
@@ -427,7 +427,7 @@ def render_my_chart(slide, theme):
         ],
         position=(Inches(m), Inches(content_y)),
         size=(Inches(12.133), Inches(footer_y - content_y - 0.3)),
-        # style_config 省略 — 自动使用 jp_finance 配色
+        # style_config 省略 — 自动使用 able_finance 配色
         layout_config=ChartLayoutConfig(
             legend_config=LegendConfig(position=LegendConfig.TOP, font_size_pt=9, font_name="黑体"),
             value_axis_config=ValueAxisConfig(number_format="#,##0.00", font_name="黑体", font_size_pt=9),
@@ -438,7 +438,7 @@ def render_my_chart(slide, theme):
     # 页脚（来源 + 页码）
     add_page_footer(slide, theme, source="Tushare, 示例来源")
 
-composer = PageComposer(theme="jp_finance")
+composer = PageComposer(theme="able_finance")
 composer.add_custom_page(render_my_chart)
 composer.save("output.pptx")  # 自动运行 DeckLinter
 ```

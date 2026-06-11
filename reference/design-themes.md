@@ -31,7 +31,7 @@
 
 **比例预设**：`resolve_theme(theme, aspect_ratio="4:3")` 会自动将 `slide_w` 设为 10.0"，并重新计算 `content_w`。所有布局均使用 `theme["slide_w"]` 而非硬编码值。
 
-**重要**：图表配色现在自动关联主题。使用 `jp_finance` 主题时，图表默认使用 `jp_finance` 配色，无需手动指定 `style_config`。
+**重要**：图表配色现在自动关联主题。使用 `able_finance` 主题时，图表默认使用 `able_finance` 配色，无需手动指定 `style_config`。
 
 ---
 
@@ -47,7 +47,7 @@
 
 ---
 
-## 主题一：jp_finance（金融/银行）
+## 主题一：able_finance（金融/银行）
 
 **设计意图**：顶级投行同款风格。深海军蓝 + 品牌 Teal + 金色。稳重、专业、信赖感。
 **参考**：国际投行与头部券商公开年报

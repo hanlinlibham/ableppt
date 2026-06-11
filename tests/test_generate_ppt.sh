@@ -1,6 +1,6 @@
 #!/bin/bash
 # 测试 generate_ppt.py - 模板替换生成 PPT
-# 注意：此测试需要 aim03.pptx 中存在占位符，并准备对应的 config.json 和 CSV
+# 注意：此测试需要 aim00.pptx 中存在占位符，并准备对应的 config.json 和 CSV
 set -e
 
 PYTHON=$(which python || which python3)
@@ -16,7 +16,7 @@ echo "=== 测试 generate_ppt.py ==="
 
 # Step 1: 先解析模板看有哪些占位符
 echo "Step 1: 解析模板占位符"
-PLACEHOLDERS=$($PYTHON "$PARSE_SCRIPT" "$PROJ_DIR/aim/aim03.pptx" 2>/dev/null)
+PLACEHOLDERS=$($PYTHON "$PARSE_SCRIPT" "$PROJ_DIR/aim/aim00.pptx" 2>/dev/null)
 echo "$PLACEHOLDERS" | $PYTHON -c "
 import sys, json
 d = json.load(sys.stdin)
@@ -37,7 +37,7 @@ HEREDOC
 
 # Step 3: 生成 PPT
 echo "Step 3: 生成 PPT（仅文本替换）"
-$PYTHON "$SCRIPT" "$PROJ_DIR/aim/aim03.pptx" "$TMPDIR/config.json" "$TMPDIR/output.pptx" 2>/dev/null
+$PYTHON "$SCRIPT" "$PROJ_DIR/aim/aim00.pptx" "$TMPDIR/config.json" "$TMPDIR/output.pptx" 2>/dev/null
 
 if [ ! -f "$TMPDIR/output.pptx" ]; then
     echo "FAIL: output.pptx 未生成"

@@ -28,7 +28,7 @@ INDEX_CODE = "000300.SH"
 INDEX_NAME = "沪深300"
 YEAR = 2025
 OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent / "output" / "sample_report"
-TEMPLATE_PATH = Path(__file__).resolve().parent.parent.parent / "aim" / "aim03.pptx"
+TEMPLATE_PATH = Path(__file__).resolve().parent.parent.parent / "aim" / "aim00.pptx"
 
 
 def fetch_data():

@@ -97,7 +97,7 @@ def main():
         summary["template"] = job.template.path
     elif job.mode == "composer":
         summary["pages"] = len(job.pages)
-        summary["theme"] = job.theme or "jp_finance"
+        summary["theme"] = job.theme or "able_finance"
         summary["layouts"] = [p.layout for p in job.pages]
 
     if job.transforms:

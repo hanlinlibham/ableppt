@@ -90,7 +90,7 @@ THEMES = {
         "chart_default_scheme": "charcoal",
     }),
     # ── 新主题（设计源自投行级研报分析 + 行业报告研究） ──────────────
-    "jp_finance": _theme({
+    "able_finance": _theme({
         "name": "IB Finance",
         "primary": "1B3D6E",
         "secondary": "00A5BD",
@@ -114,7 +114,7 @@ THEMES = {
         "kpi_size": 44,
         # IB-specific overrides
         "table_header_bg": "1B3D6E",
-        "chart_default_scheme": "jp_finance",
+        "chart_default_scheme": "able_finance",
     }),
     "pension_warm": _theme({
         "name": "Pension Warm",

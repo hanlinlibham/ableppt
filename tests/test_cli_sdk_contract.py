@@ -76,7 +76,7 @@ def test_cli_chart_engine_info_reports_compatibility_layer():
 
 
 def test_cli_parse_template():
-    template = PROJECT_ROOT / "aim" / "aim03.pptx"
+    template = PROJECT_ROOT / "aim" / "aim00.pptx"
     result = run_cli("parse-template", str(template))
     assert result.returncode == 0, result.stderr
     payload = json.loads(result.stdout)
@@ -85,7 +85,7 @@ def test_cli_parse_template():
 
 
 def test_cli_generate_real_ppt(tmp_path: Path):
-    template = PROJECT_ROOT / "aim" / "aim03.pptx"
+    template = PROJECT_ROOT / "aim" / "aim00.pptx"
     config_path = tmp_path / "config.json"
     output_path = tmp_path / "output.pptx"
     config_path.write_text(
@@ -167,7 +167,7 @@ def test_composer_waterfall_layout_round_trip(tmp_path: Path):
     output_path = tmp_path / "composer-waterfall.pptx"
     job = {
         "mode": "composer",
-        "theme": "jp_finance",
+        "theme": "able_finance",
         "datasources": {
             "wf": {"type": "csv", "path": str(csv_path)},
         },

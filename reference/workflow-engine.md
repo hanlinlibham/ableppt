@@ -14,7 +14,7 @@
 
 ```json
 {
-  "template": {"path": "aim/aim03.pptx"},
+  "template": {"path": "aim/aim00.pptx"},
   "datasources": {},
   "slides": [
     {
@@ -59,7 +59,7 @@ pptfi render job.json
 
 ```json
 {
-  "template": {"path": "aim/aim03.pptx"},
+  "template": {"path": "aim/aim00.pptx"},
   "datasources": {
     "ytd": {
       "type": "csv",

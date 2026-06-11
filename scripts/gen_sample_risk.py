@@ -26,7 +26,7 @@ STOCK_NAME = "样例公司"
 INDEX_CODE = "000300.SH"
 INDEX_NAME = "沪深300"
 OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent / "output" / "sample_risk"
-TEMPLATE_PATH = Path(__file__).resolve().parent.parent.parent / "aim" / "aim03.pptx"
+TEMPLATE_PATH = Path(__file__).resolve().parent.parent.parent / "aim" / "aim00.pptx"
 
 # 过去一年
 END_DATE = datetime.now()

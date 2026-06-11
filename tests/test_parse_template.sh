@@ -8,9 +8,9 @@ PROJ_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SCRIPT="$SCRIPT_DIR/../scripts/parse_template.py"
 
 echo "=== 测试 parse_template.py ==="
-echo "模板: $PROJ_DIR/aim/aim03.pptx"
+echo "模板: $PROJ_DIR/aim/aim00.pptx"
 
-OUTPUT=$($PYTHON "$SCRIPT" "$PROJ_DIR/aim/aim03.pptx" 2>/dev/null)
+OUTPUT=$($PYTHON "$SCRIPT" "$PROJ_DIR/aim/aim00.pptx" 2>/dev/null)
 
 # 验证输出是合法 JSON
 echo "$OUTPUT" | $PYTHON -m json.tool > /dev/null 2>&1

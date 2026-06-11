@@ -52,7 +52,7 @@ def main():
             summary["slides"] = len(job.slides)
         elif job.mode == "composer":
             summary["pages"] = len(job.pages)
-            summary["theme"] = job.theme or "jp_finance"
+            summary["theme"] = job.theme or "able_finance"
         print(json.dumps(summary, ensure_ascii=False))
         return
 

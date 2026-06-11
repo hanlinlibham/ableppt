@@ -11,7 +11,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
 | `mode` | 否 | `"template"` (默认) 或 `"composer"` |
 | `template` | 条件 | template 模式必填 |
 | `slides` | 条件 | template 模式必填 |
-| `theme` | 条件 | composer 模式用，默认 `"jp_finance"` |
+| `theme` | 条件 | composer 模式用，默认 `"able_finance"` |
 | `pages` | 条件 | composer 模式必填 |
 | `datasources` | 否 | 数据源配置（两种模式共用）|
 | `transforms` | 否 | 数据转换配置（两种模式共用）|
@@ -23,7 +23,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
 ```json
 {
   "mode": "composer",
-  "theme": "jp_finance",               // THEMES 中的名称
+  "theme": "able_finance",               // THEMES 中的名称
   "datasources": {
     "数据源名称": {
       "type": "csv",                    // "csv" | "xlsx" | "tushare"
@@ -54,7 +54,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
           {"key": "营收", "name": "营收(亿元)", "type": "bar", "axis": "primary"},
           {"key": "利润", "name": "利润(亿元)", "type": "line", "axis": "secondary"}
         ],
-        "style_config": {"color_scheme": "jp_finance"},
+        "style_config": {"color_scheme": "able_finance"},
         "layout_config": {
           "legend_config": {"font_size_pt": 9},
           "value_axis_config": {"number_format": "#,##0"}
@@ -80,7 +80,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
 
 ### style_config / layout_config 的 JSON 表达
 
-- `style_config`：直接传 `StyleConfig` 构造参数的 dict，如 `{"color_scheme": "jp_finance", "line_width_pt": 2.0}`
+- `style_config`：直接传 `StyleConfig` 构造参数的 dict，如 `{"color_scheme": "able_finance", "line_width_pt": 2.0}`
 - `layout_config`：支持嵌套子对象：
   - `legend_config` → `LegendConfig` 参数
   - `value_axis_config` / `secondary_value_axis_config` → `ValueAxisConfig` 参数
@@ -92,7 +92,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
 ```json
 {
   "template": {
-    "path": "aim/aim03.pptx",       // 模板路径（相对于 ppt-st 项目根，或绝对路径）
+    "path": "aim/aim00.pptx",       // 模板路径（相对于 ppt-st 项目根，或绝对路径）
     "master": null,                   // 母版名称（可选）
     "notes": null                     // 备注（可选）
   },
@@ -277,7 +277,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
 ```json
 {
   "mode": "composer",
-  "theme": "jp_finance",
+  "theme": "able_finance",
   "datasources": {
     "revenue": {"type": "csv", "path": "data/revenue.csv"},
     "stock": {
@@ -320,7 +320,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
           {"key": "营收", "name": "营收(亿元)", "type": "bar", "axis": "primary"},
           {"key": "净利润", "name": "净利润(亿元)", "type": "line", "axis": "secondary"}
         ],
-        "style_config": {"color_scheme": "jp_finance"},
+        "style_config": {"color_scheme": "able_finance"},
         "layout_config": {
           "legend_config": {"font_size_pt": 9, "font_name": "黑体"},
           "value_axis_config": {"number_format": "#,##0"},
@@ -361,7 +361,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
 
 ```json
 {
-  "template": {"path": "aim/aim03.pptx"},
+  "template": {"path": "aim/aim00.pptx"},
   "datasources": {},
   "slides": [
     {
@@ -379,7 +379,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
 
 ```json
 {
-  "template": {"path": "aim/aim03.pptx"},
+  "template": {"path": "aim/aim00.pptx"},
   "datasources": {
     "stock": {
       "type": "tushare",

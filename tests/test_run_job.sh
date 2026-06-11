@@ -16,7 +16,7 @@ echo "=== 测试 run_job.py ==="
 echo "Step 1: 创建最小 job.json"
 cat > "$TMPDIR/job.json" << HEREDOC
 {
-  "template": {"path": "$PROJ_DIR/aim/aim03.pptx"},
+  "template": {"path": "$PROJ_DIR/aim/aim00.pptx"},
   "datasources": {},
   "slides": [
     {
