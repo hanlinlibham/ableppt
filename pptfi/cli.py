@@ -34,6 +34,14 @@ def build_parser() -> argparse.ArgumentParser:
     generate.add_argument("config")
     generate.add_argument("output")
 
+    describe_data = subparsers.add_parser(
+        "describe-data", help="生成数据源清单（markdown，供注入模型提示词）")
+    describe_data.add_argument("source", help="job JSON / CSV 目录 / CSV 文件")
+
+    prompt_kit = subparsers.add_parser(
+        "prompt-kit", help="组装 GTM 提示词物料：规则+页面示例+图表示例+数据清单")
+    prompt_kit.add_argument("source", nargs="?", help="job JSON 或数据目录（可选）")
+
     validate_job = subparsers.add_parser("validate-job", help="Validate job JSON")
     validate_job.add_argument("--deep", action="store_true",
                               help="GTM deck 深度校验：加载数据源并逐面板校验 chart spec（不渲染）")
@@ -41,6 +49,8 @@ def build_parser() -> argparse.ArgumentParser:
     validate_job.add_argument("--dry-run", action="store_true")
 
     render = subparsers.add_parser("render", help="Render PPT from job JSON")
+    render.add_argument("--validate", action="store_true",
+                        help="先做 GTM 深度校验，有错误则输出报告并退出，不渲染")
     render.add_argument("job_json")
     render.add_argument("--data-dir")
 
@@ -133,6 +143,22 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(result, ensure_ascii=False))
             return 0
 
+        if args.command == "describe-data":
+            from pptfi.composer.layouts.gtm_prompt import datasource_manifest
+            print(datasource_manifest(args.source))
+            return 0
+
+        if args.command == "prompt-kit":
+            from pptfi.composer.layouts.gtm_prompt import gtm_prompt_kit
+            source = args.source
+            if source and str(source).endswith(".json"):
+                print(gtm_prompt_kit(job=source))
+            elif source:
+                print(gtm_prompt_kit(data_dir=source))
+            else:
+                print(gtm_prompt_kit())
+            return 0
+
         if args.command == "validate-job":
             if args.deep:
                 from pptfi.composer.layouts.gtm_schema import validate_gtm_job
@@ -143,6 +169,13 @@ def main(argv: list[str] | None = None) -> int:
             return 0
 
         if args.command == "render":
+            if getattr(args, "validate", False):
+                from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+                report = validate_gtm_job(args.job_json)
+                if not report["ok"]:
+                    print(json.dumps({"status": "validation_failed", **report},
+                                     ensure_ascii=False, indent=1))
+                    return 1
             result = operations.render_job(args.job_json, data_dir=args.data_dir)
             print(json.dumps(result, ensure_ascii=False))
             return 0

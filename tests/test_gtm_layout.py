@@ -200,3 +200,52 @@ class TestStructuredOutputAlignment:
         v = jsonschema.Draft7Validator(schema)
         assert not list(v.iter_errors({"chart": "range", "low": "l", "high": "h"}))
         assert list(v.iter_errors({"chart": "pie"}))
+
+
+class TestPromptKitAndSafeRender:
+    """提示词工具包 + 自修正循环（agent 工作流的两块拼图）。"""
+
+    def test_datasource_manifest_from_dir(self):
+        from pptfi.composer.layouts.gtm_prompt import datasource_manifest
+        md = datasource_manifest(REPO / "data" / "gtm")
+        assert "asset_returns.csv" in md
+        assert "| 年份 | 数值 |" in md
+        assert "收益率" in md
+
+    def test_datasource_manifest_from_job(self):
+        from pptfi.composer.layouts.gtm_prompt import datasource_manifest
+        md = datasource_manifest(REPO / "job_gtm_demo.json")
+        # 注册的 datasource 和 pages 内直接引用的 CSV 都应收录
+        assert "asset_returns" in md
+        assert "gdp_contrib.csv" in md
+
+    def test_prompt_kit_assembles_all_parts(self):
+        from pptfi.composer.layouts.gtm_prompt import gtm_prompt_kit
+        kit = gtm_prompt_kit(job=REPO / "job_gtm_demo.json")
+        assert "产出规则" in kit          # 规则
+        assert "gtm_quilt" in kit         # 页面示例
+        assert "contribution" in kit      # 图表示例
+        assert "可用数据源清单" in kit     # 数据清单
+
+    def test_self_correction_loop(self):
+        """模拟 agent 流程：产出含错 job → 深度校验 → 按建议修正 → 校验通过。"""
+        import json
+        import os
+        from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+
+        job = json.loads((REPO / "job_gtm_demo.json").read_text())
+        job["pages"][2]["data"]["panels"][0]["chart"]["total"] = "GDP同笔"  # 模型拼错
+
+        cwd = os.getcwd()
+        os.chdir(REPO)
+        try:
+            report = validate_gtm_job(job)
+            assert not report["ok"]
+            # 错误里带修正建议
+            err = next(e for e in report["errors"] if "GDP同笔" in e)
+            assert "GDP同比" in err
+            # 按建议修正后通过
+            job["pages"][2]["data"]["panels"][0]["chart"]["total"] = "GDP同比"
+            assert validate_gtm_job(job)["ok"] is True
+        finally:
+            os.chdir(cwd)
