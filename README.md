@@ -150,6 +150,39 @@ from pptfi.chart_builder import create_combo_chart
 - `bubble` composer 布局
 - standalone chart-family CLI
 
+## GTM 页面编排（Flow G）
+
+提炼自 J.P. Morgan《Guide to the Markets》的页面骨架，面向 **模型结构化输出**：
+LLM 只需产出一个 job JSON 即可编排整本 GTM 风格报告。
+
+```bash
+pptfi render job_gtm_demo.json     # 5 页演示：GDP/通胀/劳动力/估值/贸易
+```
+
+- 布局 `gtm_panels`：章节箭头 + 页标题分隔线 + [GTM|市场|页码] 角标 +
+  左侧竖向章节签 + 来源行 + 品牌字
+- 面板编排：1 图整页 / 双栏 / 左一右二（1+2）
+- 面板内 `chart` 字段就是 **pptchartengine 的声明式 spec**（data 支持
+  内联 dict / CSV 路径），贡献分解、估值区间、注释层等全部能力直接可用
+- 面板内可叠加迷你数据表（`table`，行标签可按系列着色）
+
+页面 JSON 形如：
+
+```jsonc
+{"layout": "gtm_panels", "data": {
+  "title": "通货膨胀", "section": "宏观", "market": "CN", "page_num": 5,
+  "source": "来源：...", "brand": "...",
+  "panels": [
+    {"title": "CPI与核心CPI", "subtitle": "同比",
+     "chart": {"chart": "line", "data": "data/gtm/cpi.csv",
+               "annotations": [{"type": "band", "from": 0.02, "to": 0.03}]},
+     "table": {"columns": ["", "均值", "最新"], "rows": [["CPI同比", "2.1%", "2.4%"]],
+               "row_colors": ["#29ABE2"]}},
+    {"title": "通胀分项贡献", "subtitle": "百分点",
+     "chart": {"chart": "contribution", "data": "data/gtm/cpi_parts.csv", "total": "CPI同比"}}
+  ]}}
+```
+
 ## 工作流总览
 
 ### Flow A — 模板替换

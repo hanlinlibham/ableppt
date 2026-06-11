@@ -1,0 +1,233 @@
+{
+  "mode": "composer",
+  "theme": "jp_finance",
+  "pages": [
+    {
+      "layout": "gtm_panels",
+      "data": {
+        "title": "经济增长与GDP构成",
+        "section": "宏观",
+        "market": "CN",
+        "page_num": 4,
+        "brand": "PPT·FI 资产研究",
+        "source": "来源：国家统计局，Wind，PPT·FI 计算。趋势增速基于 2012 年以来季度实际 GDP 拟合。Guide to the Markets 风格演示，数据为拟真样例。",
+        "panels": [
+          {
+            "title": "实际GDP",
+            "subtitle": "同比增速的贡献分解，百分点",
+            "chart": {
+              "chart": "contribution",
+              "data": "data/gtm/gdp_contrib.csv",
+              "total": "GDP同比",
+              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}}
+            }
+          },
+          {
+            "title": "实际GDP趋势",
+            "subtitle": "指数，2012=60",
+            "chart": {
+              "chart": "line",
+              "data": "data/gtm/gdp_trend.csv",
+              "legend": "none",
+              "style": {"colors": ["#595959", "#29ABE2"]},
+              "series": [
+                {"column": "实际GDP指数", "line_width": 1.75,
+                 "last_point_label": {"format": "#,##0"}},
+                {"column": "趋势线", "line_width": 1.25}
+              ]
+            },
+            "table": {
+              "columns": ["GDP (%)", "3Q24", "4Q24", "1Q25", "2Q25"],
+              "rows": [
+                ["环比", "0.3", "0.6", "0.3", "0.6"],
+                ["同比", "0.8", "1.3", "1.4", "1.8"]
+              ],
+              "at": [0.05, 0.04],
+              "width": 2.6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "layout": "gtm_panels",
+      "data": {
+        "title": "通货膨胀",
+        "section": "宏观",
+        "market": "CN",
+        "page_num": 5,
+        "brand": "PPT·FI 资产研究",
+        "source": "来源：国家统计局，Wind，PPT·FI 计算。核心CPI为剔除食品和能源的CPI。演示数据。",
+        "panels": [
+          {
+            "title": "CPI与核心CPI",
+            "subtitle": "同比",
+            "chart": {
+              "chart": "line",
+              "data": "data/gtm/cpi.csv",
+              "style": {"theme": "gtm", "line_width": 1.5},
+              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}},
+              "annotations": [
+                {"type": "band", "from": 0.02, "to": 0.03, "label": "目标区间"}
+              ]
+            },
+            "table": {
+              "columns": ["", "均值", "最新"],
+              "rows": [
+                ["CPI同比", "2.1%", "2.4%"],
+                ["核心CPI", "1.9%", "2.1%"]
+              ],
+              "row_colors": ["#29ABE2", "#595959"],
+              "at": [0.42, 0.03],
+              "width": 2.1
+            }
+          },
+          {
+            "title": "通胀分项贡献",
+            "subtitle": "同比，百分点",
+            "chart": {
+              "chart": "contribution",
+              "data": "data/gtm/cpi_parts.csv",
+              "total": "CPI同比",
+              "layout": {"legend": "bottom", "y_axis": {"format": "0.0%"}}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "layout": "gtm_panels",
+      "data": {
+        "title": "劳动力市场",
+        "section": "宏观",
+        "market": "CN",
+        "page_num": 9,
+        "brand": "PPT·FI 资产研究",
+        "source": "来源：国家统计局，人社部，Wind。左图经季节调整。演示数据。",
+        "panels": [
+          {
+            "title": "失业率与工资增速",
+            "subtitle": "经季节调整",
+            "chart": {
+              "chart": "line",
+              "data": "data/gtm/labour.csv",
+              "style": {"theme": "gtm", "line_width": 1.5},
+              "layout": {"legend": "bottom", "y_axis": {"format": "0.0%"}},
+              "series": [
+                {"column": "调查失业率", "color": "#595959",
+                 "last_point_label": {"format": "0.0%"}},
+                {"column": "工资同比", "color": "#29ABE2",
+                 "last_point_label": {"format": "0.0%", "above": false}}
+              ]
+            }
+          },
+          {
+            "title": "招聘需求与用工景气",
+            "subtitle": "指数",
+            "chart": {
+              "chart": "line",
+              "data": "data/gtm/vacancy.csv",
+              "style": {"theme": "gtm", "line_width": 1.5},
+              "layout": {"legend": "bottom"}
+            }
+          },
+          {
+            "title": "劳动参与率",
+            "subtitle": "经季节调整",
+            "chart": {
+              "chart": "line",
+              "data": "data/gtm/participation.csv",
+              "legend": "none",
+              "style": {"colors": ["#595959"], "line_width": 1.5},
+              "layout": {"y_axis": {"format": "0.0%"}},
+              "series": [
+                {"column": "劳动参与率", "last_point_label": {"format": "0.0%"}}
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "layout": "gtm_panels",
+      "data": {
+        "title": "A股估值与盈利预期",
+        "section": "权益",
+        "market": "CN",
+        "page_num": 42,
+        "brand": "PPT·FI 资产研究",
+        "source": "来源：Wind，PPT·FI 计算。市盈率为 TTM 口径；盈利增速为一致预期。演示数据。",
+        "panels": [
+          {
+            "title": "行业估值区间",
+            "subtitle": "市盈率（TTM），当前 vs 十年区间",
+            "chart": {
+              "chart": "range",
+              "data": "data/gtm/pe_range.csv",
+              "low": "十年最低", "high": "十年最高",
+              "average": "十年均值", "current": "当前",
+              "format": "times",
+              "sort": "desc"
+            }
+          },
+          {
+            "title": "板块盈利增速预期",
+            "subtitle": "每股收益同比，一致预期",
+            "chart": {
+              "data": "data/gtm/eps.csv",
+              "series": [
+                {"column": "2025E", "color": "#595959"},
+                {"column": "2026E", "color": "#7F9C3D"}
+              ],
+              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}},
+              "highlight": {"category": "全指", "color": "#29ABE2", "series": "2025E"}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "layout": "gtm_panels",
+      "data": {
+        "title": "贸易：关税与市场结构",
+        "section": "全球",
+        "market": "CN",
+        "page_num": 21,
+        "brand": "PPT·FI 资产研究",
+        "source": "来源：海关总署，PPT·FI 估算。名义税率为月末加权估计。演示数据。",
+        "panels": [
+          {
+            "title": "关税税率",
+            "subtitle": "加权平均，月末估计",
+            "chart": {
+              "data": "data/gtm/tariff.csv",
+              "series": [
+                {"column": "名义税率", "color": "#595959"},
+                {"column": "实际征收税率", "color": "#29ABE2"}
+              ],
+              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}}
+            }
+          },
+          {
+            "title": "分市场税率结构",
+            "subtitle": "有效税率 = 存量 + 新增",
+            "chart": {
+              "data": "data/gtm/tariff_by_market.csv",
+              "orientation": "horizontal",
+              "stacked": true,
+              "series": [
+                {"column": "存量税率", "color": "#595959"},
+                {"column": "新增税率", "color": "#29ABE2",
+                 "labels": {"format": "0%", "position": "center", "color": "white"}}
+              ],
+              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}}
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "output": {
+    "path": "gtm_deck_demo.pptx"
+  }
+}
