@@ -35,6 +35,8 @@ def build_parser() -> argparse.ArgumentParser:
     generate.add_argument("output")
 
     validate_job = subparsers.add_parser("validate-job", help="Validate job JSON")
+    validate_job.add_argument("--deep", action="store_true",
+                              help="GTM deck 深度校验：加载数据源并逐面板校验 chart spec（不渲染）")
     validate_job.add_argument("job_json")
     validate_job.add_argument("--dry-run", action="store_true")
 
@@ -132,7 +134,11 @@ def main(argv: list[str] | None = None) -> int:
             return 0
 
         if args.command == "validate-job":
-            result = operations.validate_job(args.job_json, dry_run=args.dry_run)
+            if args.deep:
+                from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+                result = validate_gtm_job(args.job_json)
+            else:
+                result = operations.validate_job(args.job_json, dry_run=args.dry_run)
             print(json.dumps(result, ensure_ascii=False))
             return 0
 

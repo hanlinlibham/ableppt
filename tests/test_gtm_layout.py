@@ -141,3 +141,62 @@ def test_gtm_page_examples():
     from pptfi.composer.layouts.gtm_examples import gtm_page_examples
     assert gtm_page_examples().count("```json") >= 8
     assert "gtm_quilt" in gtm_page_examples("quilt")
+
+
+class TestStructuredOutputAlignment:
+    """结构化输出对齐：job schema（语法）+ 深度校验（语义）。"""
+
+    def test_gtm_job_schema_valid_and_accepts_demo(self):
+        import json
+        import jsonschema
+        from pptfi.composer.layouts.gtm_schema import gtm_job_schema
+
+        schema = gtm_job_schema()
+        jsonschema.Draft7Validator.check_schema(schema)
+        job = json.loads((REPO / "job_gtm_demo.json").read_text())
+        assert not list(jsonschema.Draft7Validator(schema).iter_errors(job))
+
+    def test_schema_rejects_unknown_layout(self):
+        import jsonschema
+        from pptfi.composer.layouts.gtm_schema import gtm_job_schema
+
+        bad = {"mode": "composer", "pages": [{"layout": "gtm_pie", "data": {}}],
+               "output": {"path": "x.pptx"}}
+        assert list(jsonschema.Draft7Validator(gtm_job_schema()).iter_errors(bad))
+
+    def test_deep_validation_passes_demo_job(self):
+        import os
+        from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+        cwd = os.getcwd()
+        os.chdir(REPO)
+        try:
+            report = validate_gtm_job(REPO / "job_gtm_demo.json")
+        finally:
+            os.chdir(cwd)
+        assert report["ok"] is True and report["pages"] == 10
+
+    def test_deep_validation_locates_column_typo(self):
+        import os
+        from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+        bad = {"mode": "composer",
+               "pages": [{"layout": "gtm_panels", "data": {"title": "P", "panels": [
+                   {"chart": {"chart": "contribution", "total": "GDP同笔",
+                              "data": "data/gtm/gdp_contrib.csv"}}]}}],
+               "output": {"path": "x.pptx"}}
+        cwd = os.getcwd()
+        os.chdir(REPO)
+        try:
+            report = validate_gtm_job(bad)
+        finally:
+            os.chdir(cwd)
+        assert report["ok"] is False
+        assert any("pages[1]" in e and "GDP同比" in e for e in report["errors"])
+
+    def test_chart_spec_schema_exported(self):
+        import jsonschema
+        from pptchartengine import chart_spec_schema
+        schema = chart_spec_schema()
+        jsonschema.Draft7Validator.check_schema(schema)
+        v = jsonschema.Draft7Validator(schema)
+        assert not list(v.iter_errors({"chart": "range", "low": "l", "high": "h"}))
+        assert list(v.iter_errors({"chart": "pie"}))
