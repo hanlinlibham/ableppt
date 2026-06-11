@@ -215,7 +215,7 @@ def layout_quote(slide, data, theme):
 data = {
     "quote": "长期投资的核心不是预测市场的每一次波动，而是在确定性的复利中耐心等待价值的回归。",
     "author": "李明华",
-    "title": "首席投资策略师 | 国投养老基金",
+    "title": "首席投资策略师 | 示例基金公司",
     "source": "2024年度投资策略报告",
     "variant": "dark",
 }

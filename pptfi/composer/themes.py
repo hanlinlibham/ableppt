@@ -212,9 +212,9 @@ THEMES = {
         "kpi_size": 44,
         "chart_default_scheme": "esg_green",
     }),
-    # ── 研究级主题（Morningstar / 宏观研究风格） ──────────────────────
-    "morningstar": _theme({
-        "name": "Morningstar Research",
+    # ── 研究级主题（研究报告风格） ──────────────────────
+    "daybreak": _theme({
+        "name": "Daybreak Research",
         "primary": "1D2B3A",      # 深石板灰
         "secondary": "5A9BD5",    # 中蓝
         "accent": "E67E22",       # 暖橙
@@ -224,7 +224,7 @@ THEMES = {
         "header_font": "微软雅黑", "body_font": "微软雅黑",
         "margin": 0.6, "title_size": 28, "subtitle_size": 18,
         "body_size": 11, "caption_size": 9, "kpi_size": 36,
-        "chart_default_scheme": "morningstar",
+        "chart_default_scheme": "daybreak",
     }),
     "macro_research": _theme({
         "name": "Macro Research",

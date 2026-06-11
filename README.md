@@ -56,9 +56,9 @@ python -m pptfi --help
 
 ```bash
 pptfi chart-engine-info
-pptfi validate-job job_hikvision.json
-pptfi render job_hikvision.json
-pptfi validate-ppt output/海康威视竞争壁垒分析.pptx --json
+pptfi validate-job job_demo_company_a.json
+pptfi render job_demo_company_a.json
+pptfi validate-ppt output/样例公司A竞争壁垒分析.pptx --json
 ```
 
 ### 模板工作流
@@ -99,7 +99,7 @@ from pptfi import (
     render_bubble,
 )
 
-render_job("job_hikvision.json")
+render_job("job_demo_company_a.json")
 render_waterfall("waterfall_demo.json", "output/waterfall-demo.pptx")
 render_scatter("scatter_demo.json", "output/scatter-demo.pptx")
 render_bubble("bubble_demo.json", "output/bubble-demo.pptx")
@@ -152,7 +152,7 @@ from pptfi.chart_builder import create_combo_chart
 
 ## GTM 页面编排（Flow G）
 
-提炼自 J.P. Morgan《Guide to the Markets》的页面骨架，面向 **模型结构化输出**：
+提炼自国际投行市场指南类报告版式（GTM：General Theme for Markets），面向 **模型结构化输出**：
 LLM 只需产出一个 job JSON 即可编排整本 GTM 风格报告。
 
 ```bash
@@ -261,8 +261,8 @@ pptfi render-bubble bubble_demo.json output/bubble-demo.pptx
 
 ### 报告 Job
 
-- `job_hikvision.json`
-- `job_gigadevice.json`
+- `job_demo_company_a.json`
+- `job_demo_company_b.json`
 - `job_waterfall_demo.json`
 - `job_scatter_demo.json`
 - `job_bubble_demo.json`
@@ -277,8 +277,8 @@ pptfi render-bubble bubble_demo.json output/bubble-demo.pptx
 
 - `data/waterfall_attribution.csv`
 - `data/risk_return_points.csv`
-- `data/hikvision_*.csv`
-- `data/gigadevice_*.csv`
+- `data/company_a_*.csv`
+- `data/company_b_*.csv`
 
 ### 输出目录
 

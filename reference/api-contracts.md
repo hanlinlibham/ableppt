@@ -194,7 +194,7 @@ from pptfi.composer.helpers import add_page_header, add_page_footer
 add_page_header(slide, "页面标题", theme)
 # 输出: 16pt 标题 + 全宽 primary 色分隔线 (使用 theme tokens: page_title_size, header_y, divider_y)
 
-add_page_footer(slide, theme, source="Wind, 公司年报", page_num=3, brand="PPT Station")
+add_page_footer(slide, theme, source="示例来源, 公司年报", page_num=3, brand="PPT Station")
 # 输出: 左侧来源 + 右侧页码/品牌 (使用 theme tokens: footer_size, footer_y)
 ```
 
@@ -246,7 +246,7 @@ add_page_footer(slide, theme, source="Wind, 公司年报", page_num=3, brand="PP
 ```python
 {
     "title": "页面标题",
-    "footnote": "来源: Wind, 公司年报",  # 可选，auto-footer 渲染
+    "footnote": "来源: 示例来源, 公司年报",  # 可选，auto-footer 渲染
     "cards": [
         {"label": "指标名", "value": "数值", "change": "+5.9%"},  # change/note 可选
     ]
@@ -278,7 +278,7 @@ add_page_footer(slide, theme, source="Wind, 公司年报", page_num=3, brand="PP
     "categories_col": "日期",    # X轴列名
     "series_config": [...],      # 同 create_combo_chart 的 series_config
     "insight": "结论先行文本...",  # 可选，2-3行结论摘要（header 和图表之间）
-    "footnote": "来源: Wind",    # 可选，auto-footer 渲染
+    "footnote": "来源: 示例来源",    # 可选，auto-footer 渲染
     "style_config": StyleConfig(...),      # 可选
     "layout_config": ChartLayoutConfig(...), # 可选（可由 default_layout_config 继承）
 }
@@ -294,7 +294,7 @@ add_page_footer(slide, theme, source="Wind, 公司年报", page_num=3, brand="PP
     "left_title": "左图标题",    # 可选
     "right_title": "右图标题",   # 可选
     "insight": "结论先行文本...", # 可选，header 和图表之间
-    "footnote": "来源: Wind",    # 可选，auto-footer 渲染
+    "footnote": "来源: 示例来源",    # 可选，auto-footer 渲染
     "left": {
         "df": df1, "categories_col": "日期", "series_config": [...],
         "style_config": ..., "layout_config": ...,
@@ -316,7 +316,7 @@ add_page_footer(slide, theme, source="Wind, 公司年报", page_num=3, brand="PP
     "top_title": "上图标题",     # 可选
     "bottom_title": "下图标题",  # 可选
     "insight": "结论先行文本...", # 可选，header 和上图之间
-    "footnote": "来源: Wind",    # 可选，auto-footer 渲染
+    "footnote": "来源: 示例来源",    # 可选，auto-footer 渲染
     "top": {
         "df": df1, "categories_col": "日期", "series_config": [...],
         "style_config": ..., "layout_config": ...,
@@ -345,7 +345,7 @@ add_page_footer(slide, theme, source="Wind, 公司年报", page_num=3, brand="PP
     "table_df": table_df,        # 可选，表格数据 DataFrame（自动转为 headers/rows）
     "insight": "结论先行文本...", # 可选
     "chart_ratio": 0.62,         # 可选，图表宽度占比（默认 0.62）
-    "footnote": "来源: Wind",    # 可选
+    "footnote": "来源: 示例来源",    # 可选
 }
 ```
 
@@ -362,7 +362,7 @@ add_page_footer(slide, theme, source="Wind, 公司年报", page_num=3, brand="PP
     "rows": [["营收", "100亿", "80亿"], ...],
     "highlight_row": 0,       # 可选，高亮行索引
     "highlight_cols": [1, 2], # 可选，高亮列索引列表
-    "footnote": "来源: Wind, 公司年报",  # 可选，auto-footer 渲染
+    "footnote": "来源: 示例来源, 公司年报",  # 可选，auto-footer 渲染
 }
 ```
 
@@ -436,7 +436,7 @@ def render_my_chart(slide, theme):
         ),
     )
     # 页脚（来源 + 页码）
-    add_page_footer(slide, theme, source="Tushare, Wind")
+    add_page_footer(slide, theme, source="Tushare, 示例来源")
 
 composer = PageComposer(theme="jp_finance")
 composer.add_custom_page(render_my_chart)

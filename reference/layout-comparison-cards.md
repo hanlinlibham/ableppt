@@ -234,7 +234,7 @@ data = {
     "title": "基金产品横向对比",
     "subtitle": "截至2024年12月31日",
     "left": {
-        "title": "国投养老稳健型 A",
+        "title": "示例养老产品稳健型 A",
         "subtitle": "成立日期：2015年3月",
         "items": [
             {"label": "近一年收益", "value": "+12.3%", "better": True},
@@ -248,7 +248,7 @@ data = {
     },
     "right": {
         "title": "同类产品均值",
-        "subtitle": "（Wind 同类基金平均）",
+        "subtitle": "（同类基金平均）",
         "items": [
             {"label": "近一年收益", "value": "+8.9%"},
             {"label": "近三年年化", "value": "+6.2%"},
@@ -259,6 +259,6 @@ data = {
             {"label": "评级", "value": "★★★"},
         ],
     },
-    "source": "Wind 资讯，国投养老基金管理有限公司",
+    "source": "示例数据终端，示例基金管理公司",
 }
 ```

@@ -19,7 +19,7 @@ def build_parser() -> argparse.ArgumentParser:
             "  pptfi parse-waterfall output/waterfall_demo.pptx\n"
             "  pptfi render-scatter scatter_demo.json output/scatter_demo.pptx\n"
             "  pptfi render-bubble bubble_demo.json output/bubble_demo.pptx\n"
-            "  pptfi render job_hikvision.json\n"
+            "  pptfi render job_demo_company_a.json\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

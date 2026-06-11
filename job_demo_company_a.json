@@ -2,13 +2,13 @@
   "mode": "composer",
   "theme": "tech_blue",
   "datasources": {
-    "revenue": {"type": "csv", "path": "data/hikvision_revenue.csv"},
-    "peers": {"type": "csv", "path": "data/hikvision_peers.csv"}
+    "revenue": {"type": "csv", "path": "data/company_a_revenue.csv"},
+    "peers": {"type": "csv", "path": "data/company_a_peers.csv"}
   },
   "pages": [
     {
       "layout": "title_dark",
-      "data": {"title": "海康威视竞争壁垒分析", "subtitle": "全球安防龙头 · 智能物联领航者", "date": "2026-02"}
+      "data": {"title": "样例公司A竞争壁垒分析", "subtitle": "全球安防龙头 · 智能物联领航者", "date": "2026-02"}
     },
     {
       "layout": "kpi_cards",
@@ -40,7 +40,7 @@
           "legend_config": {"font_size_pt": 10, "font_name": "微软雅黑"},
           "value_axis_config": {"number_format": "#,##0", "font_name": "微软雅黑", "font_size_pt": 9}
         },
-        "footnote": "来源: Wind, 公司年报"
+        "footnote": "来源: 示例数据, 公司年报"
       }
     },
     {
@@ -53,13 +53,13 @@
           {"key": "毛利率", "name": "毛利率(%)", "type": "line", "axis": "primary"},
           {"key": "ROE", "name": "ROE(%)", "type": "line", "axis": "secondary"}
         ],
-        "insight": "毛利率和ROE近年同步回落，说明海康威视在需求承压背景下仍在经历盈利质量调整，后续修复依赖需求回暖与费用效率改善。",
+        "insight": "毛利率和ROE近年同步回落，说明样例公司A在需求承压背景下仍在经历盈利质量调整，后续修复依赖需求回暖与费用效率改善。",
         "style_config": {"color_scheme": "tech_blue", "line_width_pt": 2.5},
         "layout_config": {
           "legend_config": {"font_size_pt": 10, "font_name": "微软雅黑"},
           "value_axis_config": {"number_format": "0.0", "font_name": "微软雅黑", "font_size_pt": 9}
         },
-        "footnote": "来源: Wind, 公司年报"
+        "footnote": "来源: 示例数据, 公司年报"
       }
     },
     {
@@ -72,13 +72,13 @@
           {"key": "毛利率", "name": "毛利率(%)", "type": "bar", "axis": "primary"},
           {"key": "ROE", "name": "ROE(%)", "type": "line", "axis": "secondary"}
         ],
-        "insight": "与主要同行相比，海康威视仍保持较强盈利底盘，但资本回报优势较历史高点已有收敛，估值修复更依赖基本面再验证。",
+        "insight": "与主要同行相比，样例公司A仍保持较强盈利底盘，但资本回报优势较历史高点已有收敛，估值修复更依赖基本面再验证。",
         "style_config": {"color_scheme": "tech_blue", "line_width_pt": 2.5},
         "layout_config": {
           "legend_config": {"font_size_pt": 10, "font_name": "微软雅黑"},
           "value_axis_config": {"number_format": "0.0", "font_name": "微软雅黑", "font_size_pt": 9}
         },
-        "footnote": "来源: Wind, 公司年报"
+        "footnote": "来源: 示例数据, 公司年报"
       }
     },
     {
@@ -131,9 +131,9 @@
           {"label": "竞争环境", "value": "稳定略承压"},
           {"label": "估值水平", "value": "PE 20.9x，处于历史低位"}
         ],
-        "summary": "海康威视作为全球安防龙头，具备深厚的技术积累和显著的规模优势。当前估值处于历史较低水平，具备长期配置价值。"
+        "summary": "样例公司A作为全球安防龙头，具备深厚的技术积累和显著的规模优势。当前估值处于历史较低水平，具备长期配置价值。"
       }
     }
   ],
-  "output": {"path": "海康威视竞争壁垒分析.pptx"}
+  "output": {"path": "样例公司A竞争壁垒分析.pptx"}
 }

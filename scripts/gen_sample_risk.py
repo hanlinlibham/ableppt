@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""贵州茅台过去一年风险分析报告生成器
+"""样例公司过去一年风险分析报告生成器
 
 计算风险指标：年化波动率、最大回撤、Sharpe比率、Beta、VaR
-图表1：茅台累计收益率 vs 沪深300（双轴：柱+线）
+图表1：样例公司累计收益率 vs 沪深300（双轴：柱+线）
 图表2：滚动波动率 vs 沪深300收盘价（双轴：面积+线）
 """
 
@@ -22,10 +22,10 @@ from pptfi.config import settings
 # 配置
 # ============================================================================
 STOCK_CODE = "600519.SH"
-STOCK_NAME = "贵州茅台"
+STOCK_NAME = "样例公司"
 INDEX_CODE = "000300.SH"
 INDEX_NAME = "沪深300"
-OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent / "output" / "moutai_risk"
+OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent / "output" / "sample_risk"
 TEMPLATE_PATH = Path(__file__).resolve().parent.parent.parent / "aim" / "aim03.pptx"
 
 # 过去一年
@@ -37,10 +37,10 @@ YEAR = END_DATE.year
 
 
 def fetch_data():
-    """获取茅台和沪深300过去一年日线数据"""
+    """获取样例公司和沪深300过去一年日线数据"""
     pro = ts.pro_api(settings.tushare_token)
 
-    print("📊 获取贵州茅台日线数据...", file=sys.stderr)
+    print("📊 获取样例公司日线数据...", file=sys.stderr)
     df_stock = ts.pro_bar(ts_code=STOCK_CODE, start_date=START_STR, end_date=END_STR, adj="qfq")
     df_stock = df_stock.sort_values("trade_date").reset_index(drop=True)
     df_stock["trade_date"] = pd.to_datetime(df_stock["trade_date"], format="%Y%m%d")
@@ -109,7 +109,7 @@ def compute_risk_metrics(df_stock, df_index):
 
 
 def build_chart1_csv(df_stock, df_index):
-    """图表1：茅台累计收益率 vs 沪深300收盘价"""
+    """图表1：样例公司累计收益率 vs 沪深300收盘价"""
     stock = df_stock[["trade_date", "close"]].copy()
     stock.columns = ["trade_date", "close_stock"]
     index = df_index[["trade_date", "close"]].copy()
@@ -117,10 +117,10 @@ def build_chart1_csv(df_stock, df_index):
     df = pd.merge(stock, index, on="trade_date", how="inner")
 
     base = df["close_stock"].iloc[0]
-    df["茅台累计收益率"] = df["close_stock"] / base - 1
+    df["样例公司累计收益率"] = df["close_stock"] / base - 1
     df["沪深300指数"] = df["close_index"]
     df = df.rename(columns={"trade_date": "日期"})
-    return df[["日期", "沪深300指数", "茅台累计收益率"]]
+    return df[["日期", "沪深300指数", "样例公司累计收益率"]]
 
 
 def build_chart2_csv(df_stock, df_index):
@@ -144,7 +144,7 @@ def main():
 
     # 1. 获取数据
     df_stock, df_index = fetch_data()
-    print(f"✅ 获取到 {len(df_stock)} 条茅台数据, {len(df_index)} 条指数数据", file=sys.stderr)
+    print(f"✅ 获取到 {len(df_stock)} 条样例公司数据, {len(df_index)} 条指数数据", file=sys.stderr)
 
     # 2. 计算风险指标
     metrics, _ = compute_risk_metrics(df_stock, df_index)
@@ -189,7 +189,7 @@ def main():
                 "categories_col": "日期",
                 "series_config": [
                     {"key": "沪深300指数", "name": f"{INDEX_NAME}指数(收盘价)", "type": "bar", "axis": "secondary"},
-                    {"key": "茅台累计收益率", "name": f"{STOCK_NAME}累计收益率（左轴）", "type": "line", "axis": "primary"},
+                    {"key": "样例公司累计收益率", "name": f"{STOCK_NAME}累计收益率（左轴）", "type": "line", "axis": "primary"},
                 ],
                 "style": {"color_scheme": "aim00", "line_width_pt": 2.0, "marker_style": "none"},
                 "layout": {
@@ -225,7 +225,7 @@ def main():
 
     # 5. 生成 PPT
     print(f"\n🔧 生成 PPT...", file=sys.stderr)
-    output_pptx = OUTPUT_DIR / f"moutai_risk_{YEAR}.pptx"
+    output_pptx = OUTPUT_DIR / f"sample_risk_{YEAR}.pptx"
 
     from pptfi.template.replacer import TemplateReplacer
     sys.path.insert(0, str(Path(__file__).resolve().parent))

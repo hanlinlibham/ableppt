@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""贵州茅台年度分析报告生成器
+"""样例公司年度分析报告生成器
 
 独立示例脚本，演示如何使用 tushare + pptfi 生成完整投资分析报告。
 新报告请优先使用 run_job.py + Job JSON 声明式编排。
@@ -23,11 +23,11 @@ from pptfi.config import settings
 # 配置
 # ============================================================================
 STOCK_CODE = "600519.SH"
-STOCK_NAME = "贵州茅台"
+STOCK_NAME = "样例公司"
 INDEX_CODE = "000300.SH"
 INDEX_NAME = "沪深300"
 YEAR = 2025
-OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent / "output" / "moutai_report"
+OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent / "output" / "sample_report"
 TEMPLATE_PATH = Path(__file__).resolve().parent.parent.parent / "aim" / "aim03.pptx"
 
 
@@ -35,7 +35,7 @@ def fetch_data():
     """从 tushare 获取所有需要的数据"""
     pro = ts.pro_api(settings.tushare_token)
 
-    print("📊 获取贵州茅台日线数据...", file=sys.stderr)
+    print("📊 获取样例公司日线数据...", file=sys.stderr)
     # 当年日线数据
     df_stock = ts.pro_bar(
         ts_code=STOCK_CODE,
@@ -81,7 +81,7 @@ def fetch_data():
 
 
 def compute_ytd_chart(df_stock, df_index):
-    """计算当年收益率走势图数据：茅台收益率 vs 沪深300收盘价"""
+    """计算当年收益率走势图数据：样例公司收益率 vs 沪深300收盘价"""
 
     # 合并数据
     df = pd.merge(
@@ -95,17 +95,17 @@ def compute_ytd_chart(df_stock, df_index):
     # 计算累计收益率
     base_stock = df["close_stock"].iloc[0]
     base_index = df["close_index"].iloc[0]
-    df["茅台累计收益率"] = (df["close_stock"] / base_stock - 1)
+    df["样例公司累计收益率"] = (df["close_stock"] / base_stock - 1)
     df["沪深300指数"] = df["close_index"]
 
     # 日期列
     df = df.rename(columns={"trade_date": "日期"})
 
-    return df[["日期", "沪深300指数", "茅台累计收益率"]]
+    return df[["日期", "沪深300指数", "样例公司累计收益率"]]
 
 
 def compute_5y_chart(df_stock_5y, df_index_5y):
-    """计算近5年走势数据：茅台累计收益率 + 成交额"""
+    """计算近5年走势数据：样例公司累计收益率 + 成交额"""
 
     stock = df_stock_5y[["trade_date", "close", "amount"]].copy()
     stock.columns = ["trade_date", "close_stock", "amount_stock"]
@@ -116,12 +116,12 @@ def compute_5y_chart(df_stock_5y, df_index_5y):
 
     # 累计收益率
     base_stock = df["close_stock"].iloc[0]
-    df["茅台累计收益率"] = (df["close_stock"] / base_stock - 1)
+    df["样例公司累计收益率"] = (df["close_stock"] / base_stock - 1)
     # 成交额（万元）
     df["成交额(万元)"] = df["amount_stock"] / 10  # tushare amount 单位是千元
 
     df = df.rename(columns={"trade_date": "日期"})
-    return df[["日期", "茅台累计收益率", "成交额(万元)"]]
+    return df[["日期", "样例公司累计收益率", "成交额(万元)"]]
 
 
 def compute_stats(df_stock, df_stock_5y):
@@ -210,7 +210,7 @@ def main():
                         "axis": "secondary",
                     },
                     {
-                        "key": "茅台累计收益率",
+                        "key": "样例公司累计收益率",
                         "name": f"{STOCK_NAME}累计收益率（左轴）",
                         "type": "line",
                         "axis": "primary",
@@ -251,7 +251,7 @@ def main():
                 "categories_col": "日期",
                 "series_config": [
                     {
-                        "key": "茅台累计收益率",
+                        "key": "样例公司累计收益率",
                         "name": f"{STOCK_NAME}累计收益率",
                         "type": "line",
                         "axis": "primary",
@@ -303,7 +303,7 @@ def main():
     print(f"💾 已保存配置: {config_path}", file=sys.stderr)
 
     # 调用 generate_ppt
-    output_pptx = OUTPUT_DIR / f"moutai_{YEAR}_report.pptx"
+    output_pptx = OUTPUT_DIR / f"sample_{YEAR}_report.pptx"
 
     print(f"\n🔧 生成 PPT...", file=sys.stderr)
 

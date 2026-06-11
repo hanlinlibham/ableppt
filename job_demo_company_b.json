@@ -2,15 +2,15 @@
   "mode": "composer",
   "theme": "tech_blue",
   "datasources": {
-    "financial": {"type": "csv", "path": "data/gigadevice_financial.csv"},
-    "profitability": {"type": "csv", "path": "data/gigadevice_profitability.csv"},
-    "peers": {"type": "csv", "path": "data/gigadevice_peers.csv"}
+    "financial": {"type": "csv", "path": "data/company_b_financial.csv"},
+    "profitability": {"type": "csv", "path": "data/company_b_profitability.csv"},
+    "peers": {"type": "csv", "path": "data/company_b_peers.csv"}
   },
   "pages": [
     {
       "layout": "title_dark",
       "data": {
-        "title": "兆易创新深度研究",
+        "title": "样例公司B深度研究",
         "subtitle": "国产存储+MCU双龙头 · 端侧AI打开成长空间",
         "date": "2026-02"
       }
@@ -27,7 +27,7 @@
           {"label": "ROE", "value": "6.96%", "change": "强力复苏"},
           {"label": "净现金", "value": "81.3亿", "change": "负债率13.3%"}
         ],
-        "footnote": "来源: Wind, Tushare, 公司年报"
+        "footnote": "来源: 示例数据, 公司年报"
       }
     },
     {
@@ -41,7 +41,7 @@
           {"icon": "04", "label": "SLC NAND -- 全球第六", "desc": "1Gb-8Gb全容量, 24nm工艺; 大陆排名最高; 2025年推出高速QSPI新品"},
           {"icon": "05", "label": "传感器与模拟 -- 多点布局", "desc": "指纹芯片全球第二(0.5亿美元); 触控/MEMS气压传感器; 子公司赛芯为锂电保护龙头"}
         ],
-        "footnote": "来源: 天风证券, 第一上海, 公司年报"
+        "footnote": "来源: 示例研究机构, 公司年报"
       }
     },
     {
@@ -74,7 +74,7 @@
             "value_axis_config": {"number_format": "#,##0.0", "font_size_pt": 8, "font_name": "黑体"}
           }
         },
-        "footnote": "来源: Wind, 公司年报, 天风证券预测"
+        "footnote": "来源: 示例数据, 公司年报, 示例预测"
       }
     },
     {
@@ -109,7 +109,7 @@
             "secondary_value_axis_config": {"number_format": "0.0", "font_size_pt": 8}
           }
         },
-        "footnote": "来源: Wind, 公司年报"
+        "footnote": "来源: 示例数据, 公司年报"
       }
     },
     {
@@ -144,7 +144,7 @@
             "secondary_value_axis_config": {"number_format": "0.0", "font_size_pt": 8}
           }
         },
-        "footnote": "来源: Wind, Tushare, 公司年报"
+        "footnote": "来源: 示例数据, 公司年报"
       }
     },
     {
@@ -161,7 +161,7 @@
         ],
         "highlight_row": 0,
         "highlight_cols": [1, 2],
-        "footnote": "来源: 天风证券, 浙商证券, 第一上海, 公司年报"
+        "footnote": "来源: 示例研究机构, 公司年报"
       }
     },
     {
@@ -174,7 +174,7 @@
           {"icon": "03", "label": "国产替代稀缺标的", "desc": "存储+MCU+传感器平台型公司极为稀缺; 港股上市融资41.8亿港元加速全球化布局"},
           {"icon": "04", "label": "盈利预测共识", "desc": "2025-2027E营收: 92/114/139亿; 净利润: 16.1/25.9/27.7亿; 国信目标价257.4元(2026E 65xPE)"}
         ],
-        "footnote": "来源: 国信证券, 天风证券, 第一上海, 中泰电子, 国联民生"
+        "footnote": "来源: 多家示例研究机构一致预期"
       }
     },
     {
@@ -198,5 +198,5 @@
       }
     }
   ],
-  "output": {"path": "兆易创新深度研究.pptx"}
+  "output": {"path": "样例公司B深度研究.pptx"}
 }

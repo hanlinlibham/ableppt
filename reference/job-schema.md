@@ -297,7 +297,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
   "pages": [
     {
       "layout": "title_dark",
-      "data": {"title": "贵州茅台2024年度分析", "date": "2024-12"}
+      "data": {"title": "示例公司2024年度分析", "date": "2024-12"}
     },
     {
       "layout": "kpi_cards",
@@ -350,10 +350,10 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
     },
     {
       "layout": "conclusion_dark",
-      "data": {"verdict": "茅台护城河坚固，品牌溢价持续"}
+      "data": {"verdict": "样例公司护城河坚固，品牌溢价持续"}
     }
   ],
-  "output": {"path": "output/moutai_2024.pptx"}
+  "output": {"path": "output/sample_2024.pptx"}
 }
 ```
 
@@ -409,7 +409,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
     {
       "id": "cover",
       "texts": [
-        {"target": "标题", "value": "贵州茅台2024年度分析"},
+        {"target": "标题", "value": "示例公司2024年度分析"},
         {"target": "日期", "value": "2024-12-31"}
       ]
     },
@@ -422,7 +422,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
           "source": "merged",
           "categories": "trade_date",
           "series": [
-            {"key": "收盘价", "name": "茅台收盘价", "axis": "primary"}
+            {"key": "收盘价", "name": "样例公司收盘价", "axis": "primary"}
           ]
         }
       ]
@@ -430,7 +430,7 @@ Job JSON 是 PptEngine 的声明式配置格式，支持两种模式：
   ],
   "params": {"year": 2024},
   "output": {
-    "path": "output/moutai_2024.pptx",
+    "path": "output/sample_2024.pptx",
     "overwrite": true,
     "add_metadata": true
   }

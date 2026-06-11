@@ -102,10 +102,10 @@ def test_cli_generate_real_ppt(tmp_path: Path):
 
 
 def test_sdk_describe_chart_recovers_categories_col_for_composer_output(tmp_path: Path):
-    job_path = PROJECT_ROOT / "job_hikvision.json"
+    job_path = PROJECT_ROOT / "job_demo_company_a.json"
     raw_job = json.loads(job_path.read_text(encoding="utf-8"))
     job = copy.deepcopy(raw_job)
-    job["output"]["path"] = str(tmp_path / "hikvision.pptx")
+    job["output"]["path"] = str(tmp_path / "company_a.pptx")
     local_job_path = tmp_path / "job.json"
     local_job_path.write_text(json.dumps(job, ensure_ascii=False, indent=2), encoding="utf-8")
 

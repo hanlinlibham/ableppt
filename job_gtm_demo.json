@@ -6,7 +6,7 @@
       "layout": "gtm_cover",
       "data": {
         "title": "市场洞察",
-        "subtitle": "Guide to the Markets 风格 · 全自动编排演示",
+        "subtitle": "市场指南风格 · 全自动编排演示",
         "date": "2026年6月11日"
       }
     },
@@ -21,7 +21,7 @@
       "data": {
         "title": "经济增长与GDP构成",
         "section": "宏观",
-        "source": "来源：国家统计局，Wind，PPT·FI 计算。趋势增速基于 2012 年以来季度实际 GDP 拟合。Guide to the Markets 风格演示，数据为拟真样例。",
+        "source": "来源：国家统计局，示例数据库，PPT·FI 计算。趋势增速基于 2012 年以来季度实际 GDP 拟合。市场指南风格演示，数据为拟真样例。",
         "panels": [
           {
             "title": "实际GDP",
@@ -104,7 +104,7 @@
       "data": {
         "title": "通货膨胀",
         "section": "宏观",
-        "source": "来源：国家统计局，Wind，PPT·FI 计算。核心CPI为剔除食品和能源的CPI。演示数据。",
+        "source": "来源：国家统计局，示例数据库，PPT·FI 计算。核心CPI为剔除食品和能源的CPI。演示数据。",
         "panels": [
           {
             "title": "CPI与核心CPI",
@@ -183,7 +183,7 @@
       "data": {
         "title": "劳动力市场",
         "section": "宏观",
-        "source": "来源：国家统计局，人社部，Wind。左图经季节调整。演示数据。",
+        "source": "来源：国家统计局，人社部，示例数据库。左图经季节调整。演示数据。",
         "panels": [
           {
             "title": "失业率与工资增速",
@@ -271,7 +271,7 @@
       "data": {
         "title": "A股估值与盈利预期",
         "section": "权益",
-        "source": "来源：Wind，PPT·FI 计算。市盈率为 TTM 口径；盈利增速为一致预期。演示数据。",
+        "source": "来源：示例数据库，PPT·FI 计算。市盈率为 TTM 口径；盈利增速为一致预期。演示数据。",
         "panels": [
           {
             "title": "行业估值区间",
@@ -386,7 +386,7 @@
       "data": {
         "title": "宏观全景仪表盘",
         "section": "宏观",
-        "source": "来源：国家统计局，Wind，PPT·FI 计算。演示数据。",
+        "source": "来源：国家统计局，示例数据库，PPT·FI 计算。演示数据。",
         "panels": [
           {
             "title": "GDP增速贡献",
@@ -475,7 +475,7 @@
       "data": {
         "title": "权益市场观点",
         "section": "权益",
-        "source": "来源：Wind，PPT·FI。演示数据。",
+        "source": "来源：示例数据库，PPT·FI。演示数据。",
         "panel": {
           "title": "行业估值区间",
           "subtitle": "市盈率（TTM），按当前估值降序",
@@ -503,7 +503,7 @@
       "data": {
         "title": "大类资产年度收益排序",
         "section": "资产配置",
-        "source": "来源：Wind，PPT·FI 计算。年度总回报，人民币计价。演示数据。",
+        "source": "来源：示例数据库，PPT·FI 计算。年度总回报，人民币计价。演示数据。",
         "datasource": "asset_returns"
       }
     }
