@@ -64,3 +64,80 @@ def test_gtm_demo_job_renders():
         assert Path(result["output"]).exists()
     finally:
         os.chdir(cwd)
+
+
+def test_new_layouts_registered():
+    from pptfi.composer.layouts import LAYOUT_REGISTRY
+    for name in ("gtm_cover", "gtm_toc", "gtm_quilt", "gtm_chart_text"):
+        assert name in LAYOUT_REGISTRY
+
+
+def test_panel_rects_2x2():
+    from pptfi.composer.layouts.gtm import _panel_rects
+    rects = _panel_rects(4)
+    assert len(rects) == 4
+    assert rects[0][1] == rects[1][1]   # 上排同 y
+    assert rects[2][1] == rects[3][1]   # 下排同 y
+    assert rects[2][1] > rects[0][1]
+
+
+def test_deck_workflow_defaults_and_toc():
+    from pptfi.models.job import Job
+    from pptfi.engine import PptEngine
+
+    job = Job(**{
+        "mode": "composer",
+        "deck": {"brand": "测试品牌", "market": "CN", "start_page": 1},
+        "pages": [
+            {"layout": "gtm_cover", "data": {"title": "封面"}},
+            {"layout": "gtm_toc", "data": {}},
+            {"layout": "gtm_panels", "data": {"title": "宏观页", "section": "宏观", "panels": []}},
+            {"layout": "gtm_panels", "data": {"title": "权益页", "section": "权益", "panels": []}},
+        ],
+        "output": {"path": "x.pptx"},
+    })
+    staged = PptEngine._apply_deck_workflow(job)
+    datas = [s[1] for s in staged]
+    assert datas[2]["page_num"] == 3 and datas[3]["page_num"] == 4
+    assert datas[2]["brand"] == "测试品牌"
+    toc_items = datas[1]["items"]
+    assert [g["section"] for g in toc_items] == ["宏观", "权益"]
+    assert toc_items[0]["entries"][0]["page"] == 3
+
+
+def test_quilt_layout_renders():
+    import pandas as pd
+    from pptfi.composer.page_composer import PageComposer
+
+    df = pd.DataFrame({
+        "年份": ["2024", "2024", "2025", "2025"],
+        "资产": ["A股", "黄金", "A股", "黄金"],
+        "收益率": [0.05, 0.12, 0.18, 0.07],
+    })
+    composer = PageComposer(theme="jp_finance")
+    composer.add_page("gtm_quilt", {"title": "矩阵", "df": df, "source": "来源：测试"})
+    slide = composer.prs.slides[0]
+    tables = [s for s in slide.shapes if s.has_table]
+    assert len(tables) == 1
+    # 2025 年列（第 2 列）收益最高的 A股 应排首行
+    assert "A股" in tables[0].table.cell(1, 1).text_frame.text
+
+
+def test_gtm_chart_text_renders():
+    from pptfi.composer.page_composer import PageComposer
+
+    composer = PageComposer(theme="jp_finance")
+    composer.add_page("gtm_chart_text", {
+        "title": "观点页", "section": "权益",
+        "panel": {"title": "面板",
+                  "chart": {"data": {"年": ["23", "24"], "v": [1, 2]}, "legend": "none"}},
+        "bullets": ["要点一", "要点二"],
+    })
+    slide = composer.prs.slides[0]
+    assert any(s.has_chart for s in slide.shapes)
+
+
+def test_gtm_page_examples():
+    from pptfi.composer.layouts.gtm_examples import gtm_page_examples
+    assert gtm_page_examples().count("```json") >= 8
+    assert "gtm_quilt" in gtm_page_examples("quilt")

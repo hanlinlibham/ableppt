@@ -10,7 +10,8 @@ from .conclusion import layout_conclusion_dark
 from .image_text import layout_image_text
 from .waterfall import layout_waterfall
 from .xy import layout_bubble, layout_scatter
-from .gtm import layout_gtm_panels
+from .gtm import (layout_gtm_panels, layout_gtm_cover, layout_gtm_toc,
+                  layout_gtm_quilt, layout_gtm_chart_text)
 from .diagram import (layout_process_flow, layout_timeline, layout_pyramid,
                       layout_comparison, layout_icon_grid, layout_matrix,
                       layout_composite)
@@ -31,6 +32,10 @@ LAYOUT_REGISTRY = {
     "image_text": layout_image_text,
     "waterfall": layout_waterfall,
     "gtm_panels": layout_gtm_panels,
+    "gtm_cover": layout_gtm_cover,
+    "gtm_toc": layout_gtm_toc,
+    "gtm_quilt": layout_gtm_quilt,
+    "gtm_chart_text": layout_gtm_chart_text,
     "scatter": layout_scatter,
     "bubble": layout_bubble,
     # Diagram 布局 (基于 blocks 可组合)

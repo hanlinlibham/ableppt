@@ -206,9 +206,17 @@ def _panel_rects(n):
             (right_x, _CONTENT_TOP, right_w, full_h),
         ]
     half_h = (full_h - 0.30) / 2
+    if n == 3:
+        return [
+            (_MARGIN_L, _CONTENT_TOP, half_w, full_h),
+            (right_x, _CONTENT_TOP, right_w, half_h),
+            (right_x, _CONTENT_TOP + half_h + 0.30, right_w, half_h),
+        ]
+    # 4 面板：2×2 网格
     return [
-        (_MARGIN_L, _CONTENT_TOP, half_w, full_h),
+        (_MARGIN_L, _CONTENT_TOP, half_w, half_h),
         (right_x, _CONTENT_TOP, right_w, half_h),
+        (_MARGIN_L, _CONTENT_TOP + half_h + 0.30, half_w, half_h),
         (right_x, _CONTENT_TOP + half_h + 0.30, right_w, half_h),
     ]
 
@@ -304,3 +312,217 @@ def _render_mini_table(slide, table, *, rect):
             style(tbl.cell(r, c), value,
                   bold=(c == 0), color=label_color if c == 0 else "404040",
                   align=PP_ALIGN.LEFT if c == 0 else PP_ALIGN.CENTER)
+
+
+# ============================================================================
+# GTM 封面页
+# ============================================================================
+
+def layout_gtm_cover(slide, data, theme):
+    """GTM 封面：大箭头 + 主标题 + 副标题 + 数据截止日 + 品牌。
+
+    data keys: title, subtitle, date, brand, market
+    """
+    # 顶部品牌条
+    add_text(slide, str(data.get("brand", "")),
+             x=_MARGIN_L, y=0.55, w=8.0, h=0.45,
+             font_size=17, font_name=FONT, color="1A1A1A", bold=True)
+    add_line(slide, _MARGIN_L, 1.12, 13.333 - _MARGIN_L - _MARGIN_R, color="404040", width=1)
+
+    # 大箭头组（GTM 封面的标志图形）
+    for i, (dx, alpha_color) in enumerate([(0.0, "B3E0F5"), (0.55, "5BC2EC"), (1.1, ACCENT)]):
+        chevron = slide.shapes.add_shape(
+            MSO_SHAPE.CHEVRON, Inches(_MARGIN_L + dx), Inches(2.35), Inches(1.05), Inches(1.5))
+        chevron.fill.solid()
+        chevron.fill.fore_color.rgb = RGBColor.from_string(alpha_color)
+        chevron.line.fill.background()
+        chevron.shadow.inherit = False
+
+    # 主标题 / 副标题
+    add_text(slide, str(data.get("title", "")),
+             x=_MARGIN_L, y=4.15, w=11.5, h=1.0,
+             font_size=34, font_name=FONT, color="1A1A1A", bold=True)
+    if data.get("subtitle"):
+        add_text(slide, str(data["subtitle"]),
+                 x=_MARGIN_L, y=5.05, w=11.0, h=0.5,
+                 font_size=16, font_name=FONT, color="595959")
+
+    # 市场 + 数据截止日
+    meta_parts = []
+    if data.get("market"):
+        meta_parts.append(str(data["market"]))
+    if data.get("date"):
+        meta_parts.append(f"数据截至 {data['date']}")
+    if meta_parts:
+        add_text(slide, "  |  ".join(meta_parts),
+                 x=_MARGIN_L, y=6.55, w=10.0, h=0.4,
+                 font_size=12, font_name=FONT, color="595959")
+
+
+# ============================================================================
+# GTM 目录页
+# ============================================================================
+
+def layout_gtm_toc(slide, data, theme):
+    """GTM 目录：章节色块 + 标题…页码 两栏列表。
+
+    data keys:
+        title (str): 默认 "目录"
+        items (list): [{"section": str, "entries": [{"title", "page"}]}]
+                      省略时由 deck 工作流按后续页面自动生成
+    """
+    _draw_chrome(slide, {**data, "title": data.get("title", "目录"),
+                         "section": None, "page_num": data.get("page_num")}, theme)
+
+    items = data.get("items") or []
+    col_w = (13.333 - _MARGIN_L - _MARGIN_R - _GAP) / 2
+    col_x = [_MARGIN_L, _MARGIN_L + col_w + _GAP]
+    cursor = [_CONTENT_TOP + 0.1, _CONTENT_TOP + 0.1]
+    col = 0
+
+    for group in items:
+        section = str(group.get("section", ""))
+        entries = group.get("entries") or []
+        block_h = 0.42 + 0.30 * len(entries)
+        if cursor[col] + block_h > _CONTENT_BOTTOM and col == 0:
+            col = 1
+        x, y = col_x[col], cursor[col]
+
+        color = (SECTION_COLORS.get(section.lower()) or SECTION_COLORS.get(section) or ACCENT)
+        chip = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE,
+                                      Inches(x), Inches(y + 0.04), Inches(0.16), Inches(0.22))
+        chip.fill.solid()
+        chip.fill.fore_color.rgb = RGBColor.from_string(color)
+        chip.line.fill.background()
+        chip.shadow.inherit = False
+        add_text(slide, section, x=x + 0.26, y=y, w=col_w - 0.3, h=0.3,
+                 font_size=13, font_name=FONT, color="1A1A1A", bold=True)
+        y += 0.38
+
+        for entry in entries:
+            add_text(slide, str(entry.get("title", "")), x=x + 0.26, y=y, w=col_w - 1.0, h=0.26,
+                     font_size=10.5, font_name=FONT, color="404040")
+            add_text(slide, str(entry.get("page", "")), x=x + col_w - 0.7, y=y, w=0.6, h=0.26,
+                     font_size=10.5, font_name=FONT, color="595959", align="right")
+            y += 0.30
+        cursor[col] = y + 0.22
+
+
+# ============================================================================
+# GTM 资产收益 quilt 矩阵（GTM 最具标志性的一页）
+# ============================================================================
+
+QUILT_DEFAULT_COLORS = ["1F3864", "29ABE2", "7F9C3D", "C9A84C", "7B5EA7",
+                        "00838F", "B0413E", "595959", "8C8C8C", "5C7A93"]
+
+
+def layout_gtm_quilt(slide, data, theme):
+    """资产收益排序矩阵：每列一年，按当年收益降序排格，单元格按资产固定着色。
+
+    data keys:
+        title/subtitle/section/source/...: 页面骨架字段
+        df (DataFrame): 长表，含 年份列/资产列/收益列
+        year_col/asset_col/value_col: 列名（默认 年份/资产/收益率）
+        colors (dict, optional): {资产: "#RRGGBB"} 指定配色
+    """
+    _draw_chrome(slide, data, theme)
+
+    df = data["df"]
+    year_col = data.get("year_col", "年份")
+    asset_col = data.get("asset_col", "资产")
+    value_col = data.get("value_col", "收益率")
+
+    years = sorted(df[year_col].astype(str).unique())
+    assets = list(df[asset_col].unique())
+    color_map = {str(k).lstrip("#"): v for k, v in (data.get("colors") or {}).items()}
+    palette = {a: (data.get("colors") or {}).get(a, QUILT_DEFAULT_COLORS[i % len(QUILT_DEFAULT_COLORS)])
+               for i, a in enumerate(assets)}
+
+    n_rows = len(assets) + 1
+    n_cols = len(years)
+    x, y = _MARGIN_L, _CONTENT_TOP + 0.15
+    w = 13.333 - _MARGIN_L - _MARGIN_R
+    h = _CONTENT_BOTTOM - y
+
+    gfx = slide.shapes.add_table(n_rows, n_cols, Inches(x), Inches(y), Inches(w), Inches(h))
+    tbl = gfx.table
+    tbl.first_row = False
+    tbl.horz_banding = False
+
+    def style(cell, text, *, fill, color, bold, size=9):
+        cell.fill.solid()
+        cell.fill.fore_color.rgb = RGBColor.from_string(str(fill).lstrip("#").upper())
+        for margin in ("margin_left", "margin_right", "margin_top", "margin_bottom"):
+            setattr(cell, margin, Pt(2))
+        tf = cell.text_frame
+        tf.word_wrap = True
+        tf.text = ""
+        lines = text if isinstance(text, list) else [text]
+        for i, line in enumerate(lines):
+            para = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+            para.alignment = PP_ALIGN.CENTER
+            run = para.add_run()
+            run.text = str(line)
+            run.font.size = Pt(size if i == 0 else size - 0.5)
+            run.font.name = FONT
+            run.font.bold = bold and i == 0
+            run.font.color.rgb = RGBColor.from_string(color)
+
+    for c, year in enumerate(years):
+        style(tbl.cell(0, c), year, fill="FFFFFF", color="1A1A1A", bold=True, size=10)
+        sub = df[df[year_col].astype(str) == year].sort_values(value_col, ascending=False)
+        for r, (_, row) in enumerate(sub.iterrows(), start=1):
+            if r >= n_rows:
+                break
+            asset = row[asset_col]
+            value = float(row[value_col])
+            style(tbl.cell(r, c), [str(asset), f"{value*100:+.1f}%"],
+                  fill=palette.get(asset, "595959"), color="FFFFFF", bold=True)
+
+
+# ============================================================================
+# GTM 左图右点评页
+# ============================================================================
+
+def layout_gtm_chart_text(slide, data, theme):
+    """左侧面板图 + 右侧观点要点（投研「图 + 点评」版式）。
+
+    data keys:
+        panel (dict): 同 gtm_panels 的面板（title/subtitle/chart/table）
+        bullets (list[str]): 右侧要点
+        bullets_title (str): 右栏标题，默认 "要点"
+        其余为页面骨架字段
+    """
+    _draw_chrome(slide, data, theme)
+    _draw_divider(slide)
+
+    full_w = 13.333 - _MARGIN_L - _MARGIN_R
+    left_w = full_w * _DIVIDER_X_FRACTION - _GAP / 2
+    right_x = _MARGIN_L + full_w * _DIVIDER_X_FRACTION + _GAP / 2
+    right_w = full_w - full_w * _DIVIDER_X_FRACTION - _GAP / 2
+
+    panel = data.get("panel") or {}
+    _render_panel(slide, panel, (_MARGIN_L, _CONTENT_TOP, left_w, _CONTENT_BOTTOM - _CONTENT_TOP), theme)
+
+    section = str(data.get("section") or "")
+    accent = (data.get("section_color")
+              or SECTION_COLORS.get(section.lower()) or SECTION_COLORS.get(section) or ACCENT)
+    y = _CONTENT_TOP
+    add_text(slide, str(data.get("bullets_title", "要点")),
+             x=right_x, y=y, w=right_w, h=0.3,
+             font_size=12, font_name=FONT, color="1A1A1A", bold=True)
+    y += 0.45
+
+    for bullet in data.get("bullets") or []:
+        marker = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE,
+                                        Inches(right_x), Inches(y + 0.06), Inches(0.11), Inches(0.11))
+        marker.fill.solid()
+        marker.fill.fore_color.rgb = RGBColor.from_string(accent)
+        marker.line.fill.background()
+        marker.shadow.inherit = False
+        box = add_text(slide, str(bullet),
+                       x=right_x + 0.24, y=y, w=right_w - 0.3, h=0.9,
+                       font_size=11, font_name=FONT, color="404040")
+        # 按文字长度估算行数推进光标（每行约 28 个全角字符）
+        lines = max(1, (len(str(bullet)) + 27) // 28)
+        y += 0.06 + 0.26 * lines + 0.18

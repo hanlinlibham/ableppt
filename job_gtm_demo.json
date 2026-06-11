@@ -3,13 +3,24 @@
   "theme": "jp_finance",
   "pages": [
     {
+      "layout": "gtm_cover",
+      "data": {
+        "title": "市场洞察",
+        "subtitle": "Guide to the Markets 风格 · 全自动编排演示",
+        "date": "2026年6月11日"
+      }
+    },
+    {
+      "layout": "gtm_toc",
+      "data": {
+        "title": "目录"
+      }
+    },
+    {
       "layout": "gtm_panels",
       "data": {
         "title": "经济增长与GDP构成",
         "section": "宏观",
-        "market": "CN",
-        "page_num": 4,
-        "brand": "PPT·FI 资产研究",
         "source": "来源：国家统计局，Wind，PPT·FI 计算。趋势增速基于 2012 年以来季度实际 GDP 拟合。Guide to the Markets 风格演示，数据为拟真样例。",
         "panels": [
           {
@@ -19,7 +30,12 @@
               "chart": "contribution",
               "data": "data/gtm/gdp_contrib.csv",
               "total": "GDP同比",
-              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}}
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              }
             }
           },
           {
@@ -29,20 +45,54 @@
               "chart": "line",
               "data": "data/gtm/gdp_trend.csv",
               "legend": "none",
-              "style": {"colors": ["#595959", "#29ABE2"]},
+              "style": {
+                "colors": [
+                  "#595959",
+                  "#29ABE2"
+                ]
+              },
               "series": [
-                {"column": "实际GDP指数", "line_width": 1.75,
-                 "last_point_label": {"format": "#,##0"}},
-                {"column": "趋势线", "line_width": 1.25}
+                {
+                  "column": "实际GDP指数",
+                  "line_width": 1.75,
+                  "last_point_label": {
+                    "format": "#,##0"
+                  }
+                },
+                {
+                  "column": "趋势线",
+                  "line_width": 1.25
+                }
               ]
             },
             "table": {
-              "columns": ["GDP (%)", "3Q24", "4Q24", "1Q25", "2Q25"],
-              "rows": [
-                ["环比", "0.3", "0.6", "0.3", "0.6"],
-                ["同比", "0.8", "1.3", "1.4", "1.8"]
+              "columns": [
+                "GDP (%)",
+                "3Q24",
+                "4Q24",
+                "1Q25",
+                "2Q25"
               ],
-              "at": [0.05, 0.04],
+              "rows": [
+                [
+                  "环比",
+                  "0.3",
+                  "0.6",
+                  "0.3",
+                  "0.6"
+                ],
+                [
+                  "同比",
+                  "0.8",
+                  "1.3",
+                  "1.4",
+                  "1.8"
+                ]
+              ],
+              "at": [
+                0.05,
+                0.04
+              ],
               "width": 2.6
             }
           }
@@ -54,9 +104,6 @@
       "data": {
         "title": "通货膨胀",
         "section": "宏观",
-        "market": "CN",
-        "page_num": 5,
-        "brand": "PPT·FI 资产研究",
         "source": "来源：国家统计局，Wind，PPT·FI 计算。核心CPI为剔除食品和能源的CPI。演示数据。",
         "panels": [
           {
@@ -65,20 +112,51 @@
             "chart": {
               "chart": "line",
               "data": "data/gtm/cpi.csv",
-              "style": {"theme": "gtm", "line_width": 1.5},
-              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}},
+              "style": {
+                "theme": "gtm",
+                "line_width": 1.5
+              },
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              },
               "annotations": [
-                {"type": "band", "from": 0.02, "to": 0.03, "label": "目标区间"}
+                {
+                  "type": "band",
+                  "from": 0.02,
+                  "to": 0.03,
+                  "label": "目标区间"
+                }
               ]
             },
             "table": {
-              "columns": ["", "均值", "最新"],
-              "rows": [
-                ["CPI同比", "2.1%", "2.4%"],
-                ["核心CPI", "1.9%", "2.1%"]
+              "columns": [
+                "",
+                "均值",
+                "最新"
               ],
-              "row_colors": ["#29ABE2", "#595959"],
-              "at": [0.42, 0.03],
+              "rows": [
+                [
+                  "CPI同比",
+                  "2.1%",
+                  "2.4%"
+                ],
+                [
+                  "核心CPI",
+                  "1.9%",
+                  "2.1%"
+                ]
+              ],
+              "row_colors": [
+                "#29ABE2",
+                "#595959"
+              ],
+              "at": [
+                0.42,
+                0.03
+              ],
               "width": 2.1
             }
           },
@@ -89,7 +167,12 @@
               "chart": "contribution",
               "data": "data/gtm/cpi_parts.csv",
               "total": "CPI同比",
-              "layout": {"legend": "bottom", "y_axis": {"format": "0.0%"}}
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0.0%"
+                }
+              }
             }
           }
         ]
@@ -100,9 +183,6 @@
       "data": {
         "title": "劳动力市场",
         "section": "宏观",
-        "market": "CN",
-        "page_num": 9,
-        "brand": "PPT·FI 资产研究",
         "source": "来源：国家统计局，人社部，Wind。左图经季节调整。演示数据。",
         "panels": [
           {
@@ -111,13 +191,32 @@
             "chart": {
               "chart": "line",
               "data": "data/gtm/labour.csv",
-              "style": {"theme": "gtm", "line_width": 1.5},
-              "layout": {"legend": "bottom", "y_axis": {"format": "0.0%"}},
+              "style": {
+                "theme": "gtm",
+                "line_width": 1.5
+              },
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0.0%"
+                }
+              },
               "series": [
-                {"column": "调查失业率", "color": "#595959",
-                 "last_point_label": {"format": "0.0%"}},
-                {"column": "工资同比", "color": "#29ABE2",
-                 "last_point_label": {"format": "0.0%", "above": false}}
+                {
+                  "column": "调查失业率",
+                  "color": "#595959",
+                  "last_point_label": {
+                    "format": "0.0%"
+                  }
+                },
+                {
+                  "column": "工资同比",
+                  "color": "#29ABE2",
+                  "last_point_label": {
+                    "format": "0.0%",
+                    "above": false
+                  }
+                }
               ]
             }
           },
@@ -127,8 +226,13 @@
             "chart": {
               "chart": "line",
               "data": "data/gtm/vacancy.csv",
-              "style": {"theme": "gtm", "line_width": 1.5},
-              "layout": {"legend": "bottom"}
+              "style": {
+                "theme": "gtm",
+                "line_width": 1.5
+              },
+              "layout": {
+                "legend": "bottom"
+              }
             }
           },
           {
@@ -138,10 +242,24 @@
               "chart": "line",
               "data": "data/gtm/participation.csv",
               "legend": "none",
-              "style": {"colors": ["#595959"], "line_width": 1.5},
-              "layout": {"y_axis": {"format": "0.0%"}},
+              "style": {
+                "colors": [
+                  "#595959"
+                ],
+                "line_width": 1.5
+              },
+              "layout": {
+                "y_axis": {
+                  "format": "0.0%"
+                }
+              },
               "series": [
-                {"column": "劳动参与率", "last_point_label": {"format": "0.0%"}}
+                {
+                  "column": "劳动参与率",
+                  "last_point_label": {
+                    "format": "0.0%"
+                  }
+                }
               ]
             }
           }
@@ -153,9 +271,6 @@
       "data": {
         "title": "A股估值与盈利预期",
         "section": "权益",
-        "market": "CN",
-        "page_num": 42,
-        "brand": "PPT·FI 资产研究",
         "source": "来源：Wind，PPT·FI 计算。市盈率为 TTM 口径；盈利增速为一致预期。演示数据。",
         "panels": [
           {
@@ -164,8 +279,10 @@
             "chart": {
               "chart": "range",
               "data": "data/gtm/pe_range.csv",
-              "low": "十年最低", "high": "十年最高",
-              "average": "十年均值", "current": "当前",
+              "low": "十年最低",
+              "high": "十年最高",
+              "average": "十年均值",
+              "current": "当前",
               "format": "times",
               "sort": "desc"
             }
@@ -176,11 +293,26 @@
             "chart": {
               "data": "data/gtm/eps.csv",
               "series": [
-                {"column": "2025E", "color": "#595959"},
-                {"column": "2026E", "color": "#7F9C3D"}
+                {
+                  "column": "2025E",
+                  "color": "#595959"
+                },
+                {
+                  "column": "2026E",
+                  "color": "#7F9C3D"
+                }
               ],
-              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}},
-              "highlight": {"category": "全指", "color": "#29ABE2", "series": "2025E"}
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              },
+              "highlight": {
+                "category": "全指",
+                "color": "#29ABE2",
+                "series": "2025E"
+              }
             }
           }
         ]
@@ -191,9 +323,6 @@
       "data": {
         "title": "贸易：关税与市场结构",
         "section": "全球",
-        "market": "CN",
-        "page_num": 21,
-        "brand": "PPT·FI 资产研究",
         "source": "来源：海关总署，PPT·FI 估算。名义税率为月末加权估计。演示数据。",
         "panels": [
           {
@@ -202,10 +331,21 @@
             "chart": {
               "data": "data/gtm/tariff.csv",
               "series": [
-                {"column": "名义税率", "color": "#595959"},
-                {"column": "实际征收税率", "color": "#29ABE2"}
+                {
+                  "column": "名义税率",
+                  "color": "#595959"
+                },
+                {
+                  "column": "实际征收税率",
+                  "color": "#29ABE2"
+                }
               ],
-              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}}
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              }
             }
           },
           {
@@ -216,18 +356,170 @@
               "orientation": "horizontal",
               "stacked": true,
               "series": [
-                {"column": "存量税率", "color": "#595959"},
-                {"column": "新增税率", "color": "#29ABE2",
-                 "labels": {"format": "0%", "position": "center", "color": "white"}}
+                {
+                  "column": "存量税率",
+                  "color": "#595959"
+                },
+                {
+                  "column": "新增税率",
+                  "color": "#29ABE2",
+                  "labels": {
+                    "format": "0%",
+                    "position": "center",
+                    "color": "white"
+                  }
+                }
               ],
-              "layout": {"legend": "bottom", "y_axis": {"format": "0%"}}
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              }
             }
           }
         ]
+      }
+    },
+    {
+      "layout": "gtm_panels",
+      "data": {
+        "title": "宏观全景仪表盘",
+        "section": "宏观",
+        "source": "来源：国家统计局，Wind，PPT·FI 计算。演示数据。",
+        "panels": [
+          {
+            "title": "GDP增速贡献",
+            "subtitle": "同比，百分点",
+            "chart": {
+              "chart": "contribution",
+              "data": "data/gtm/gdp_contrib.csv",
+              "total": "GDP同比",
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              }
+            }
+          },
+          {
+            "title": "CPI与核心CPI",
+            "subtitle": "同比",
+            "chart": {
+              "chart": "line",
+              "data": "data/gtm/cpi.csv",
+              "style": {
+                "theme": "gtm",
+                "line_width": 1.25
+              },
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              }
+            }
+          },
+          {
+            "title": "失业率",
+            "subtitle": "经季节调整",
+            "chart": {
+              "chart": "line",
+              "data": "data/gtm/labour.csv",
+              "legend": "none",
+              "series": [
+                {
+                  "column": "调查失业率",
+                  "color": "#595959",
+                  "last_point_label": {
+                    "format": "0.0%"
+                  }
+                }
+              ],
+              "layout": {
+                "y_axis": {
+                  "format": "0.0%"
+                }
+              }
+            }
+          },
+          {
+            "title": "关税税率",
+            "subtitle": "加权平均",
+            "chart": {
+              "data": "data/gtm/tariff.csv",
+              "series": [
+                {
+                  "column": "名义税率",
+                  "color": "#595959"
+                },
+                {
+                  "column": "实际征收税率",
+                  "color": "#29ABE2"
+                }
+              ],
+              "layout": {
+                "legend": "bottom",
+                "y_axis": {
+                  "format": "0%"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "layout": "gtm_chart_text",
+      "data": {
+        "title": "权益市场观点",
+        "section": "权益",
+        "source": "来源：Wind，PPT·FI。演示数据。",
+        "panel": {
+          "title": "行业估值区间",
+          "subtitle": "市盈率（TTM），按当前估值降序",
+          "chart": {
+            "chart": "range",
+            "data": "data/gtm/pe_range.csv",
+            "low": "十年最低",
+            "high": "十年最高",
+            "average": "十年均值",
+            "current": "当前",
+            "format": "times",
+            "sort": "desc"
+          }
+        },
+        "bullets": [
+          "多数行业市盈率仍处于十年区间中枢下方，银行、煤炭等高股息板块的估值修复空间最为充分。",
+          "半导体与白酒当前估值已回升至区间上沿附近，性价比下降，建议等待盈利兑现后再行加仓。",
+          "估值分位与盈利预期的错配是当前主要机会来源：盈利上修而估值仍在低位的板块值得超配。",
+          "维持哑铃配置：一端高股息防御，一端景气成长，回避估值与盈利双高的拥挤交易。"
+        ]
+      }
+    },
+    {
+      "layout": "gtm_quilt",
+      "data": {
+        "title": "大类资产年度收益排序",
+        "section": "资产配置",
+        "source": "来源：Wind，PPT·FI 计算。年度总回报，人民币计价。演示数据。",
+        "datasource": "asset_returns"
       }
     }
   ],
   "output": {
     "path": "gtm_deck_demo.pptx"
+  },
+  "deck": {
+    "brand": "PPT·FI 资产研究",
+    "market": "CN",
+    "start_page": 1
+  },
+  "datasources": {
+    "asset_returns": {
+      "type": "csv",
+      "path": "data/gtm/asset_returns.csv"
+    }
   }
 }

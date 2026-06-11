@@ -159,9 +159,14 @@ LLM 只需产出一个 job JSON 即可编排整本 GTM 风格报告。
 pptfi render job_gtm_demo.json     # 5 页演示：GDP/通胀/劳动力/估值/贸易
 ```
 
-- 布局 `gtm_panels`：章节箭头 + 页标题分隔线 + [GTM|市场|页码] 角标 +
+- 布局族：`gtm_cover`（封面）/ `gtm_toc`（目录，items 可自动生成）/
+  `gtm_panels`（面板页）/ `gtm_chart_text`（左图右点评）/ `gtm_quilt`（资产收益排序矩阵）
+- 页面骨架：章节箭头 + 页标题分隔线 + [GTM|市场|页码] 角标 +
   左侧竖向章节签 + 来源行 + 品牌字
-- 面板编排：1 图整页 / 双栏 / 左一右二（1+2）
+- 面板编排：1 图整页 / 双栏 / 左一右二（1+2）/ 2×2 四面板
+- **deck 级工作流**：`"deck": {"brand": ..., "market": ..., "start_page": 1}` →
+  品牌/市场/来源自动注入每页、页码自增、章节延续、目录按后续页面自动生成
+- few-shot：`gtm_page_examples()` 返回 8 个场景的最小页面 spec（拼进 LLM 提示词）
 - 面板内 `chart` 字段就是 **pptchartengine 的声明式 spec**（data 支持
   内联 dict / CSV 路径），贡献分解、估值区间、注释层等全部能力直接可用
 - 面板内可叠加迷你数据表（`table`，行标签可按系列着色）

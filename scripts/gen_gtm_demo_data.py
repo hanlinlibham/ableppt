@@ -132,3 +132,15 @@ save("tariff_by_market.csv", pd.DataFrame({
 }))
 
 print("done ->", OUT)
+
+# ── 资产收益 quilt 矩阵（追加） ──
+assets = ["A股", "港股", "美股", "利率债", "信用债", "黄金", "商品", "现金"]
+years = [str(y) for y in range(2019, 2026)]
+rows = []
+base = {"A股": 0.05, "港股": 0.02, "美股": 0.10, "利率债": 0.035,
+        "信用债": 0.04, "黄金": 0.07, "商品": 0.03, "现金": 0.02}
+for yy in years:
+    for a in assets:
+        rows.append({"年份": yy, "资产": a,
+                     "收益率": round(base[a] + rng.normal(0, 0.12 if a in ("A股", "港股", "美股", "商品") else 0.03), 3)})
+save("asset_returns.csv", pd.DataFrame(rows))

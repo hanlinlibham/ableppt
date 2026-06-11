@@ -153,11 +153,58 @@ class PptEngine:
         composer = PageComposer(theme=theme)
         default_lc = job.default_layout_config
 
-        for page_spec in job.pages:
-            data = self._resolve_data_refs(page_spec.data, dfs, default_layout_config=default_lc)
-            composer.add_page(page_spec.layout, data)
+        page_specs = self._apply_deck_workflow(job)
+        for layout_name, page_data in page_specs:
+            data = self._resolve_data_refs(page_data, dfs, default_layout_config=default_lc)
+            composer.add_page(layout_name, data)
 
         return composer.prs
+
+    @staticmethod
+    def _apply_deck_workflow(job: Job):
+        """GTM deck 工作流编排：
+        1. deck 级默认值（brand/market/source/section/tag）注入每个 gtm_* 页面
+        2. 页码自增（未显式给 page_num 的页面按顺序编号）
+        3. 章节延续（页面缺 section 时沿用上一页）
+        4. gtm_toc 页 items 缺省时按后续页面的 section/title 自动生成
+        """
+        deck = dict(job.deck or {})
+        inheritable = {k: deck[k] for k in ("brand", "market", "source", "tag", "section_color")
+                       if k in deck}
+        page_counter = int(deck.get("start_page", 1))
+        last_section = deck.get("section")
+
+        staged = []
+        for page_spec in job.pages:
+            data = dict(page_spec.data)
+            is_gtm = page_spec.layout.startswith("gtm_")
+            if is_gtm:
+                for key, value in inheritable.items():
+                    data.setdefault(key, value)
+                if "section" in data:
+                    last_section = data["section"]
+                elif last_section and page_spec.layout in ("gtm_panels", "gtm_chart_text", "gtm_quilt"):
+                    data["section"] = last_section
+                data.setdefault("page_num", page_counter)
+            staged.append((page_spec.layout, data))
+            page_counter += 1
+
+        # 目录自动生成：扫描其后的 gtm 内容页
+        for idx, (layout_name, data) in enumerate(staged):
+            if layout_name == "gtm_toc" and not data.get("items"):
+                items, order = {}, []
+                for later_layout, later in staged[idx + 1:]:
+                    if not later_layout.startswith("gtm_") or later_layout in ("gtm_cover", "gtm_toc"):
+                        continue
+                    section = later.get("section", "")
+                    if section not in items:
+                        items[section] = []
+                        order.append(section)
+                    items[section].append({"title": later.get("title", ""),
+                                           "page": later.get("page_num", "")})
+                data["items"] = [{"section": s, "entries": items[s]} for s in order]
+
+        return staged
 
     def _resolve_data_refs(self, data: dict, dfs: Dict[str, pd.DataFrame],
                            default_layout_config=None) -> dict:

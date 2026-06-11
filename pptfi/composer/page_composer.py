@@ -22,7 +22,7 @@ _SKIP_FOOTER_LAYOUTS = frozenset({
     "title_dark", "title_light",
     "conclusion_dark",
     "section_divider",
-    "gtm_panels",  # GTM 页面自带页脚骨架
+    "gtm_panels", "gtm_cover", "gtm_toc", "gtm_quilt", "gtm_chart_text",  # GTM 自带骨架
 })
 
 

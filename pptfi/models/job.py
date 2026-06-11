@@ -155,6 +155,7 @@ class Job(BaseModel):
     theme: Optional[str] = None  # THEMES 中的名称
     aspect_ratio: Optional[str] = None  # "4:3" 或 "16:9"（默认 16:9）
     pages: Optional[List[ComposerPageSpec]] = None
+    deck: Optional[Dict[str, Any]] = None  # deck 级默认值（brand/market/source 等，GTM 工作流）
     # 共用字段
     datasources: Dict[str, DataSource] = Field(default_factory=dict)
     transforms: Optional[Dict[str, Transform]] = None
