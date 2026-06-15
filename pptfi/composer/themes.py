@@ -1,4 +1,10 @@
-"""主题配置 — 配色、字体、间距、结构几何"""
+"""主题配置 — 配色、字体、间距、结构几何。
+
+配色分工：图表系列盘在引擎注册表（品牌盘见 ``palette.BRANDED_SCHEMES``），
+GTM 骨架色见 ``palette.GTM_CHROME``，本文件管页面语义色（primary/accent…）。
+"""
+
+from . import palette  # 导入即把品牌盘注册进引擎；并提供 GTM 骨架 token 默认
 
 
 # ── 新增 tokens 的默认值（供旧主题/自定义主题 fallback） ──────────────
@@ -25,6 +31,8 @@ _LAYOUT_DEFAULTS = {
     "table_zebra_odd": "FFFFFF",
     # 图表默认
     "chart_default_scheme": "default",
+    # GTM 页面骨架配色（来自 palette.GTM_CHROME，主题可逐项覆盖）
+    **palette.GTM_CHROME,
 }
 
 
@@ -116,8 +124,8 @@ THEMES = {
         "table_header_bg": "1B3D6E",
         "chart_default_scheme": "able_finance",
     }),
-    "pension_warm": _theme({
-        "name": "Pension Warm",
+    "able_warm": _theme({
+        "name": "Able Warm",
         "primary": "2E5FA3",
         "secondary": "7BA7BC",
         "accent": "D4903F",
@@ -138,7 +146,18 @@ THEMES = {
         "body_size": 12,
         "caption_size": 9,
         "kpi_size": 44,
-        "chart_default_scheme": "pension_warm",
+        "chart_default_scheme": "able_warm",
+        # 骨架跟随暖色：箭头/角标/章节签默认强调改暖金
+        "chart_accent": "D4903F",
+        "cover_chevrons": ["E8C9A0", "D9A968", "D4903F"],
+        "section_colors": {
+            "宏观": "2E5FA3", "经济": "2E5FA3", "local": "2E5FA3",
+            "全球": "7BA7BC", "global": "7BA7BC",
+            "权益": "9C7B48", "equities": "9C7B48",
+            "固收": "D4903F", "fixed income": "D4903F",
+            "另类": "8A9DB8", "alternatives": "8A9DB8",
+            "资产配置": "1C3557", "principles": "1C3557",
+        },
     }),
     "tech_blue": _theme({
         "name": "Tech Blue",

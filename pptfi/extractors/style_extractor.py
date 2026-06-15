@@ -16,6 +16,7 @@ from pptx.util import Pt
 from ..chart_builder.styles import (
     StyleConfig, COLOR_SCHEMES, LINE_WIDTH_PT, DEFAULT_LINE_WIDTH,
 )
+from pptchartengine import register_scheme
 from ..chart_builder.layout import (
     ChartLayoutConfig, LegendConfig, ValueAxisConfig,
 )
@@ -88,7 +89,7 @@ class StyleProfile:
         Args:
             name: 方案名称（如 "extracted" 或 "aim00"）
         """
-        COLOR_SCHEMES[name] = list(self.series_colors)
+        register_scheme(name, list(self.series_colors))
 
     def to_style_config(self, name: Optional[str] = None) -> StyleConfig:
         """转换为 StyleConfig（可直接传入 create_combo_chart）
