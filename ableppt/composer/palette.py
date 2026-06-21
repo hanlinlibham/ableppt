@@ -13,10 +13,6 @@
 ``GTM_CHROME``，页面语义色（primary/accent…）在 ``themes.py``。
 """
 
-from .._ablechart_compat import ensure_ablechart_on_path
-
-ensure_ablechart_on_path()
-
 from ablechart import register_schemes  # noqa: E402
 
 # ============================================================================

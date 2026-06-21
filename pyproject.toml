@@ -9,6 +9,9 @@ description = "Financial PowerPoint automation system for data-driven editable P
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    # Chart engine (formerly vendored as a sibling repo via a sys.path hack;
+    # now a first-class dependency published on PyPI).
+    "ablechart>=0.1.0,<0.2",
     "fastapi>=0.115.0",
     "uvicorn>=0.30.0",
     "pydantic>=2.9.0",
