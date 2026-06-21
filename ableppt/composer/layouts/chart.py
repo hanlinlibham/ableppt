@@ -1,7 +1,7 @@
 """图表类布局 — 复用 ableppt ChartBuilder"""
 
 from pptx.util import Inches
-from ..helpers import set_slide_bg, add_text, add_rect, add_page_header, setup_content_page
+from ..helpers import set_slide_bg, add_text, add_rect, add_page_header, setup_content_page, require_columns
 
 
 def _add_chart_to_slide(slide, data, position, size, theme=None):
@@ -18,6 +18,12 @@ def _add_chart_to_slide(slide, data, position, size, theme=None):
             line_width_pt=1.5,
             marker_style="none",
         )
+
+    require_columns(
+        data["df"],
+        [data["categories_col"], *(s.get("key") for s in data["series_config"])],
+        where="combo 图表",
+    )
 
     create_combo_chart(
         slide=slide,

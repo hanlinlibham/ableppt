@@ -57,6 +57,13 @@ def layout_range_snapshot(slide, data, theme):
 
     chart_top = content_y + subtitle_h + insight_h + 0.05
     chart_h = footer_y - chart_top - 0.25
+    from ..helpers import require_columns
+    require_columns(
+        data["df"],
+        [data["categories_col"], data["min_col"], data["max_col"],
+         data["average_col"], data["current_col"]],
+        where="range snapshot 图表",
+    )
     create_range_snapshot_chart(
         slide=slide,
         df=data["df"],

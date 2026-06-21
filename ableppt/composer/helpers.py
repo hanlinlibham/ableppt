@@ -18,6 +18,23 @@ def _rgb(hex_str: str) -> RGBColor:
     return RGBColor.from_string(hex_str)
 
 
+def require_columns(df, columns, *, where="图表"):
+    """渲染前校验 df 含全部必需列；缺列时抛清晰错误（列出缺失列 + 可用列）。
+
+    用来替代深处裸 ``KeyError('列名')`` —— 让弱 agent / 调用方一眼看出该用哪个
+    列名、有哪些可用列，从而自我修正（区别于配色名写错那种"可安全回退默认"的
+    装饰类参数：数据列写错会产出"静默错图"，所以这里 **fail-loud**）。
+
+    ``columns`` 里的 ``None`` 视为"可选列未填"，跳过。
+    """
+    available = list(df.columns)
+    missing = [c for c in columns if c is not None and c not in available]
+    if missing:
+        raise ValueError(
+            f"{where}：列 {missing} 不在数据中。可用列：{available}"
+        )
+
+
 def set_slide_bg(slide, color_hex: str):
     """设置幻灯片纯色背景"""
     bg = slide.background

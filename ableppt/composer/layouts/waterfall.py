@@ -58,6 +58,12 @@ def layout_waterfall(slide, data, theme):
 
     chart_top = content_y + subtitle_h + insight_h + 0.05
     chart_h = footer_y - chart_top - 0.25
+    from ..helpers import require_columns
+    require_columns(
+        data["df"],
+        [data["categories_col"], data["value_col"], data.get("measure_col")],
+        where="waterfall 图表",
+    )
     create_waterfall_chart(
         slide=slide,
         df=data["df"],

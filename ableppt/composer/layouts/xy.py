@@ -2,7 +2,7 @@
 
 from pptx.util import Inches
 
-from ..helpers import add_text, setup_content_page
+from ..helpers import add_text, setup_content_page, require_columns
 
 
 def _render_xy_family(slide, data, theme, *, family: str):
@@ -42,6 +42,10 @@ def _render_xy_family(slide, data, theme, *, family: str):
 
     chart_top = content_y + subtitle_h + insight_h + 0.05
     chart_h = footer_y - chart_top - 0.25
+    _needed = [data["x_col"], data["y_col"]]
+    if family != "scatter":
+        _needed.append(data.get("size_col"))
+    require_columns(data["df"], _needed, where=f"{family} 图表")
     common_kwargs = {
         "slide": slide,
         "df": data["df"],
