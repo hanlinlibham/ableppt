@@ -1,6 +1,6 @@
 # `jp_demo.pdf` 图表建模
 
-这份建模不是为了复刻一份静态 deck，而是为了把 [jp_demo.pdf](/Users/jameslee/pension_plan/ppt-project/jp_demo.pdf) 抽象成一套可执行的图表家族 catalog，作为 `pptchartengine` 和 `pptfi` 后续实现的目标面。
+这份建模不是为了复刻一份静态 deck，而是为了把 [jp_demo.pdf](/Users/jameslee/pension_plan/ppt-project/jp_demo.pdf) 抽象成一套可执行的图表家族 catalog，作为 `ablechart` 和 `pptfi` 后续实现的目标面。
 
 ## 建模原则
 

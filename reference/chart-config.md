@@ -2,7 +2,7 @@
 
 ## 兼容层说明
 
-`pptfi.chart_builder` 现在是兼容入口，实际实现来自同工作区的 `pptchartengine`。因此这里的 chart config 仍然适用于 `pptfi`，但底层执行逻辑应按 `pptchartengine` 能力理解。
+`pptfi.chart_builder` 现在是兼容入口，实际实现来自同工作区的 `ablechart`。因此这里的 chart config 仍然适用于 `pptfi`，但底层执行逻辑应按 `ablechart` 能力理解。
 
 - 兼容状态可通过 `pptfi chart-engine-info` 查看
 - Flow A / SDK 中出现的 `chart_builder` API，都是这层兼容 facade

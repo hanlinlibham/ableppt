@@ -4,7 +4,7 @@
 - **Target version**: v0.3.0 (Slice 3)
 - **Status**: placeholder
 - **Created**: 2026-05-03
-- **Blocked on**: [PRD-0001](../../../../pptchartengine/docs/prds/0001-range-snapshot-visual-polish.md) range_snapshot 视觉精修
+- **Blocked on**: [PRD-0001](../../../../ablechart/docs/prds/0001-range-snapshot-visual-polish.md) range_snapshot 视觉精修
 
 ## 涉及 family
 

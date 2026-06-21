@@ -1,6 +1,6 @@
 # Golden Reference Reports
 
-本目录存放 `pptchartengine` + `pptfi` 的"金标准"参考报告，用于 [pptchartengine ADR-0003](../../pptchartengine/docs/adr/0003-golden-reference-reports.md) 定义的视觉回归与质量验收。
+本目录存放 `ablechart` + `pptfi` 的"金标准"参考报告，用于 [ablechart ADR-0003](../../ablechart/docs/adr/0003-golden-reference-reports.md) 定义的视觉回归与质量验收。
 
 ## 命名原则
 
@@ -48,11 +48,11 @@
 - 每季度 review 一次
 - 更新需要 PM 或资深分析师签字
 
-## 与 pptchartengine 的关系
+## 与 ablechart 的关系
 
 - `pptfi/goldens/` 持有数据 + reference + assertions
-- `pptchartengine` 持有 visual diff harness（待 Slice 1 实现）
-- L3 测试运行时由 pptchartengine 的 harness 调用本目录数据
+- `ablechart` 持有 visual diff harness（待 Slice 1 实现）
+- L3 测试运行时由 ablechart 的 harness 调用本目录数据
 
 ## 状态约定
 

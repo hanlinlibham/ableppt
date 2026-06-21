@@ -194,7 +194,7 @@ class TestStructuredOutputAlignment:
 
     def test_chart_spec_schema_exported(self):
         import jsonschema
-        from pptchartengine import chart_spec_schema
+        from ablechart import chart_spec_schema
         schema = chart_spec_schema()
         jsonschema.Draft7Validator.check_schema(schema)
         v = jsonschema.Draft7Validator(schema)

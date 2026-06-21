@@ -5,11 +5,11 @@
 - 左上角蓝色箭头 + 页标题（20pt 左对齐）+ 全宽细分隔线
 - 右上角页签：[GTM | 市场 | 页码] 三格框
 - 左侧竖向章节签（按章节配色，白字竖排）
-- 1 / 2 / 1+2 三种面板编排；面板 = 粗体小标题 + 灰色单位行 + pptchartengine 图表
+- 1 / 2 / 1+2 三种面板编排；面板 = 粗体小标题 + 灰色单位行 + ablechart 图表
 - 面板内可叠加迷你数据表（GTM 的 Avg/2Q25 小表，行文字可按系列着色）
 - 底部来源行（7.5pt 灰）+ 右下品牌字 + 左下页码
 
-面板里的 ``chart`` 字段就是 pptchartengine 的声明式 spec（data 支持内联
+面板里的 ``chart`` 字段就是 ablechart 的声明式 spec（data 支持内联
 dict / CSV 路径 / DataFrame），模型只需产出一个 job JSON 即可编排整页。
 """
 
@@ -68,7 +68,7 @@ def layout_gtm_panels(slide, data, theme):
         tag (str, optional): 角标市场代码，默认 "GTM"
         page_num (int/str, optional): 角标页码
         panels (list[dict]): 1~3 个面板
-            {title, subtitle, chart: <pptchartengine spec>, table: {...}}
+            {title, subtitle, chart: <ablechart spec>, table: {...}}
             3 个面板时第 1 个占左半全高，2/3 在右侧上下排
         source (str, optional): 底部来源行
         brand (str, optional): 右下品牌字
@@ -231,7 +231,7 @@ def _panel_rects(n, sw=13.333):
 
 
 def _render_panel(slide, panel, rect, theme):
-    from pptchartengine import render_chart
+    from ablechart import render_chart
 
     x, y, w, h = rect
     cursor = y

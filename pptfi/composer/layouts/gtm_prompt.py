@@ -137,7 +137,7 @@ def gtm_prompt_kit(
     parts = [_RULES, gtm_page_examples()]
     if include_chart_examples:
         try:
-            from pptchartengine import chart_spec_examples
+            from ablechart import chart_spec_examples
             parts.append(chart_spec_examples())
         except Exception:
             pass

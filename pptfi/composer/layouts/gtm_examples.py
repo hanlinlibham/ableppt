@@ -1,4 +1,4 @@
-"""GTM 页面 spec 示例库 — 给 LLM 的 few-shot 弹药（与 pptchartengine
+"""GTM 页面 spec 示例库 — 给 LLM 的 few-shot 弹药（与 ablechart
 的 chart_spec_examples 同思路：按场景检索最小可用 JSON）。
 
 用法::
@@ -31,7 +31,7 @@ GTM_PAGE_EXAMPLES = [
     ("toc|目录", "目录：items 缺省时按后续页面 section/title 自动生成", {
         "layout": "gtm_toc", "data": {}
     }),
-    ("panels|双栏|面板页", "标准 GTM 双栏面板页；chart 即 pptchartengine spec", {
+    ("panels|双栏|面板页", "标准 GTM 双栏面板页；chart 即 ablechart spec", {
         "layout": "gtm_panels",
         "data": {
             "title": "通货膨胀", "section": "宏观", "source": "来源：…",

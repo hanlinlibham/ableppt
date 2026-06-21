@@ -85,11 +85,11 @@ def test_cli_chart_engine_info_reports_compatibility_layer():
     assert result.returncode == 0, result.stderr
     payload = json.loads(result.stdout)
     assert payload["compatibility_layer"]["enabled"] is True
-    assert payload["operations"]["create_combo_chart"]["module"].startswith("pptchartengine")
-    assert payload["operations"]["create_waterfall_chart"]["module"].startswith("pptchartengine")
-    assert payload["operations"]["create_scatter_chart"]["module"].startswith("pptchartengine")
-    assert payload["operations"]["create_bubble_chart"]["module"].startswith("pptchartengine")
-    assert payload["operations"]["create_range_snapshot_chart"]["module"].startswith("pptchartengine")
+    assert payload["operations"]["create_combo_chart"]["module"].startswith("ablechart")
+    assert payload["operations"]["create_waterfall_chart"]["module"].startswith("ablechart")
+    assert payload["operations"]["create_scatter_chart"]["module"].startswith("ablechart")
+    assert payload["operations"]["create_bubble_chart"]["module"].startswith("ablechart")
+    assert payload["operations"]["create_range_snapshot_chart"]["module"].startswith("ablechart")
 
 
 def test_cli_parse_template():

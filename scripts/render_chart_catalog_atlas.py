@@ -49,7 +49,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["event_bands", "callout_points", "target_line"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "editable multi-series line support",
                 "date axis tick management",
                 "optional secondary label callout without mutating core data",
@@ -69,7 +69,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["extra_primary_series", "extra_secondary_series", "endpoint_callouts"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "dual-axis editable combo core",
                 "line-line and bar-line variants",
                 "stable legend and axis formatting contracts",
@@ -88,7 +88,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["total", "baseline", "group_totals"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "stacked columns or areas with negative values",
                 "overlay total marker/line",
                 "semantic preservation of contribution ordering",
@@ -107,7 +107,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["series", "section", "label"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "clustered bar/column support",
                 "horizontal and vertical orientation",
                 "dense category label handling",
@@ -126,7 +126,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["group", "total", "pattern_segment"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "stacked orientation switch",
                 "pattern/hatch handling for forecast or expected segments",
                 "label placement inside narrow segments",
@@ -145,7 +145,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["display_value", "group_break", "summary_value"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "not recommended as a native Office chart primitive",
             ],
             "pptfi composer": [
@@ -164,7 +164,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["group", "annualized_value", "volatility"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "not a good fit for native chart primitives",
             ],
             "pptfi composer": [
@@ -183,7 +183,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["series", "is_current", "label", "reference_x", "reference_y"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "pure XY chart family",
                 "current-point highlight rules",
                 "reference-line safe extension path",
@@ -202,7 +202,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["group", "color_family", "legend_benchmark"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "editable bubble primitives",
                 "bubble-size normalization contract",
                 "stable label anchor handling",
@@ -222,7 +222,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["marker_value", "second_bar_value", "section", "footer_metric"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "bar primitives plus marker-only overlay",
                 "negative-value stability",
                 "label formatting for bars and markers separately",
@@ -241,7 +241,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["axis_break", "sort_order", "orientation"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "first-class range snapshot family",
                 "average tick and current marker support",
                 "axis-break safe rendering",
@@ -260,7 +260,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["series", "baseline", "median"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "hidden base series plus visible interval bar",
                 "positive/negative crossover handling",
             ],
@@ -278,7 +278,7 @@ FAMILY_BLUEPRINTS = {
             "optional_fields": ["step_group", "display_label"],
         },
         "consumers": {
-            "pptchartengine": [
+            "ablechart": [
                 "semantic waterfall/bridge path",
                 "total-category handling",
                 "connector visibility and label control",
@@ -904,7 +904,7 @@ def build_html() -> str:
       <div class="hero-copy">
         <div class="eyebrow">Verified Chart Atlas</div>
         <h1>JP Demo Chart Design Framework</h1>
-        <p>This atlas is the logic-checked bridge between <code>jp_demo.pdf</code> and implementation work. It treats the deck as a system of reusable chart families, not as 74 disconnected screenshots. Each page is mapped to a verified family, and each family is annotated with layout logic, semantic intent, data contract, and consumer needs for <code>pptchartengine</code> and <code>pptfi</code>.</p>
+        <p>This atlas is the logic-checked bridge between <code>jp_demo.pdf</code> and implementation work. It treats the deck as a system of reusable chart families, not as 74 disconnected screenshots. Each page is mapped to a verified family, and each family is annotated with layout logic, semantic intent, data contract, and consumer needs for <code>ablechart</code> and <code>pptfi</code>.</p>
       </div>
       <aside class="hero-panel">
         <div class="eyebrow">Catalog Metrics</div>

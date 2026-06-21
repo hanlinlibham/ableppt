@@ -22,7 +22,7 @@
 
 ## 预设函数
 
-可直接从顶层 SDK 或 `pptchartengine` 使用：
+可直接从顶层 SDK 或 `ablechart` 使用：
 
 ```python
 from pptfi import (

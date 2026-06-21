@@ -4,7 +4,7 @@
 input_schema / response_format），布局名、面板结构、deck 字段在解码层锁死。
 
 **深度校验管语义**：``validate_gtm_job()`` 不渲染、不写文件，加载真实数据源后
-对每个面板的 chart spec 跑 pptchartengine 的 validate_spec，把"列名拼错/类型
+对每个面板的 chart spec 跑 ablechart 的 validate_spec，把"列名拼错/类型
 不符/文件缺失"这类 schema 管不到的错误一次性收集（带 did-you-mean 建议），
 供模型自修正循环使用::
 
@@ -25,12 +25,12 @@ GTM_LAYOUTS = ("gtm_cover", "gtm_toc", "gtm_panels", "gtm_chart_text", "gtm_quil
 def gtm_job_schema() -> Dict[str, Any]:
     """返回 GTM deck job 的 JSON Schema（draft-07 兼容）。
 
-    面板内 chart 字段的完整 schema 见 pptchartengine.chart_spec_schema()；
+    面板内 chart 字段的完整 schema 见 ablechart.chart_spec_schema()；
     此处引用为宽松 object，两份 schema 可分层喂给模型（先页面后图表），
     也可由调用方将 chart_spec_schema 内联进 panel.chart。
     """
     try:
-        from pptchartengine import chart_spec_schema
+        from ablechart import chart_spec_schema
         chart_schema: Dict[str, Any] = chart_spec_schema()
         # 内联时去掉顶层 $schema/title，避免嵌套噪音
         chart_schema = {k: v for k, v in chart_schema.items() if not k.startswith("$") and k != "title"}
@@ -161,7 +161,7 @@ def validate_gtm_job(job: Union[str, Path, Dict]) -> Dict[str, Any]:
         except Exception as exc:
             return {"ok": False, "errors": [f"job 文件解析失败: {exc}"], "warnings": [], "pages": 0}
 
-    from pptchartengine import validate_spec
+    from ablechart import validate_spec
 
     # 数据源可达性
     dfs = {}

@@ -25,7 +25,7 @@
 - [ ] 人工验收 reference 达到"专业"水准
 - [ ] 渲染 `reference_pages/` baseline
 - [ ] 编写 `assertions.yaml`
-- [ ] 接入 pptchartengine L3 fixture
+- [ ] 接入 ablechart L3 fixture
 
 ## 输入数据 schema 草案
 

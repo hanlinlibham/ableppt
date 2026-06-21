@@ -119,9 +119,9 @@ def test_chart_builder_compatibility_layer_contract():
     info = chart_engine_info()
     assert info["compatibility_layer"]["enabled"] is True
     assert info["compatibility_layer"]["implementation_root_exists"] is True
-    assert info["operations"]["create_combo_chart"]["module"].startswith("pptchartengine")
-    assert info["operations"]["create_waterfall_chart"]["module"].startswith("pptchartengine")
-    assert info["operations"]["create_range_snapshot_chart"]["module"].startswith("pptchartengine")
+    assert info["operations"]["create_combo_chart"]["module"].startswith("ablechart")
+    assert info["operations"]["create_waterfall_chart"]["module"].startswith("ablechart")
+    assert info["operations"]["create_range_snapshot_chart"]["module"].startswith("ablechart")
     assert PERFORMANCE_COMPARE_FAMILY in info["semantic_families"]
     assert DUAL_CHART_PANEL_FAMILY in info["semantic_families"]
     assert RANKED_TILE_MATRIX_FAMILY in info["semantic_families"]

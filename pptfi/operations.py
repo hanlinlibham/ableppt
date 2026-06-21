@@ -388,7 +388,7 @@ def chart_engine_info() -> dict:
         },
         "semantic_families": chart_builder.list_semantic_families(),
         "notes": [
-            "`pptfi.chart_builder` is a compatibility facade that resolves to the sibling `pptchartengine` package.",
+            "`pptfi.chart_builder` is a compatibility facade that resolves to the sibling `ablechart` package.",
             "Use `render-family` for demo01-derived semantic chart families, or the atomic render-* commands for base families.",
         ],
     }
