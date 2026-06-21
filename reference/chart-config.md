@@ -2,9 +2,9 @@
 
 ## 兼容层说明
 
-`pptfi.chart_builder` 现在是兼容入口，实际实现来自同工作区的 `ablechart`。因此这里的 chart config 仍然适用于 `pptfi`，但底层执行逻辑应按 `ablechart` 能力理解。
+`ableppt.chart_builder` 现在是兼容入口，实际实现来自同工作区的 `ablechart`。因此这里的 chart config 仍然适用于 `ableppt`，但底层执行逻辑应按 `ablechart` 能力理解。
 
-- 兼容状态可通过 `pptfi chart-engine-info` 查看
+- 兼容状态可通过 `ableppt chart-engine-info` 查看
 - Flow A / SDK 中出现的 `chart_builder` API，都是这层兼容 facade
 - 瀑布图当前建议走单页 chart-engine spec 或 SDK `create_waterfall_chart`，不是 Job/composer 主路径
 
@@ -204,7 +204,7 @@
 对应命令：
 
 ```bash
-pptfi render-waterfall waterfall_demo.json output/waterfall-demo.pptx
+ableppt render-waterfall waterfall_demo.json output/waterfall-demo.pptx
 ```
 
 可选字段：

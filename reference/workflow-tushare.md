@@ -89,7 +89,7 @@ python scripts/gen_sample_report.py
 3. 生成 CSV 中间文件
 4. 通过 Flow A（模板替换）生成包含双轴图表的 PPT
 
-输出目录: `pptfi/output/sample_report/`
+输出目录: `ableppt/output/sample_report/`
 
 **定位说明**: 此脚本是一个完整的端到端示例，展示了自定义数据处理 + PPT 生成的模式。对于新的报告需求，建议:
 - 简单场景: 参考此脚本模式编写自定义脚本

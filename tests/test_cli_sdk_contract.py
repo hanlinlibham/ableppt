@@ -6,7 +6,7 @@ from pathlib import Path
 
 from pptx import Presentation
 
-from pptfi import (
+from ableppt import (
     PageComposer,
     PptEngine,
     chart_engine_info,
@@ -32,7 +32,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 def run_cli(*args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [sys.executable, "-m", "pptfi", *args],
+        [sys.executable, "-m", "ableppt", *args],
         cwd=PROJECT_ROOT,
         text=True,
         capture_output=True,

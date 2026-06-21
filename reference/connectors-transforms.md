@@ -12,7 +12,7 @@ ConnectorFactory 通过 `type` 字段自动路由到对应的连接器。
 {"type": "csv", "path": "data/stock.csv", "encoding": "utf-8"}
 ```
 
-- `path`: 相对于 `data_dir`（默认 `pptfi/data/`）或绝对路径
+- `path`: 相对于 `data_dir`（默认 `ableppt/data/`）或绝对路径
 - `encoding`: 默认 `utf-8`
 
 ### xlsx — Excel 文件连接器
@@ -47,7 +47,7 @@ ConnectorFactory 通过 `type` 字段自动路由到对应的连接器。
 ```json
 {
   "type": "sql",
-  "conn": "pptfi/data/tushare_market.sqlite",
+  "conn": "ableppt/data/tushare_market.sqlite",
   "query": "SELECT ts_code, name, trade_date, close FROM index_bars WHERE ts_code = '000300.SH' ORDER BY trade_date"
 }
 ```

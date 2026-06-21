@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""查询 pptfi 包中所有可用预设
+"""查询 ableppt 包中所有可用预设
 
 用法:
     python list_presets.py [--color-schemes | --date-axis | --chart-presets | --all]
@@ -16,12 +16,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 
 def get_color_schemes():
-    from pptfi.chart_builder.styles import COLOR_SCHEMES
+    from ableppt.chart_builder.styles import COLOR_SCHEMES
     return {name: colors for name, colors in COLOR_SCHEMES.items()}
 
 
 def get_date_axis_presets():
-    from pptfi.chart_builder.date_axis import (
+    from ableppt.chart_builder.date_axis import (
         DAILY_TICKS, WEEKLY_TICKS, BIWEEKLY_TICKS,
         MONTHLY_TICKS, QUARTERLY_TICKS, YEARLY_TICKS,
     )
@@ -45,7 +45,7 @@ def get_date_axis_presets():
 
 
 def get_chart_presets():
-    from pptfi.template.chart_presets import CHART_PRESET_FUNCTIONS
+    from ableppt.template.chart_presets import CHART_PRESET_FUNCTIONS
     return list(CHART_PRESET_FUNCTIONS.keys())
 
 

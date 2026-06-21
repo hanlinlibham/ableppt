@@ -14,7 +14,7 @@ from pptx.util import Inches, Pt
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi import (
+from ableppt import (
     create_range_snapshot_chart,
     get_asx200_sector_valuation_snapshot_preset,
     get_msci_emu_sector_valuation_snapshot_preset,

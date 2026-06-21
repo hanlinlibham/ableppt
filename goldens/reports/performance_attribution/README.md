@@ -21,7 +21,7 @@
 - [ ] 确定脱敏方案（公司名映射、规模缩放、时间窗口锚定）
 - [ ] 准备 `input.parquet`
 - [ ] 编写 `job.json`
-- [ ] 跑 pptfi 生成 `reference.pptx`
+- [ ] 跑 ableppt 生成 `reference.pptx`
 - [ ] 人工验收 reference 达到"专业"水准
 - [ ] 渲染 `reference_pages/` baseline
 - [ ] 编写 `assertions.yaml`

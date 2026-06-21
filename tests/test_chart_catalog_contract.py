@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from pptfi import (
+from ableppt import (
     DEFAULT_JP_DEMO_CHART_CATALOG_PATH,
     ChartCatalog,
     load_jp_demo_chart_catalog,

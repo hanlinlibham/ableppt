@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from html import escape
 from pathlib import Path
 
-from pptfi import load_jp_demo_chart_catalog
+from ableppt import load_jp_demo_chart_catalog
 
 
 OUTPUT_PATH = Path(__file__).resolve().parents[1] / "reference" / "jp-demo-chart-atlas.html"
@@ -54,7 +54,7 @@ FAMILY_BLUEPRINTS = {
                 "date axis tick management",
                 "optional secondary label callout without mutating core data",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "panel framing, source footnotes, and section rail",
                 "annotation arrows and recession bands when needed",
             ],
@@ -74,7 +74,7 @@ FAMILY_BLUEPRINTS = {
                 "line-line and bar-line variants",
                 "stable legend and axis formatting contracts",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "annotation overlays, vertical splits, and narrative subtitles",
             ],
         },
@@ -93,7 +93,7 @@ FAMILY_BLUEPRINTS = {
                 "overlay total marker/line",
                 "semantic preservation of contribution ordering",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "data-label cleanup and outlier annotations",
             ],
         },
@@ -112,7 +112,7 @@ FAMILY_BLUEPRINTS = {
                 "horizontal and vertical orientation",
                 "dense category label handling",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "section captions and micro-headers when bars are grouped into blocks",
             ],
         },
@@ -131,7 +131,7 @@ FAMILY_BLUEPRINTS = {
                 "pattern/hatch handling for forecast or expected segments",
                 "label placement inside narrow segments",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "auxiliary legends and explanatory callouts",
             ],
         },
@@ -148,7 +148,7 @@ FAMILY_BLUEPRINTS = {
             "ablechart": [
                 "not recommended as a native Office chart primitive",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "shape/grid renderer",
                 "continuous color scale mapping",
                 "header and separator logic",
@@ -167,7 +167,7 @@ FAMILY_BLUEPRINTS = {
             "ablechart": [
                 "not a good fit for native chart primitives",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "editable tile grid",
                 "rank-aware row ordering per column",
                 "cell background + text contrast logic",
@@ -188,7 +188,7 @@ FAMILY_BLUEPRINTS = {
                 "current-point highlight rules",
                 "reference-line safe extension path",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "narrative callouts and guide-line overlays",
             ],
         },
@@ -207,7 +207,7 @@ FAMILY_BLUEPRINTS = {
                 "bubble-size normalization contract",
                 "stable label anchor handling",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "bubble-size explainer inset",
                 "manual label positioning where native labels collide",
             ],
@@ -227,7 +227,7 @@ FAMILY_BLUEPRINTS = {
                 "negative-value stability",
                 "label formatting for bars and markers separately",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "footer tables, section dividers, and explicit marker callouts",
             ],
         },
@@ -246,7 +246,7 @@ FAMILY_BLUEPRINTS = {
                 "average tick and current marker support",
                 "axis-break safe rendering",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "orientation-aware labels and explanatory legends",
             ],
         },
@@ -264,7 +264,7 @@ FAMILY_BLUEPRINTS = {
                 "hidden base series plus visible interval bar",
                 "positive/negative crossover handling",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "group headers and simplified legends",
             ],
         },
@@ -283,7 +283,7 @@ FAMILY_BLUEPRINTS = {
                 "total-category handling",
                 "connector visibility and label control",
             ],
-            "pptfi composer": [
+            "ableppt composer": [
                 "surrounding narrative and source framing",
             ],
         },
@@ -904,7 +904,7 @@ def build_html() -> str:
       <div class="hero-copy">
         <div class="eyebrow">Verified Chart Atlas</div>
         <h1>JP Demo Chart Design Framework</h1>
-        <p>This atlas is the logic-checked bridge between <code>jp_demo.pdf</code> and implementation work. It treats the deck as a system of reusable chart families, not as 74 disconnected screenshots. Each page is mapped to a verified family, and each family is annotated with layout logic, semantic intent, data contract, and consumer needs for <code>ablechart</code> and <code>pptfi</code>.</p>
+        <p>This atlas is the logic-checked bridge between <code>jp_demo.pdf</code> and implementation work. It treats the deck as a system of reusable chart families, not as 74 disconnected screenshots. Each page is mapped to a verified family, and each family is annotated with layout logic, semantic intent, data contract, and consumer needs for <code>ablechart</code> and <code>ableppt</code>.</p>
       </div>
       <aside class="hero-panel">
         <div class="eyebrow">Catalog Metrics</div>

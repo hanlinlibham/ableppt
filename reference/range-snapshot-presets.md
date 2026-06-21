@@ -25,7 +25,7 @@
 可直接从顶层 SDK 或 `ablechart` 使用：
 
 ```python
-from pptfi import (
+from ableppt import (
     get_vertical_global_valuation_snapshot_preset,
     get_vertical_sector_valuation_snapshot_preset,
     get_asx200_sector_valuation_snapshot_preset,
@@ -177,9 +177,9 @@ cfg = get_vertical_sector_valuation_snapshot_preset(
 
 仓库内现成样例：
 
-- standalone spec: [range_snapshot_sector_demo.json](/Users/jameslee/pension_plan/ppt-project/pptfi/range_snapshot_sector_demo.json)
-- composer job: [job_range_snapshot_sector_demo.json](/Users/jameslee/pension_plan/ppt-project/pptfi/job_range_snapshot_sector_demo.json)
-- sample data: [range_snapshot_sector_valuation.csv](/Users/jameslee/pension_plan/ppt-project/pptfi/data/range_snapshot_sector_valuation.csv)
+- standalone spec: [range_snapshot_sector_demo.json](/Users/jameslee/pension_plan/ppt-project/ableppt/range_snapshot_sector_demo.json)
+- composer job: [job_range_snapshot_sector_demo.json](/Users/jameslee/pension_plan/ppt-project/ableppt/job_range_snapshot_sector_demo.json)
+- sample data: [range_snapshot_sector_valuation.csv](/Users/jameslee/pension_plan/ppt-project/ableppt/data/range_snapshot_sector_valuation.csv)
 
 ## DataFrame 语义约束
 

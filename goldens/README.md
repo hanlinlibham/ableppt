@@ -1,6 +1,6 @@
 # Golden Reference Reports
 
-本目录存放 `ablechart` + `pptfi` 的"金标准"参考报告，用于 [ablechart ADR-0003](../../ablechart/docs/adr/0003-golden-reference-reports.md) 定义的视觉回归与质量验收。
+本目录存放 `ablechart` + `ableppt` 的"金标准"参考报告，用于 [ablechart ADR-0003](../../ablechart/docs/adr/0003-golden-reference-reports.md) 定义的视觉回归与质量验收。
 
 ## 命名原则
 
@@ -22,7 +22,7 @@
 ## 每份 golden 必须包含
 
 - `input.parquet` — 完整可重跑的脱敏输入数据
-- `job.json` — pptfi job spec，引用 input.parquet
+- `job.json` — ableppt job spec，引用 input.parquet
 - `reference.pptx` — 人工验收过的 PPT
 - `reference_pages/` — 每页 PNG baseline，用于视觉 diff
 - `assertions.yaml` — 关键质量断言（schema 见 [_template/assertions.yaml](_template/assertions.yaml)）
@@ -50,7 +50,7 @@
 
 ## 与 ablechart 的关系
 
-- `pptfi/goldens/` 持有数据 + reference + assertions
+- `ableppt/goldens/` 持有数据 + reference + assertions
 - `ablechart` 持有 visual diff harness（待 Slice 1 实现）
 - L3 测试运行时由 ablechart 的 harness 调用本目录数据
 

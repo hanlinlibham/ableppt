@@ -1,6 +1,6 @@
 # `jp_demo.pdf` 图表建模
 
-这份建模不是为了复刻一份静态 deck，而是为了把 [jp_demo.pdf](/Users/jameslee/pension_plan/ppt-project/jp_demo.pdf) 抽象成一套可执行的图表家族 catalog，作为 `ablechart` 和 `pptfi` 后续实现的目标面。
+这份建模不是为了复刻一份静态 deck，而是为了把 [jp_demo.pdf](/Users/jameslee/pension_plan/ppt-project/jp_demo.pdf) 抽象成一套可执行的图表家族 catalog，作为 `ablechart` 和 `ableppt` 后续实现的目标面。
 
 ## 建模原则
 
@@ -19,15 +19,15 @@
 
 ## 产物
 
-- machine-readable catalog: [jp_demo_chart_catalog.json](/Users/jameslee/pension_plan/ppt-project/pptfi/reference/jp_demo_chart_catalog.json)
-- validated loader: [chart_catalog.py](/Users/jameslee/pension_plan/ppt-project/pptfi/pptfi/models/chart_catalog.py)
-- HTML atlas: [jp-demo-chart-atlas.html](/Users/jameslee/pension_plan/ppt-project/pptfi/reference/jp-demo-chart-atlas.html)
-- atlas renderer: [render_chart_catalog_atlas.py](/Users/jameslee/pension_plan/ppt-project/pptfi/scripts/render_chart_catalog_atlas.py)
+- machine-readable catalog: [jp_demo_chart_catalog.json](/Users/jameslee/pension_plan/ppt-project/ableppt/reference/jp_demo_chart_catalog.json)
+- validated loader: [chart_catalog.py](/Users/jameslee/pension_plan/ppt-project/ableppt/ableppt/models/chart_catalog.py)
+- HTML atlas: [jp-demo-chart-atlas.html](/Users/jameslee/pension_plan/ppt-project/ableppt/reference/jp-demo-chart-atlas.html)
+- atlas renderer: [render_chart_catalog_atlas.py](/Users/jameslee/pension_plan/ppt-project/ableppt/scripts/render_chart_catalog_atlas.py)
 
 加载方式：
 
 ```python
-from pptfi import load_jp_demo_chart_catalog
+from ableppt import load_jp_demo_chart_catalog
 
 catalog = load_jp_demo_chart_catalog()
 print(catalog.source_page_count)  # 74

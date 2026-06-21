@@ -11,7 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.renderers.ppt_renderer import render_from_json_file
+from ableppt.renderers.ppt_renderer import render_from_json_file
 
 
 def main():

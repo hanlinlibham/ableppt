@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from pptx import Presentation
 from pptx.util import Emu
-from pptfi.chart_builder import ChartParser
+from ableppt.chart_builder import ChartParser
 
 
 def describe_chart(chart, chart_idx):

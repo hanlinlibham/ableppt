@@ -4,7 +4,7 @@
   "y_col": "收益率",
   "series_name": "风险收益分布",
   "title": "风险收益散点图",
-  "subtitle": "Standalone scatter chart rendered through pptfi chart-engine compatibility layer",
+  "subtitle": "Standalone scatter chart rendered through ableppt chart-engine compatibility layer",
   "color": "1E2761",
   "marker_size": 9
 }

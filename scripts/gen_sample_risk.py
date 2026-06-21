@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import tushare as ts
 import pandas as pd
-from pptfi.config import settings
+from ableppt.config import settings
 
 # ============================================================================
 # 配置
@@ -227,7 +227,7 @@ def main():
     print(f"\n🔧 生成 PPT...", file=sys.stderr)
     output_pptx = OUTPUT_DIR / f"sample_risk_{YEAR}.pptx"
 
-    from pptfi.template.replacer import TemplateReplacer
+    from ableppt.template.replacer import TemplateReplacer
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from generate_ppt import build_chart_config
 

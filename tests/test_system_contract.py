@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pptfi import (
+from ableppt import (
     DUAL_CHART_PANEL_FAMILY,
     FACTOR_ATTRIBUTION_PANEL_FAMILY,
     AWARD_TIMELINE_PANEL_FAMILY,
@@ -47,20 +47,20 @@ from pptfi import (
     render_scatter,
     render_waterfall,
 )
-from pptfi.advisors import ChartAdvisor, ChartRecommendation, DataFrameProfiler
-from pptfi.composer import PageComposer
-from pptfi.config import settings
-from pptfi.connectors import ConnectorFactory
-from pptfi.engine import PptEngine
-from pptfi.extractors import StyleExtractor, StyleProfile
-from pptfi.main import app
-from pptfi.models.job import Job
-from pptfi.parsers.ppt_parser import PPTParser
-from pptfi.qa.deck_linter import DeckLinter
-from pptfi.renderers import PPTRenderer, TableRenderer, TextRenderer
-from pptfi.template.chart_presets import CHART_PRESET_FUNCTIONS
-from pptfi.template.replacer import TemplateReplacer
-from pptfi.transformers import DataFrameTransformer
+from ableppt.advisors import ChartAdvisor, ChartRecommendation, DataFrameProfiler
+from ableppt.composer import PageComposer
+from ableppt.config import settings
+from ableppt.connectors import ConnectorFactory
+from ableppt.engine import PptEngine
+from ableppt.extractors import StyleExtractor, StyleProfile
+from ableppt.main import app
+from ableppt.models.job import Job
+from ableppt.parsers.ppt_parser import PPTParser
+from ableppt.qa.deck_linter import DeckLinter
+from ableppt.renderers import PPTRenderer, TableRenderer, TextRenderer
+from ableppt.template.chart_presets import CHART_PRESET_FUNCTIONS
+from ableppt.template.replacer import TemplateReplacer
+from ableppt.transformers import DataFrameTransformer
 
 
 def test_system_core_imports():
@@ -136,7 +136,7 @@ def test_chart_builder_compatibility_layer_contract():
 
 
 def test_runtime_directories_exist():
-    assert settings.base_dir.name == "pptfi"
+    assert settings.base_dir.name == "ableppt"
     assert settings.data_dir.exists()
     assert settings.output_dir.exists()
     assert settings.templates_dir.exists()

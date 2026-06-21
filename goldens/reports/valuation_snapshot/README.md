@@ -18,7 +18,7 @@
 
 ## 现有原始素材（脱敏前）
 
-`pptfi/data/` 已有 valuation 相关 CSV：
+`ableppt/data/` 已有 valuation 相关 CSV：
 
 - `asx200_sector_valuation_snapshot.csv`
 - `sp500_sector_valuation_snapshot.csv`

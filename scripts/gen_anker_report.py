@@ -7,13 +7,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
-from pptfi.composer import PageComposer
-from pptfi.chart_builder import create_combo_chart
-from pptfi.chart_builder.styles import StyleConfig
-from pptfi.chart_builder.layout import (
+from ableppt.composer import PageComposer
+from ableppt.chart_builder import create_combo_chart
+from ableppt.chart_builder.styles import StyleConfig
+from ableppt.chart_builder.layout import (
     ChartLayoutConfig, LegendConfig, ValueAxisConfig, CategoryAxisConfig,
 )
-from pptfi.chart_builder.date_axis import MONTHLY_TICKS, WEEKLY_TICKS
+from ableppt.chart_builder.date_axis import MONTHLY_TICKS, WEEKLY_TICKS
 from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
 
@@ -134,7 +134,7 @@ composer.add_page("section_divider", {
 
 def _chart_title(slide, theme, title_text):
     """添加标题 + 装饰线（复用 chart 布局的模式）"""
-    from pptfi.composer.helpers import add_text, add_rect
+    from ableppt.composer.helpers import add_text, add_rect
     m = theme["margin"]
     sw = 13.333
     add_text(slide, title_text,

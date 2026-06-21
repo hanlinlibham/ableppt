@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.models.job import Job
+from ableppt.models.job import Job
 
 
 def main():
@@ -54,7 +54,7 @@ def main():
 
     # 2. Composer 模式额外校验
     if job.mode == "composer":
-        from pptfi.composer.layouts import LAYOUT_REGISTRY
+        from ableppt.composer.layouts import LAYOUT_REGISTRY
 
         all_sources = set(job.datasources.keys())
         if job.transforms:
@@ -105,7 +105,7 @@ def main():
 
     # 4. 可选 dry-run：尝试连接数据源
     if args.dry_run and job.datasources:
-        from pptfi.connectors import ConnectorFactory
+        from ableppt.connectors import ConnectorFactory
 
         ds_status = {}
         for name, ds in job.datasources.items():

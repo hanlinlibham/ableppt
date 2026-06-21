@@ -4,7 +4,7 @@
   "value_col": "贡献",
   "measure_col": "度量",
   "title": "组合收益归因桥",
-  "subtitle": "Standalone waterfall chart rendered through pptfi chart-engine compatibility layer",
+  "subtitle": "Standalone waterfall chart rendered through ableppt chart-engine compatibility layer",
   "total_categories": ["期初收益", "期末收益"],
   "positive_color": "10B981",
   "negative_color": "EF4444",

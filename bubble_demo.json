@@ -5,7 +5,7 @@
   "size_col": "规模",
   "series_name": "风险收益规模气泡图",
   "title": "风险收益气泡图",
-  "subtitle": "Standalone bubble chart rendered through pptfi chart-engine compatibility layer",
+  "subtitle": "Standalone bubble chart rendered through ableppt chart-engine compatibility layer",
   "color": "1E2761",
   "marker_size": 9
 }

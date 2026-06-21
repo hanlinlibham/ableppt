@@ -5,102 +5,102 @@
   "datasources": {
     "idx_amount_000300_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000300.SH' ORDER BY trade_date"
     },
     "idx_amount_000905_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000905.SH' ORDER BY trade_date"
     },
     "idx_amount_000852_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000852.SH' ORDER BY trade_date"
     },
     "idx_amount_000016_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000016.SH' ORDER BY trade_date"
     },
     "idx_amount_399006_SZ": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '399006.SZ' ORDER BY trade_date"
     },
     "idx_amount_000688_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000688.SH' ORDER BY trade_date"
     },
     "idx_cumret_000300_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000300.SH' ORDER BY trade_date"
     },
     "idx_cumret_000905_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000905.SH' ORDER BY trade_date"
     },
     "idx_cumret_000852_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000852.SH' ORDER BY trade_date"
     },
     "idx_cumret_000016_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000016.SH' ORDER BY trade_date"
     },
     "idx_cumret_399006_SZ": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '399006.SZ' ORDER BY trade_date"
     },
     "idx_cumret_000688_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000688.SH' ORDER BY trade_date"
     },
     "stk_turnover_600519_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '600519.SH' ORDER BY b.trade_date"
     },
     "stk_turnover_300750_SZ": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '300750.SZ' ORDER BY b.trade_date"
     },
     "stk_turnover_000333_SZ": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '000333.SZ' ORDER BY b.trade_date"
     },
     "stk_turnover_601318_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '601318.SH' ORDER BY b.trade_date"
     },
     "stk_pe_600519_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '600519.SH' ORDER BY b.trade_date"
     },
     "stk_pe_300750_SZ": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '300750.SZ' ORDER BY b.trade_date"
     },
     "stk_pe_000333_SZ": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '000333.SZ' ORDER BY b.trade_date"
     },
     "stk_pe_601318_SH": {
       "type": "sql",
-      "conn": "pptfi/data/tushare_market.sqlite",
+      "conn": "ableppt/data/tushare_market.sqlite",
       "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '601318.SH' ORDER BY b.trade_date"
     }
   },

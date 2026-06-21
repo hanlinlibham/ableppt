@@ -11,10 +11,10 @@ import sys
 import argparse
 from pathlib import Path
 
-# 确保 pptfi 可以被导入
+# 确保 ableppt 可以被导入
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.qa.deck_linter import DeckLinter
+from ableppt.qa.deck_linter import DeckLinter
 
 
 def main():

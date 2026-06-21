@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.operations import render_waterfall
+from ableppt.operations import render_waterfall
 
 
 def main():

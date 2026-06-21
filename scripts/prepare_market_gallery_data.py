@@ -217,8 +217,8 @@ def write_csvs(output_dir: Path, start_date: str, db_path: Path) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Prepare market gallery datasets from sqlite")
-    parser.add_argument("--db", default="pptfi/data/tushare_market.sqlite")
-    parser.add_argument("--output", default="pptfi/data/market_gallery")
+    parser.add_argument("--db", default="ableppt/data/tushare_market.sqlite")
+    parser.add_argument("--output", default="ableppt/data/market_gallery")
     parser.add_argument("--start-date", default="20240101")
     args = parser.parse_args()
 

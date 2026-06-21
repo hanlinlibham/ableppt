@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.operations import render_range_snapshot
+from ableppt.operations import render_range_snapshot
 
 
 def main():

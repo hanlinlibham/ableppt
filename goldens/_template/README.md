@@ -5,7 +5,7 @@
 ## 文件清单
 
 - `input.parquet` — 输入数据，必须脱敏
-- `job.json` — pptfi job spec，引用 input.parquet
+- `job.json` — ableppt job spec，引用 input.parquet
 - `reference.pptx` — 人工验收过的 PPT 输出
 - `reference_pages/` — 每页 PNG baseline，用于视觉 diff
 - `assertions.yaml` — 关键质量断言（schema 见 [assertions.yaml](assertions.yaml)）
@@ -26,7 +26,7 @@
 2. 在 ADR-0003 §2 三份首发表里登记（如果是新增第 4+ 份）
 3. 复制本模板建目录
 4. 准备脱敏输入数据
-5. 跑 pptfi 生成 reference.pptx
+5. 跑 ableppt 生成 reference.pptx
 6. 人工验收 reference.pptx，确认达到"专业"水准
 7. 渲染 `reference_pages/` baseline
 8. 写 `assertions.yaml`

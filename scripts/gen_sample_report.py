@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """样例公司年度分析报告生成器
 
-独立示例脚本，演示如何使用 tushare + pptfi 生成完整投资分析报告。
+独立示例脚本，演示如何使用 tushare + ableppt 生成完整投资分析报告。
 新报告请优先使用 run_job.py + Job JSON 声明式编排。
 
 使用 tushare 获取数据，生成包含复杂双轴图表的 PPT。
@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import tushare as ts
 import pandas as pd
 import numpy as np
-from pptfi.config import settings
+from ableppt.config import settings
 
 # ============================================================================
 # 配置
@@ -307,14 +307,14 @@ def main():
 
     print(f"\n🔧 生成 PPT...", file=sys.stderr)
 
-    from pptfi.template.replacer import TemplateReplacer
-    from pptfi.chart_builder.styles import StyleConfig
-    from pptfi.chart_builder.layout import (
+    from ableppt.template.replacer import TemplateReplacer
+    from ableppt.chart_builder.styles import StyleConfig
+    from ableppt.chart_builder.layout import (
         ChartLayoutConfig,
         LegendConfig,
         ValueAxisConfig,
     )
-    from pptfi.chart_builder.date_axis import DateAxisConfig
+    from ableppt.chart_builder.date_axis import DateAxisConfig
     from pptx.enum.chart import XL_LEGEND_POSITION
 
     # 导入 generate_ppt 的 build_chart_config

@@ -23,9 +23,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.models.job import DataSource, Transform
-from pptfi.connectors import ConnectorFactory
-from pptfi.transformers import DataFrameTransformer
+from ableppt.models.job import DataSource, Transform
+from ableppt.connectors import ConnectorFactory
+from ableppt.transformers import DataFrameTransformer
 
 
 def main():

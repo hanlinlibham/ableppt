@@ -4,7 +4,7 @@
 
 ## 端到端流程
 
-> 当前主入口已经切到包 CLI：`pptfi validate-job` / `pptfi render`。`scripts/run_job.py` 和 `scripts/render_ppt.py` 仍然是兼容包装。
+> 当前主入口已经切到包 CLI：`ableppt validate-job` / `ableppt render`。`scripts/run_job.py` 和 `scripts/render_ppt.py` 仍然是兼容包装。
 
 ### Step 1: 编写 job.json
 
@@ -29,7 +29,7 @@
 ### Step 2: 验证（可选）
 
 ```bash
-pptfi validate-job job.json --dry-run
+ableppt validate-job job.json --dry-run
 ```
 
 输出: `{"status": "ok", "message": "schema 验证通过", "slides": 1, "datasources": []}`
@@ -37,7 +37,7 @@ pptfi validate-job job.json --dry-run
 ### Step 3: 渲染
 
 ```bash
-pptfi render job.json
+ableppt render job.json
 ```
 
 输出: `{"status": "ok", "output": "/tmp/output.pptx"}`
@@ -109,6 +109,6 @@ pptfi render job.json
 ## 已知限制
 
 1. **图表渲染分支不完整**: engine.py 中的图表渲染仅传递基础参数（slide, data, shape_name），不传递 series_config/style_config/layout_config。复杂图表（双轴、自定义样式）建议用 Flow A。
-2. **瀑布图现已支持 composer 布局**: 可直接使用 `layout: "waterfall"`，也可以继续用 `pptfi render-waterfall ...` 走单页 chart-engine 路径。
+2. **瀑布图现已支持 composer 布局**: 可直接使用 `layout: "waterfall"`，也可以继续用 `ableppt render-waterfall ...` 走单页 chart-engine 路径。
 3. 图表渲染异常会被 catch 为 warning，不会导致整个任务失败。
 4. `validate-job --dry-run` 仅验证 JSON schema，不检查数据源是否可访问。

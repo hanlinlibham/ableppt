@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.models.job import Job
+from ableppt.models.job import Job
 
 
 def main():
@@ -58,7 +58,7 @@ def main():
 
     # 渲染
     try:
-        from pptfi.engine import PptEngine
+        from ableppt.engine import PptEngine
 
         # 将引擎日志重定向到 stderr
         with contextlib.redirect_stdout(sys.stderr):

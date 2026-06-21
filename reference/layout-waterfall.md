@@ -3,7 +3,7 @@
 > 幻灯片尺寸: 13.333 × 7.5 英寸 | 边距: 0.6 英寸 | 内容宽: 12.133 英寸
 
 > 当前状态:
-> - `pptfi` 已提供 standalone waterfall CLI / SDK：`pptfi render-waterfall waterfall_demo.json output.pptx`
+> - `ableppt` 已提供 standalone waterfall CLI / SDK：`ableppt render-waterfall waterfall_demo.json output.pptx`
 > - composer `LAYOUT_REGISTRY` 已注册 `waterfall`
 > - 这是当前布局约定与数据接口说明
 

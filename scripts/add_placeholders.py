@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.template.replacer import create_template_from_ppt
+from ableppt.template.replacer import create_template_from_ppt
 
 
 def main():

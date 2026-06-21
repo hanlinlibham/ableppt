@@ -12,7 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.parsers.ppt_parser import PPTParser
+from ableppt.parsers.ppt_parser import PPTParser
 
 
 def main():

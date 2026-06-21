@@ -10,10 +10,10 @@ import json
 import argparse
 from pathlib import Path
 
-# 确保 pptfi 可导入
+# 确保 ableppt 可导入
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.template.replacer import TemplateReplacer
+from ableppt.template.replacer import TemplateReplacer
 
 
 def main():

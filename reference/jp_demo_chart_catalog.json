@@ -2,7 +2,7 @@
   "catalog_id": "jp_demo_chart_catalog_v2",
   "source_pdf": "jp_demo.pdf",
   "source_page_count": 74,
-  "modeling_goal": "Model jp_demo.pdf as a reusable chart-family coverage catalog so ablechart and pptfi can implement the deck as editable PowerPoint primitives instead of screenshots.",
+  "modeling_goal": "Model jp_demo.pdf as a reusable chart-family coverage catalog so ablechart and ableppt can implement the deck as editable PowerPoint primitives instead of screenshots.",
   "families": [
     {
       "id": "line_chart",

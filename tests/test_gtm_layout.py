@@ -8,12 +8,12 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def test_gtm_panels_registered():
-    from pptfi.composer.layouts import LAYOUT_REGISTRY
+    from ableppt.composer.layouts import LAYOUT_REGISTRY
     assert "gtm_panels" in LAYOUT_REGISTRY
 
 
 def test_gtm_two_panel_page_renders():
-    from pptfi.composer.page_composer import PageComposer
+    from ableppt.composer.page_composer import PageComposer
 
     composer = PageComposer(theme="able_finance")
     composer.add_page("gtm_panels", {
@@ -42,7 +42,7 @@ def test_gtm_two_panel_page_renders():
 
 
 def test_gtm_one_plus_two_layout():
-    from pptfi.composer.layouts.gtm import _panel_rects
+    from ableppt.composer.layouts.gtm import _panel_rects
     rects = _panel_rects(3)
     assert len(rects) == 3
     assert rects[0][3] > rects[1][3]      # 左面板全高
@@ -58,7 +58,7 @@ def test_gtm_demo_job_renders():
     cwd = os.getcwd()
     os.chdir(REPO)
     try:
-        from pptfi.operations import render_job
+        from ableppt.operations import render_job
         result = render_job(str(job_path))
         assert result.get("status") == "ok"
         assert Path(result["output"]).exists()
@@ -67,13 +67,13 @@ def test_gtm_demo_job_renders():
 
 
 def test_new_layouts_registered():
-    from pptfi.composer.layouts import LAYOUT_REGISTRY
+    from ableppt.composer.layouts import LAYOUT_REGISTRY
     for name in ("gtm_cover", "gtm_toc", "gtm_quilt", "gtm_chart_text"):
         assert name in LAYOUT_REGISTRY
 
 
 def test_panel_rects_2x2():
-    from pptfi.composer.layouts.gtm import _panel_rects
+    from ableppt.composer.layouts.gtm import _panel_rects
     rects = _panel_rects(4)
     assert len(rects) == 4
     assert rects[0][1] == rects[1][1]   # 上排同 y
@@ -82,8 +82,8 @@ def test_panel_rects_2x2():
 
 
 def test_deck_workflow_defaults_and_toc():
-    from pptfi.models.job import Job
-    from pptfi.engine import PptEngine
+    from ableppt.models.job import Job
+    from ableppt.engine import PptEngine
 
     job = Job(**{
         "mode": "composer",
@@ -107,7 +107,7 @@ def test_deck_workflow_defaults_and_toc():
 
 def test_quilt_layout_renders():
     import pandas as pd
-    from pptfi.composer.page_composer import PageComposer
+    from ableppt.composer.page_composer import PageComposer
 
     df = pd.DataFrame({
         "年份": ["2024", "2024", "2025", "2025"],
@@ -124,7 +124,7 @@ def test_quilt_layout_renders():
 
 
 def test_gtm_chart_text_renders():
-    from pptfi.composer.page_composer import PageComposer
+    from ableppt.composer.page_composer import PageComposer
 
     composer = PageComposer(theme="able_finance")
     composer.add_page("gtm_chart_text", {
@@ -138,7 +138,7 @@ def test_gtm_chart_text_renders():
 
 
 def test_gtm_page_examples():
-    from pptfi.composer.layouts.gtm_examples import gtm_page_examples
+    from ableppt.composer.layouts.gtm_examples import gtm_page_examples
     assert gtm_page_examples().count("```json") >= 8
     assert "gtm_quilt" in gtm_page_examples("quilt")
 
@@ -149,7 +149,7 @@ class TestStructuredOutputAlignment:
     def test_gtm_job_schema_valid_and_accepts_demo(self):
         import json
         import jsonschema
-        from pptfi.composer.layouts.gtm_schema import gtm_job_schema
+        from ableppt.composer.layouts.gtm_schema import gtm_job_schema
 
         schema = gtm_job_schema()
         jsonschema.Draft7Validator.check_schema(schema)
@@ -158,7 +158,7 @@ class TestStructuredOutputAlignment:
 
     def test_schema_rejects_unknown_layout(self):
         import jsonschema
-        from pptfi.composer.layouts.gtm_schema import gtm_job_schema
+        from ableppt.composer.layouts.gtm_schema import gtm_job_schema
 
         bad = {"mode": "composer", "pages": [{"layout": "gtm_pie", "data": {}}],
                "output": {"path": "x.pptx"}}
@@ -166,7 +166,7 @@ class TestStructuredOutputAlignment:
 
     def test_deep_validation_passes_demo_job(self):
         import os
-        from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+        from ableppt.composer.layouts.gtm_schema import validate_gtm_job
         cwd = os.getcwd()
         os.chdir(REPO)
         try:
@@ -177,7 +177,7 @@ class TestStructuredOutputAlignment:
 
     def test_deep_validation_locates_column_typo(self):
         import os
-        from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+        from ableppt.composer.layouts.gtm_schema import validate_gtm_job
         bad = {"mode": "composer",
                "pages": [{"layout": "gtm_panels", "data": {"title": "P", "panels": [
                    {"chart": {"chart": "contribution", "total": "GDP同笔",
@@ -206,21 +206,21 @@ class TestPromptKitAndSafeRender:
     """提示词工具包 + 自修正循环（agent 工作流的两块拼图）。"""
 
     def test_datasource_manifest_from_dir(self):
-        from pptfi.composer.layouts.gtm_prompt import datasource_manifest
+        from ableppt.composer.layouts.gtm_prompt import datasource_manifest
         md = datasource_manifest(REPO / "data" / "gtm")
         assert "asset_returns.csv" in md
         assert "| 年份 | 数值 |" in md
         assert "收益率" in md
 
     def test_datasource_manifest_from_job(self):
-        from pptfi.composer.layouts.gtm_prompt import datasource_manifest
+        from ableppt.composer.layouts.gtm_prompt import datasource_manifest
         md = datasource_manifest(REPO / "job_gtm_demo.json")
         # 注册的 datasource 和 pages 内直接引用的 CSV 都应收录
         assert "asset_returns" in md
         assert "gdp_contrib.csv" in md
 
     def test_prompt_kit_assembles_all_parts(self):
-        from pptfi.composer.layouts.gtm_prompt import gtm_prompt_kit
+        from ableppt.composer.layouts.gtm_prompt import gtm_prompt_kit
         kit = gtm_prompt_kit(job=REPO / "job_gtm_demo.json")
         assert "产出规则" in kit          # 规则
         assert "gtm_quilt" in kit         # 页面示例
@@ -231,7 +231,7 @@ class TestPromptKitAndSafeRender:
         """模拟 agent 流程：产出含错 job → 深度校验 → 按建议修正 → 校验通过。"""
         import json
         import os
-        from pptfi.composer.layouts.gtm_schema import validate_gtm_job
+        from ableppt.composer.layouts.gtm_schema import validate_gtm_job
 
         job = json.loads((REPO / "job_gtm_demo.json").read_text())
         job["pages"][2]["data"]["panels"][0]["chart"]["total"] = "GDP同笔"  # 模型拼错

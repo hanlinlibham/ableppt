@@ -154,7 +154,7 @@ data = {
 
 ```python
 def layout_chart_table(slide, data, theme):
-    from pptfi.chart_builder.api import create_combo_chart
+    from ableppt.chart_builder.api import create_combo_chart
     m = theme["margin"]
     sw, sh = 13.333, 7.5
     cw = sw - 2 * m
@@ -273,7 +273,7 @@ def layout_chart_table(slide, data, theme):
 
 ```python
 import pandas as pd
-from pptfi.chart_builder.models import SeriesConfig
+from ableppt.chart_builder.models import SeriesConfig
 
 df = pd.DataFrame({
     "日期": ["2024-01", "2024-02", "2024-03", "2024-04",

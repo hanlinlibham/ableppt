@@ -1,12 +1,12 @@
 {
   "index_bars": {
     "type": "sql",
-    "conn": "pptfi/data/tushare_market.sqlite",
+    "conn": "ableppt/data/tushare_market.sqlite",
     "query": "SELECT ts_code, name, trade_date, close, amount FROM index_bars WHERE ts_code = '000300.SH' ORDER BY trade_date"
   },
   "latest_stock_valuation": {
     "type": "sql",
-    "conn": "pptfi/data/tushare_market.sqlite",
+    "conn": "ableppt/data/tushare_market.sqlite",
     "query": "SELECT ts_code, name, trade_date, close, pe, pb, total_mv FROM v_latest_stock_valuation ORDER BY total_mv DESC"
   }
 }

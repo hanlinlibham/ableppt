@@ -15,7 +15,7 @@ import tushare as ts
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pptfi.config import settings
+from ableppt.config import settings
 
 
 INDEXES = {
@@ -170,7 +170,7 @@ def persist_tables(db_path: Path, index_bars: pd.DataFrame, stock_bars: pd.DataF
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build a sqlite market cache from Tushare")
-    parser.add_argument("--output", default="pptfi/data/tushare_market.sqlite", help="sqlite output path")
+    parser.add_argument("--output", default="ableppt/data/tushare_market.sqlite", help="sqlite output path")
     parser.add_argument("--start-date", default="20210101")
     parser.add_argument("--end-date", default=datetime.now().strftime("%Y%m%d"))
     args = parser.parse_args()

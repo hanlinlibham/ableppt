@@ -41,10 +41,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import pandas as pd
 from pptx.enum.chart import XL_LEGEND_POSITION
 
-from pptfi.template.replacer import TemplateReplacer
-from pptfi.chart_builder.styles import StyleConfig
-from pptfi.chart_builder.layout import ChartLayoutConfig, LegendConfig, ValueAxisConfig
-from pptfi.chart_builder.date_axis import DateAxisConfig
+from ableppt.template.replacer import TemplateReplacer
+from ableppt.chart_builder.styles import StyleConfig
+from ableppt.chart_builder.layout import ChartLayoutConfig, LegendConfig, ValueAxisConfig
+from ableppt.chart_builder.date_axis import DateAxisConfig
 
 
 LEGEND_POSITION_MAP = {

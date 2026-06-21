@@ -1,13 +1,13 @@
 # API Contracts — 函数签名与数据接口
 
-> 本文档是 pptfi 所有公开 API 的精确合约。编码前必读。
+> 本文档是 ableppt 所有公开 API 的精确合约。编码前必读。
 
 ---
 
 ## 1. create_combo_chart()
 
 ```python
-from pptfi.chart_builder.api import create_combo_chart
+from ableppt.chart_builder.api import create_combo_chart
 
 create_combo_chart(
     slide,                          # pptx Slide 对象
@@ -44,7 +44,7 @@ series_config = [
 ## 2. StyleConfig
 
 ```python
-from pptfi.chart_builder.styles import StyleConfig
+from ableppt.chart_builder.styles import StyleConfig
 
 StyleConfig(
     color_scheme="tech_blue",   # 配色方案名（见 COLOR_SCHEMES）
@@ -59,10 +59,10 @@ StyleConfig(
 ## 3. ChartLayoutConfig
 
 ```python
-from pptfi.chart_builder.layout import (
+from ableppt.chart_builder.layout import (
     ChartLayoutConfig, LegendConfig, ValueAxisConfig, CategoryAxisConfig,
 )
-from pptfi.chart_builder.date_axis import MONTHLY_TICKS  # DateAxisConfig 预设
+from ableppt.chart_builder.date_axis import MONTHLY_TICKS  # DateAxisConfig 预设
 
 ChartLayoutConfig(
     title=None,                         # str — 图表内标题（通常 None，标题放页面上）
@@ -126,7 +126,7 @@ ValueAxisConfig(
 ## 4. PageComposer
 
 ```python
-from pptfi.composer import PageComposer
+from ableppt.composer import PageComposer
 
 composer = PageComposer(theme="able_finance")  # 主题名（从 theme 自动读取 slide_w/slide_h）
 
@@ -162,7 +162,7 @@ composer.save("output.pptx", lint=False)  # 跳过审计
 
 手动使用：
 ```python
-from pptfi.chart_builder.cleaner import clean_chart, ChartJunkCleaner
+from ableppt.chart_builder.cleaner import clean_chart, ChartJunkCleaner
 clean_chart(chart)  # 便捷函数
 # 或
 ChartJunkCleaner(chart).clean()  # 完整控制
@@ -173,7 +173,7 @@ ChartJunkCleaner(chart).clean()  # 完整控制
 ## 4.2 DeckLinter（保存时自动运行）
 
 ```python
-from pptfi.qa.deck_linter import DeckLinter
+from ableppt.qa.deck_linter import DeckLinter
 
 linter = DeckLinter("output.pptx")
 report = linter.run()
@@ -189,7 +189,7 @@ linter.write_to_notes(report)       # 写入 PPT slide notes
 ## 4.3 页眉/页脚 Helpers
 
 ```python
-from pptfi.composer.helpers import add_page_header, add_page_footer
+from ableppt.composer.helpers import add_page_header, add_page_footer
 
 add_page_header(slide, "页面标题", theme)
 # 输出: 16pt 标题 + 全宽 primary 色分隔线 (使用 theme tokens: page_title_size, header_y, divider_y)
@@ -402,17 +402,17 @@ add_page_footer(slide, theme, source="示例来源, 公司年报", page_num=3, b
 
 ```python
 from pptx.util import Inches
-from pptfi.composer import PageComposer
-from pptfi.chart_builder.api import create_combo_chart
-from pptfi.chart_builder.styles import StyleConfig
-from pptfi.chart_builder.layout import (
+from ableppt.composer import PageComposer
+from ableppt.chart_builder.api import create_combo_chart
+from ableppt.chart_builder.styles import StyleConfig
+from ableppt.chart_builder.layout import (
     ChartLayoutConfig, LegendConfig, ValueAxisConfig, CategoryAxisConfig,
 )
-from pptfi.chart_builder.date_axis import MONTHLY_TICKS
+from ableppt.chart_builder.date_axis import MONTHLY_TICKS
 
 def render_my_chart(slide, theme):
     # 页眉（自动: 16pt 标题 + 全宽分隔线）
-    from pptfi.composer.helpers import add_page_header, add_page_footer
+    from ableppt.composer.helpers import add_page_header, add_page_footer
     add_page_header(slide, "股价走势（2024-2026）", theme)
 
     # 图表 — style_config 可省略，自动使用主题配色

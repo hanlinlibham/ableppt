@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 OUTPUT_JOB = Path(__file__).resolve().parent.parent / "job_dual_axis_20_gallery.json"
-DB_PATH = "pptfi/data/tushare_market.sqlite"
+DB_PATH = "ableppt/data/tushare_market.sqlite"
 
 INDEXES = [
     ("000300.SH", "沪深300"),
