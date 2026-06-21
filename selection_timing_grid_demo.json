@@ -1,0 +1,11 @@
+{
+  "family": "selection_timing_grid",
+  "title": "选股择时",
+  "section_titles": ["选股能力", "择时能力"],
+  "level_labels": ["不显著", "一般", "强"],
+  "row_labels": ["成立以来", "近两年", "近三年", "近五年"],
+  "sections": [
+    ["一般", "一般", "强", "强"],
+    ["不显著", "一般", "一般", "强"]
+  ]
+}

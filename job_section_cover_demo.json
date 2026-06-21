@@ -1,0 +1,17 @@
+{
+  "mode": "composer",
+  "theme": "research_shell_4_3",
+  "aspect_ratio": "4:3",
+  "pages": [
+    {
+      "layout": "section_cover_4_3",
+      "data": {
+        "title": "Guide to the Markets®",
+        "kicker": "Market Insights",
+        "subtitle": "U.S. | 3Q 2023",
+        "date": "As of September 12, 2023"
+      }
+    }
+  ],
+  "output": {"path": "section_cover_demo.pptx"}
+}

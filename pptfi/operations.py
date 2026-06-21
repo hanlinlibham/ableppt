@@ -54,6 +54,15 @@ def _read_json(path: Path) -> Any:
         return json.load(handle)
 
 
+def _new_widescreen_presentation() -> Presentation:
+    """Return a 16:9 presentation for standalone chart-family renders."""
+
+    prs = Presentation()
+    prs.slide_width = Inches(13.333)
+    prs.slide_height = Inches(7.5)
+    return prs
+
+
 def parse_template(template_path: str | Path, flat: bool = False) -> dict:
     path = Path(template_path)
     if not path.exists():
@@ -163,6 +172,7 @@ def list_presets(
         return result
     if chart_presets:
         result["chart_presets"] = list(CHART_PRESET_FUNCTIONS.keys())
+        result["semantic_chart_families"] = chart_builder.list_semantic_families()
         return result
 
     result["color_schemes"] = dict(COLOR_SCHEMES)
@@ -175,6 +185,7 @@ def list_presets(
         "YEARLY_TICKS": _date_axis_to_dict(YEARLY_TICKS),
     }
     result["chart_presets"] = list(CHART_PRESET_FUNCTIONS.keys())
+    result["semantic_chart_families"] = chart_builder.list_semantic_families()
     return result
 
 
@@ -318,6 +329,7 @@ def chart_engine_info() -> dict:
     prepare_path = Path(inspect.getfile(chart_builder.prepare_waterfall_dataframe))
     scatter_path = Path(inspect.getfile(chart_builder.create_scatter_chart))
     bubble_path = Path(inspect.getfile(chart_builder.create_bubble_chart))
+    range_snapshot_path = Path(inspect.getfile(chart_builder.create_range_snapshot_chart))
 
     return {
         "status": "ok",
@@ -326,7 +338,7 @@ def chart_engine_info() -> dict:
             "import_path": "pptfi.chart_builder",
             "module": chart_builder.__name__,
             "module_path": str(compat_path),
-            "implementation_root_exists": combo_path.exists() and waterfall_path.exists(),
+            "implementation_root_exists": combo_path.exists() and waterfall_path.exists() and range_snapshot_path.exists(),
         },
         "operations": {
             "create_combo_chart": {
@@ -345,6 +357,10 @@ def chart_engine_info() -> dict:
                 "module": chart_builder.create_bubble_chart.__module__,
                 "file": str(bubble_path),
             },
+            "create_range_snapshot_chart": {
+                "module": chart_builder.create_range_snapshot_chart.__module__,
+                "file": str(range_snapshot_path),
+            },
             "prepare_waterfall_dataframe": {
                 "module": chart_builder.prepare_waterfall_dataframe.__module__,
                 "file": str(prepare_path),
@@ -356,18 +372,24 @@ def chart_engine_info() -> dict:
                 "pptfi.create_waterfall_chart",
                 "pptfi.create_scatter_chart",
                 "pptfi.create_bubble_chart",
+                "pptfi.create_range_snapshot_chart",
+                "pptfi.create_semantic_chart",
                 "pptfi.prepare_waterfall_dataframe",
+                "pptfi.prepare_range_snapshot_dataframe",
             ],
             "cli": [
                 "pptfi chart-engine-info",
+                "pptfi render-family <config.json> <output.pptx>",
                 "pptfi render-waterfall <config.json> <output.pptx>",
                 "pptfi render-scatter <config.json> <output.pptx>",
                 "pptfi render-bubble <config.json> <output.pptx>",
+                "pptfi render-range-snapshot <config.json> <output.pptx>",
             ],
         },
+        "semantic_families": chart_builder.list_semantic_families(),
         "notes": [
             "`pptfi.chart_builder` is a compatibility facade that resolves to the sibling `pptchartengine` package.",
-            "Use `render-waterfall`, `render-scatter`, and `render-bubble` for standalone chart-family output.",
+            "Use `render-family` for demo01-derived semantic chart families, or the atomic render-* commands for base families.",
         ],
     }
 
@@ -408,8 +430,11 @@ def render_waterfall(config_path: str | Path, output_pptx: str | Path) -> dict:
     total_categories = raw.get("total_categories")
     title = raw.get("title")
     subtitle = raw.get("subtitle")
+    chart_title = raw.get("chart_title")
+    chart_title = raw.get("chart_title")
+    chart_title = raw.get("chart_title")
 
-    prs = Presentation()
+    prs = _new_widescreen_presentation()
     slide = prs.slides.add_slide(prs.slide_layouts[6])
 
     if title:
@@ -465,6 +490,374 @@ def render_bubble(config_path: str | Path, output_pptx: str | Path) -> dict:
     return _render_xy_family(config_path, output_pptx, family="bubble")
 
 
+def render_range_snapshot(config_path: str | Path, output_pptx: str | Path) -> dict:
+    config = Path(config_path)
+    output = Path(output_pptx)
+    if not config.exists():
+        raise FileNotFoundError(f"配置文件不存在: {config}")
+
+    raw = _read_json(config)
+    csv_path = Path(raw["csv_path"])
+    if not csv_path.is_absolute():
+        csv_path = config.parent / csv_path
+    if not csv_path.exists():
+        raise FileNotFoundError(f"CSV 文件不存在: {csv_path}")
+
+    df = pd.read_csv(csv_path)
+    categories_col = raw["categories_col"]
+    min_col = raw["min_col"]
+    max_col = raw["max_col"]
+    average_col = raw["average_col"]
+    current_col = raw["current_col"]
+    orientation = raw.get("orientation", "vertical")
+    title = raw.get("title")
+    subtitle = raw.get("subtitle")
+
+    prs = _new_widescreen_presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    if title:
+        _add_heading_textbox(slide, title, subtitle)
+        default_position = (0.6, 1.3)
+        default_size = (12.1, 5.4)
+    else:
+        default_position = (0.6, 0.8)
+        default_size = (12.1, 5.9)
+
+    position_inches = raw.get("position_inches", default_position)
+    size_inches = raw.get("size_inches", default_size)
+    if len(position_inches) != 2 or len(size_inches) != 2:
+        raise ValueError("position_inches 和 size_inches 必须是长度为 2 的数组")
+
+    with contextlib.redirect_stdout(io.StringIO()):
+        chart_builder.create_range_snapshot_chart(
+            slide=slide,
+            df=df,
+            categories_col=categories_col,
+            min_col=min_col,
+            max_col=max_col,
+            average_col=average_col,
+            current_col=current_col,
+            orientation=orientation,
+            position=(Inches(position_inches[0]), Inches(position_inches[1])),
+            size=(Inches(size_inches[0]), Inches(size_inches[1])),
+            range_color=raw.get("range_color", "5F6772"),
+            average_color=raw.get("average_color", "87A330"),
+            current_color=raw.get("current_color", "1E88E5"),
+            number_format=raw.get("number_format", "0.0x"),
+            show_average_ticks=raw.get("show_average_ticks", True),
+            show_current_markers=raw.get("show_current_markers", True),
+            show_current_labels=raw.get("show_current_labels", True),
+            axis_break=raw.get("axis_break"),
+        )
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    prs.save(str(output))
+    return {
+        "status": "ok",
+        "family": "range_snapshot",
+        "output": str(output),
+        "summary": {
+            "source_csv": str(csv_path),
+            "categories_col": categories_col,
+            "min_col": min_col,
+            "max_col": max_col,
+            "average_col": average_col,
+            "current_col": current_col,
+            "orientation": orientation,
+            "rows": len(df),
+        },
+    }
+
+
+def render_family(config_path: str | Path, output_pptx: str | Path) -> dict:
+    config = Path(config_path)
+    output = Path(output_pptx)
+    if not config.exists():
+        raise FileNotFoundError(f"配置文件不存在: {config}")
+
+    raw = _read_json(config)
+    family = raw["family"]
+    if family not in chart_builder.SEMANTIC_FAMILY_REGISTRY:
+        raise ValueError(
+            f"未知 semantic family: {family}。可用: {', '.join(chart_builder.SEMANTIC_FAMILY_REGISTRY.keys())}"
+        )
+
+    if not chart_builder.SEMANTIC_FAMILY_REGISTRY[family].get("renderable", False):
+        raise ValueError(f"{family} 当前不属于底层可编辑图表 family")
+
+    csv_path = None
+    df = None
+    needs_top_level_df = family not in {
+        chart_builder.TABLE_PLUS_CHART_COMPOSITE_FAMILY,
+        chart_builder.FACTOR_ATTRIBUTION_PANEL_FAMILY,
+        chart_builder.REGIME_TABLE_PANEL_FAMILY,
+        chart_builder.MANAGER_TIMELINE_PROFILE_FAMILY,
+        chart_builder.AWARD_TIMELINE_PANEL_FAMILY,
+        chart_builder.SELECTION_TIMING_GRID_FAMILY,
+        chart_builder.DUAL_CHART_PANEL_FAMILY,
+        chart_builder.HOLDING_DETAIL_FAMILY,
+    }
+    if raw.get("csv_path"):
+        csv_path = Path(raw["csv_path"])
+        if not csv_path.is_absolute():
+            csv_path = config.parent / csv_path
+        if not csv_path.exists():
+            raise FileNotFoundError(f"CSV 文件不存在: {csv_path}")
+        df = pd.read_csv(csv_path)
+    elif needs_top_level_df:
+        rows = raw.get("rows")
+        if not rows:
+            raise ValueError("semantic family config 需要 csv_path 或 rows")
+        df = pd.DataFrame(rows)
+
+    title = raw.get("title")
+    subtitle = raw.get("subtitle")
+    chart_title = raw.get("chart_title")
+    prs = _new_widescreen_presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    if title:
+        _add_heading_textbox(slide, title, subtitle)
+        default_position = (0.6, 1.3)
+        default_size = (12.1, 5.4)
+    else:
+        default_position = (0.6, 0.8)
+        default_size = (12.1, 5.9)
+
+    position_inches = raw.get("position_inches", default_position)
+    size_inches = raw.get("size_inches", default_size)
+    if len(position_inches) != 2 or len(size_inches) != 2:
+        raise ValueError("position_inches 和 size_inches 必须是长度为 2 的数组")
+
+    common_position = (Inches(position_inches[0]), Inches(position_inches[1]))
+    common_size = (Inches(size_inches[0]), Inches(size_inches[1]))
+
+    kwargs: dict[str, Any] = {
+        "slide": slide,
+        "position": common_position,
+        "size": common_size,
+    }
+
+    with contextlib.redirect_stdout(io.StringIO()):
+        if family == chart_builder.PERFORMANCE_COMPARE_FAMILY:
+            kwargs.update(
+                df=df,
+                categories_col=raw["categories_col"],
+                series_entries=raw["series"],
+                title=chart_title,
+                number_format=raw.get("number_format", "0.0%"),
+                date_number_format=raw.get("date_number_format", "yyyy-mm-dd"),
+                color_scheme=raw.get("color_scheme", "demo01_compare"),
+            )
+            chart_builder.create_performance_compare_chart(**kwargs)
+        elif family == chart_builder.DISTRIBUTION_PLUS_HISTORY_FAMILY:
+            mode = raw.get("mode", "history")
+            if mode == "snapshot":
+                kwargs.update(
+                    df=df,
+                    category_col=raw["category_col"],
+                    value_col=raw["value_col"],
+                    snapshot_label=raw.get("snapshot_label", "当前分布"),
+                    title=chart_title,
+                    number_format=raw.get("number_format", "0%"),
+                    color_scheme=raw.get("color_scheme", "demo01_distribution"),
+                )
+                chart_builder.create_distribution_snapshot_chart(**kwargs)
+            else:
+                kwargs.update(
+                    df=df,
+                    categories_col=raw["categories_col"],
+                    series_columns=raw["series_columns"],
+                    chart_type=raw.get("chart_type", "area"),
+                    title=chart_title,
+                    number_format=raw.get("number_format", "0%"),
+                    date_number_format=raw.get("date_number_format", "yyyy-mm-dd"),
+                    color_scheme=raw.get("color_scheme", "demo01_distribution"),
+                )
+                chart_builder.create_distribution_history_chart(**kwargs)
+        elif family == chart_builder.STYLE_BOX_FAMILY:
+            kwargs.update(
+                df=df,
+                x_col=raw["x_col"],
+                y_col=raw["y_col"],
+                series_name=raw.get("series_name"),
+                color=raw.get("color", "5679CC"),
+            )
+            chart_builder.create_style_box_chart(**kwargs)
+        elif family == chart_builder.STYLE_ALLOCATION_FAMILY:
+            kwargs.update(
+                df=df,
+                mode=raw.get("mode", "history"),
+                title=chart_title,
+                categories_col=raw.get("categories_col"),
+                series_columns=raw.get("series_columns"),
+                category_col=raw.get("category_col"),
+                value_col=raw.get("value_col"),
+            )
+            chart_builder.create_style_allocation_chart(**kwargs)
+        elif family == chart_builder.FACTOR_EXPOSURE_FAMILY:
+            kwargs.update(
+                df=df,
+                mode=raw.get("mode", "history"),
+                categories_col=raw["categories_col"],
+                series_entries=raw["series"],
+                title=chart_title,
+            )
+            chart_builder.create_factor_exposure_chart(**kwargs)
+        elif family in {chart_builder.SCORE_OVERLAY_FAMILY, chart_builder.CONCENTRATION_FAMILY}:
+            kwargs.update(
+                df=df,
+                categories_col=raw["categories_col"],
+                raw_series=raw["raw_series"],
+                score_series=raw["score_series"],
+                title=chart_title,
+                raw_number_format=raw.get("raw_number_format", "0.0%"),
+                score_number_format=raw.get("score_number_format", "0"),
+                date_number_format=raw.get("date_number_format", "yyyy-mm-dd"),
+                color_scheme=raw.get("color_scheme", "demo01_score"),
+            )
+            if family == chart_builder.SCORE_OVERLAY_FAMILY:
+                chart_builder.create_score_overlay_chart(**kwargs)
+            else:
+                chart_builder.create_concentration_chart(**kwargs)
+        elif family == chart_builder.EVENT_TIMELINE_FAMILY:
+            kwargs.update(
+                df=df,
+                categories_col=raw["categories_col"],
+                series_entries=raw["series"],
+                events=raw["events"],
+                title=chart_title,
+                number_format=raw.get("number_format", "0.0%"),
+                date_number_format=raw.get("date_number_format", "yyyy-mm-dd"),
+                color_scheme=raw.get("color_scheme", "demo01_compare"),
+                show_event_labels=raw.get("show_event_labels", False),
+            )
+            chart_builder.create_event_timeline_chart(**kwargs)
+        elif family == chart_builder.ATTRIBUTION_DECOMPOSITION_FAMILY:
+            kwargs.update(
+                df=df,
+                categories_col=raw["categories_col"],
+                value_col=raw["value_col"],
+                measure_col=raw.get("measure_col"),
+                total_categories=raw.get("total_categories"),
+                positive_color=raw.get("positive_color", "10B981"),
+                negative_color=raw.get("negative_color", "EF4444"),
+                total_color=raw.get("total_color", "1E2761"),
+            )
+            chart_builder.create_attribution_decomposition_chart(**kwargs)
+        elif family in {chart_builder.RANKED_TILE_MATRIX_FAMILY, chart_builder.HEATMAP_MATRIX_FAMILY}:
+            kwargs.update(
+                df=df,
+                row_col=raw["row_col"],
+                column_col=raw["column_col"],
+                value_col=raw["value_col"],
+                value_format=raw.get("value_format", ".0f"),
+                low_color=raw.get("low_color", "F4F6FB"),
+                high_color=raw.get("high_color", "4F66A8"),
+                text_dark=raw.get("text_dark", "2F3542"),
+                text_light=raw.get("text_light", "FFFFFF"),
+                row_header_fill=raw.get("row_header_fill", "FFFFFF"),
+                col_header_fill=raw.get("col_header_fill", "FFFFFF"),
+                grid_line_color=raw.get("grid_line_color", "DCE3EF"),
+            )
+            if family == chart_builder.RANKED_TILE_MATRIX_FAMILY:
+                chart_builder.create_ranked_tile_matrix_chart(**kwargs)
+            else:
+                chart_builder.create_heatmap_matrix_chart(**kwargs)
+        elif family == chart_builder.TABLE_PLUS_CHART_COMPOSITE_FAMILY:
+            kwargs.update(
+                chart_family=raw["chart_family"],
+                chart_kwargs=raw["chart_spec"],
+                headers=raw.get("headers"),
+                rows=raw.get("table_rows"),
+                chart_ratio=raw.get("chart_ratio", 0.62),
+                gap_inches=raw.get("gap_inches", 0.30),
+                left_title=raw.get("left_title"),
+                right_title=raw.get("right_title"),
+            )
+            chart_builder.create_table_plus_chart_composite(**kwargs)
+        elif family == chart_builder.FACTOR_ATTRIBUTION_PANEL_FAMILY:
+            kwargs.update(
+                chart_family=raw["chart_family"],
+                chart_kwargs=raw["chart_spec"],
+                sidebar_title=raw.get("sidebar_title"),
+                summary_items=raw.get("summary_items"),
+                bullets=raw.get("bullets"),
+                chart_ratio=raw.get("chart_ratio", 0.66),
+                gap_inches=raw.get("gap_inches", 0.32),
+            )
+            chart_builder.create_factor_attribution_panel(**kwargs)
+        elif family == chart_builder.REGIME_TABLE_PANEL_FAMILY:
+            kwargs.update(
+                chart_kwargs=raw["chart_spec"],
+                table_headers=raw.get("table_headers"),
+                table_rows=raw.get("table_rows"),
+                top_title=raw.get("top_title"),
+                bottom_title=raw.get("bottom_title"),
+                chart_height_ratio=raw.get("chart_height_ratio", 0.42),
+                gap_inches=raw.get("gap_inches", 0.24),
+            )
+            chart_builder.create_regime_table_panel(**kwargs)
+        elif family == chart_builder.MANAGER_TIMELINE_PROFILE_FAMILY:
+            kwargs.update(
+                chart_kwargs=raw["chart_spec"],
+                manager_name=raw["manager_name"],
+                tenure_start=raw["tenure_start"],
+                tenure_days=raw["tenure_days"],
+                tenure_return=raw["tenure_return"],
+                summary_items=raw.get("summary_items"),
+            )
+            chart_builder.create_manager_timeline_profile(**kwargs)
+        elif family == chart_builder.AWARD_TIMELINE_PANEL_FAMILY:
+            kwargs.update(
+                headers=raw["headers"],
+                rows=raw.get("rows"),
+                empty_title=raw.get("empty_title", "暂无数据"),
+                empty_subtitle=raw.get("empty_subtitle", "暂无数据/结果"),
+            )
+            chart_builder.create_award_timeline_panel(**kwargs)
+        elif family == chart_builder.SELECTION_TIMING_GRID_FAMILY:
+            kwargs.update(
+                section_titles=raw["section_titles"],
+                level_labels=raw["level_labels"],
+                row_labels=raw["row_labels"],
+                sections=raw["sections"],
+            )
+            chart_builder.create_selection_timing_grid(**kwargs)
+        elif family == chart_builder.HOLDING_DETAIL_FAMILY:
+            kwargs.update(
+                headers=raw["headers"],
+                rows=raw["rows"],
+                subtitle=raw.get("subtitle"),
+                summary_text=raw.get("summary_text"),
+            )
+            chart_builder.create_holding_detail_panel(**kwargs)
+        elif family == chart_builder.DUAL_CHART_PANEL_FAMILY:
+            kwargs.update(
+                left_chart_family=raw["left_chart_family"],
+                left_chart_kwargs=raw["left_chart_spec"],
+                right_chart_family=raw["right_chart_family"],
+                right_chart_kwargs=raw["right_chart_spec"],
+                left_title=raw.get("left_title"),
+                right_title=raw.get("right_title"),
+                gap_inches=raw.get("gap_inches", 0.28),
+            )
+            chart_builder.create_dual_chart_panel(**kwargs)
+        else:
+            raise ValueError(f"暂未支持的 semantic family: {family}")
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    prs.save(str(output))
+    return {
+        "status": "ok",
+        "family": family,
+        "output": str(output),
+        "summary": {
+            "source_csv": str(csv_path) if csv_path else None,
+            "rows": len(df) if df is not None else None,
+        },
+    }
+
+
 def _render_xy_family(config_path: str | Path, output_pptx: str | Path, *, family: str) -> dict:
     config = Path(config_path)
     output = Path(output_pptx)
@@ -485,7 +878,7 @@ def _render_xy_family(config_path: str | Path, output_pptx: str | Path, *, famil
     title = raw.get("title")
     subtitle = raw.get("subtitle")
 
-    prs = Presentation()
+    prs = _new_widescreen_presentation()
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     if title:
         _add_heading_textbox(slide, title, subtitle)
@@ -704,6 +1097,25 @@ def parse_bubble(input_pptx: str | Path, slide_idx: int = 0, shape_idx: int = 0)
     }
 
 
+def parse_range_snapshot(input_pptx: str | Path, slide_idx: int = 0, shape_idx: int = 0) -> dict:
+    with contextlib.redirect_stdout(io.StringIO()):
+        result = chart_builder.parse_range_snapshot_from_pptx(
+            str(input_pptx),
+            slide_idx=slide_idx,
+            shape_idx=shape_idx,
+        )
+    return {
+        "chart_family": "range_snapshot",
+        "categories_col": result.categories_col,
+        "min_col": result.min_col,
+        "max_col": result.max_col,
+        "average_col": result.average_col,
+        "current_col": result.current_col,
+        "orientation": result.orientation,
+        "rows": result.df.to_dict(orient="records"),
+    }
+
+
 def demo_waterfall(output_path: str | Path) -> dict:
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -714,7 +1126,7 @@ def demo_waterfall(output_path: str | Path) -> dict:
             "measure": ["total", "relative", "relative", "relative", "relative", "total"],
         }
     )
-    prs = Presentation()
+    prs = _new_widescreen_presentation()
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     with contextlib.redirect_stdout(io.StringIO()):
         chart_builder.create_waterfall_chart(

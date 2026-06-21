@@ -1,0 +1,57 @@
+{
+  "mode": "composer",
+  "theme": "dashboard_shell_16_9",
+  "aspect_ratio": "16:9",
+  "pages": [
+    {
+      "layout": "summary_shell_16_9",
+      "data": {
+        "title": "产品总结",
+        "section": "Summary",
+        "page_label": "01",
+        "source": "Source: Demo summary shell",
+        "kpis": [
+          {"label": "年化收益率", "value": "-9.12%", "change": "近5年"},
+          {"label": "最大回撤", "value": "53.2%", "change": "近5年"},
+          {"label": "当前规模", "value": "310.21亿", "change": "最新"},
+          {"label": "经理人数", "value": "1名", "change": "当前"}
+        ],
+        "insight": "这类页面适合用 KPI 概括 + 主分析模块 + 次级判断模块的装配方式。",
+        "main": {
+          "family": "factor_attribution_panel",
+          "chart_family": "attribution_decomposition",
+          "chart_spec": {
+            "df": [
+              {"阶段": "期初收益", "贡献": 8.5, "度量": "total"},
+              {"阶段": "全A因子", "贡献": 1.4, "度量": "relative"},
+              {"阶段": "个股选择", "贡献": 1.1, "度量": "relative"},
+              {"阶段": "期末收益", "贡献": 11.0, "度量": "total"}
+            ],
+            "categories_col": "阶段",
+            "value_col": "贡献",
+            "measure_col": "度量"
+          },
+          "summary_items": [
+            {"label": "最大正贡献", "value": "全A因子 +1.4"},
+            {"label": "Alpha 来源", "value": "个股选择 +1.1"}
+          ],
+          "bullets": [
+            "系统性因子仍是主要贡献来源。",
+            "个股选择贡献为正，说明仍有 alpha。"
+          ]
+        },
+        "secondary": {
+          "family": "selection_timing_grid",
+          "section_titles": ["选股能力", "择时能力"],
+          "level_labels": ["不显著", "一般", "强"],
+          "row_labels": ["成立以来", "近两年", "近三年", "近五年"],
+          "sections": [
+            ["一般", "一般", "强", "强"],
+            ["不显著", "一般", "一般", "强"]
+          ]
+        }
+      }
+    }
+  ],
+  "output": {"path": "summary_shell_demo.pptx"}
+}

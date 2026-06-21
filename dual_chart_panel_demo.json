@@ -1,0 +1,33 @@
+{
+  "family": "dual_chart_panel",
+  "title": "股票资产收益贡献",
+  "left_chart_family": "distribution_plus_history",
+  "left_title": "行业分布变化",
+  "left_chart_spec": {
+    "df": [
+      {"报告期": "2024-12-31", "消费": 0.55, "医药": 0.14, "TMT": 0.20, "金融地产": 0.11},
+      {"报告期": "2025-03-31", "消费": 0.58, "医药": 0.12, "TMT": 0.18, "金融地产": 0.12},
+      {"报告期": "2025-06-30", "消费": 0.57, "医药": 0.10, "TMT": 0.16, "金融地产": 0.17}
+    ],
+    "mode": "history",
+    "categories_col": "报告期",
+    "series_columns": ["消费", "医药", "TMT", "金融地产"],
+    "chart_type": "area"
+  },
+  "right_chart_family": "performance_compare",
+  "right_title": "行业累计收益",
+  "right_chart_spec": {
+    "df": [
+      {"行业": "消费", "基金": 0.18, "基准": 0.12},
+      {"行业": "医药", "基金": 0.09, "基准": 0.05},
+      {"行业": "TMT", "基金": -0.04, "基准": -0.01},
+      {"行业": "金融地产", "基金": 0.03, "基准": 0.01}
+    ],
+    "categories_col": "行业",
+    "series_entries": [
+      {"key": "基金", "name": "基金收益", "role": "fund", "type": "bar"},
+      {"key": "基准", "name": "基准收益", "role": "benchmark", "type": "bar"}
+    ],
+    "number_format": "0%"
+  }
+}

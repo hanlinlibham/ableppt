@@ -1,0 +1,58 @@
+{
+  "family": "concentration",
+  "title": "行业集中度",
+  "categories_col": "报告期",
+  "raw_series": [
+    {
+      "key": "行业TOP3",
+      "name": "行业_TOP3_集中度(左轴)",
+      "type": "line",
+      "role": "raw"
+    },
+    {
+      "key": "行业TOP5",
+      "name": "行业_TOP5_集中度(左轴)",
+      "type": "line",
+      "role": "benchmark"
+    }
+  ],
+  "score_series": [
+    {
+      "key": "TOP3得分",
+      "name": "行业_TOP3_集中度_相对得分(右轴)",
+      "type": "line",
+      "role": "score"
+    },
+    {
+      "key": "TOP5得分",
+      "name": "行业_TOP5_集中度_相对得分(右轴)",
+      "type": "line",
+      "role": "median"
+    }
+  ],
+  "raw_number_format": "0%",
+  "score_number_format": "0",
+  "rows": [
+    {
+      "报告期": "2024-12-31",
+      "行业TOP3": 0.48,
+      "行业TOP5": 0.63,
+      "TOP3得分": 62,
+      "TOP5得分": 55
+    },
+    {
+      "报告期": "2025-03-31",
+      "行业TOP3": 0.51,
+      "行业TOP5": 0.66,
+      "TOP3得分": 66,
+      "TOP5得分": 59
+    },
+    {
+      "报告期": "2025-06-30",
+      "行业TOP3": 0.56,
+      "行业TOP5": 0.71,
+      "TOP3得分": 73,
+      "TOP5得分": 65
+    }
+  ]
+}

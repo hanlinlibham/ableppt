@@ -1,0 +1,6 @@
+{
+  "family": "award_timeline_panel",
+  "title": "获奖情况",
+  "headers": ["获奖时间", "获得奖项", "获奖时经理"],
+  "rows": []
+}

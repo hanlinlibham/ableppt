@@ -1,0 +1,45 @@
+{
+  "family": "factor_attribution_panel",
+  "title": "股票组合的收益因子分解",
+  "chart_family": "attribution_decomposition",
+  "chart_ratio": 0.68,
+  "sidebar_title": "关键贡献项",
+  "chart_spec": {
+    "df": [
+      {"阶段": "期初收益", "贡献": 8.5, "度量": "total"},
+      {"阶段": "全A因子", "贡献": 1.4, "度量": "relative"},
+      {"阶段": "风格因子", "贡献": 0.9, "度量": "relative"},
+      {"阶段": "行业因子", "贡献": 0.6, "度量": "relative"},
+      {"阶段": "个股选择", "贡献": 1.1, "度量": "relative"},
+      {"阶段": "期末收益", "贡献": 12.5, "度量": "total"}
+    ],
+    "categories_col": "阶段",
+    "value_col": "贡献",
+    "measure_col": "度量"
+  },
+  "summary_items": [
+    {
+      "label": "最大正贡献",
+      "value": "全A因子 +1.4",
+      "note": "市场 beta 为本期主驱动",
+      "accent": "10B981"
+    },
+    {
+      "label": "Alpha 来源",
+      "value": "个股选择 +1.1",
+      "note": "个股选择贡献高于行业因子",
+      "accent": "5679CC"
+    },
+    {
+      "label": "结构结论",
+      "value": "系统性 > 选股 > 行业",
+      "note": "风格与行业贡献相对平稳",
+      "accent": "C292F4"
+    }
+  ],
+  "bullets": [
+    "本期收益拆解以市场暴露贡献为主，说明组合收益仍主要由系统性因子解释。",
+    "个股选择贡献为正，表明组合存在稳定 alpha，但强度尚不足以独立主导总收益。",
+    "行业与风格贡献均为辅助项，更适合用于解释结构偏离，而不是解释全部收益。"
+  ]
+}

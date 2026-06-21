@@ -1,0 +1,35 @@
+{
+  "mode": "composer",
+  "theme": "research_shell_4_3",
+  "aspect_ratio": "4:3",
+  "pages": [
+    {
+      "layout": "research_shell_4_3",
+      "data": {
+        "title": "Guide to Markets",
+        "kicker": "Market Insights",
+        "as_of": "U.S. | 3Q 2023  As of September 12, 2023",
+        "region": "U.S.",
+        "section": "Economy",
+        "page_label": "22",
+        "source": "Source: Demo shell for research-booklet assembly",
+        "body": {
+          "family": "performance_compare",
+          "categories_col": "日期",
+          "series": [
+            {"key": "基金", "name": "易方达蓝筹精选混合", "role": "fund", "type": "line"},
+            {"key": "沪深300", "name": "沪深300", "role": "benchmark", "type": "line"}
+          ],
+          "rows": [
+            {"日期": "2025-01-31", "基金": 0.012, "沪深300": 0.006},
+            {"日期": "2025-02-28", "基金": 0.023, "沪深300": 0.014},
+            {"日期": "2025-03-31", "基金": 0.019, "沪深300": 0.012},
+            {"日期": "2025-04-30", "基金": 0.031, "沪深300": 0.021}
+          ],
+          "chart_title": "基金 vs 基准收益走势"
+        }
+      }
+    }
+  ],
+  "output": {"path": "research_shell_demo.pptx"}
+}

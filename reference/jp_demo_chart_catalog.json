@@ -1,0 +1,1434 @@
+{
+  "catalog_id": "jp_demo_chart_catalog_v2",
+  "source_pdf": "jp_demo.pdf",
+  "source_page_count": 74,
+  "modeling_goal": "Model jp_demo.pdf as a reusable chart-family coverage catalog so pptchartengine and pptfi can implement the deck as editable PowerPoint primitives instead of screenshots.",
+  "families": [
+    {
+      "id": "line_chart",
+      "display_name": "Line Chart",
+      "description": "Single-axis line chart family, including one-line and multi-line time-series views.",
+      "primitives": ["line series", "category/date axis", "data labels", "reference annotation"],
+      "preferred_render_path": "chart_engine",
+      "current_support": "supported",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [2, 3, 12, 51, 66],
+      "notes": "This is the dominant native-chart family in the deck and should stay on the core chart-engine path."
+    },
+    {
+      "id": "combo_chart",
+      "display_name": "Combo Chart",
+      "description": "Mixed bar/line/area charts, typically with a secondary axis for rate-vs-level comparisons.",
+      "primitives": ["bar series", "line series", "secondary value axis", "category/date axis"],
+      "preferred_render_path": "chart_engine",
+      "current_support": "supported",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [6, 7, 20, 38, 64],
+      "notes": "This is already the strongest current capability and should remain the stable base family."
+    },
+    {
+      "id": "stacked_contribution_chart",
+      "display_name": "Stacked Contribution Chart",
+      "description": "Stacked contribution views over time, with optional total overlays, bridge-like accumulation, or component composition.",
+      "primitives": ["stacked columns or areas", "positive/negative contributions", "optional overlay line", "shared time axis"],
+      "preferred_render_path": "chart_engine",
+      "current_support": "partial",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [1, 4, 19, 52, 70],
+      "notes": "The deck uses several semantic variants of contribution charts; the shared modeling surface matters more than a single OOXML pattern."
+    },
+    {
+      "id": "bar_chart",
+      "display_name": "Bar Chart",
+      "description": "Single or grouped bars on time or category axes, including small-multiple bar compositions.",
+      "primitives": ["clustered columns or bars", "category axis", "value labels", "small multiple grouping"],
+      "preferred_render_path": "chart_engine",
+      "current_support": "supported",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [10, 11, 16, 20, 74],
+      "notes": "This family covers both ordinary category bars and time-indexed bar views when no mixed overlay is required."
+    },
+    {
+      "id": "stacked_bar_chart",
+      "display_name": "Stacked Bar Chart",
+      "description": "Stacked or percent-stacked bars, including segmented horizontal comparisons and share-of-total compositions.",
+      "primitives": ["stacked columns or bars", "percent scaling", "segment labels", "orientation switch"],
+      "preferred_render_path": "chart_engine",
+      "current_support": "partial",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [18, 48, 63],
+      "notes": "The deck uses both vertical and horizontal segmented layouts; label handling is the main remaining gap."
+    },
+    {
+      "id": "heatmap_matrix",
+      "display_name": "Heatmap Matrix",
+      "description": "Continuous-color matrix views with row/column headers and optional side summary cells.",
+      "primitives": ["cell fills", "continuous color scale", "header rows", "summary side columns"],
+      "preferred_render_path": "composer_shapes",
+      "current_support": "planned",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [13, 14, 15],
+      "notes": "These should not be forced through Office chart objects; a shape/table renderer is the cleaner path."
+    },
+    {
+      "id": "ranked_tile_matrix",
+      "display_name": "Ranked Tile Matrix",
+      "description": "Quilt-style ranked return boards where each cell is a labeled tile and row order changes by period.",
+      "primitives": ["editable tiles", "period columns", "ranked ordering", "per-cell labels"],
+      "preferred_render_path": "composer_table",
+      "current_support": "planned",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [31, 49, 68],
+      "notes": "This is structurally closer to an editable table/grid than to a native Office chart."
+    },
+    {
+      "id": "scatter_chart",
+      "display_name": "Scatter Chart",
+      "description": "Pure XY scatter charts, often with reference lines, highlighted current points, or regression-like reading aids.",
+      "primitives": ["XY series", "reference lines", "marker styling", "annotation overlay"],
+      "preferred_render_path": "hybrid",
+      "current_support": "supported",
+      "implementation_priority": "medium",
+      "editable_output": true,
+      "representative_pages": [47, 50],
+      "notes": "The pure XY points are supported now; vertical reference lines and explanatory callouts are the hybrid layer."
+    },
+    {
+      "id": "bubble_chart",
+      "display_name": "Bubble Chart",
+      "description": "XY bubble charts with size-driven encoding, labels, and contextual explainer blocks.",
+      "primitives": ["bubble series", "XY axes", "bubble-size legend", "label placement"],
+      "preferred_render_path": "hybrid",
+      "current_support": "supported",
+      "implementation_priority": "medium",
+      "editable_output": true,
+      "representative_pages": [67],
+      "notes": "The editable bubble object exists; the remaining work is hybrid labeling and supporting decorative legend blocks."
+    },
+    {
+      "id": "bar_marker_overlay",
+      "display_name": "Bar + Marker Overlay",
+      "description": "Grouped or clustered bars combined with marker-only comparison points, revision dots, or max/reference markers on the same category axis.",
+      "primitives": ["column series", "marker-only line or scatter substitute", "negative ranges", "per-point labels", "footer or section labels"],
+      "preferred_render_path": "hybrid",
+      "current_support": "partial",
+      "implementation_priority": "medium",
+      "editable_output": true,
+      "representative_pages": [33, 37, 39, 43, 45, 54, 69],
+      "notes": "This family likely rides on combo-chart internals plus shape or label cleanup."
+    },
+    {
+      "id": "range_snapshot_chart",
+      "display_name": "Range Snapshot Chart",
+      "description": "Current-vs-history valuation snapshots using a historical range bar, an average benchmark line, and a current marker.",
+      "primitives": ["floating range bar", "benchmark average line", "current marker", "orientation switch", "axis break"],
+      "preferred_render_path": "hybrid",
+      "current_support": "planned",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [32, 37, 39, 44, 45],
+      "notes": "This is a recurring valuation grammar in the deck and should become a first-class reusable family."
+    },
+    {
+      "id": "floating_range_bar",
+      "display_name": "Floating Range Bar",
+      "description": "Interval or min/max range views rendered as floating bars around a baseline.",
+      "primitives": ["hidden base series", "range columns", "min/max labels", "shared benchmark axis"],
+      "preferred_render_path": "hybrid",
+      "current_support": "partial",
+      "implementation_priority": "medium",
+      "editable_output": true,
+      "representative_pages": [55, 73],
+      "notes": "This can be built from stacked-bar mechanics, but the repo does not yet expose it as a first-class family."
+    },
+    {
+      "id": "waterfall_chart",
+      "display_name": "Waterfall / Bridge Chart",
+      "description": "Bridge charts that communicate incremental contribution from a starting value to an ending total.",
+      "primitives": ["bridge base", "relative contribution bars", "total bar", "ordered step semantics"],
+      "preferred_render_path": "chart_engine",
+      "current_support": "supported",
+      "implementation_priority": "high",
+      "editable_output": true,
+      "representative_pages": [61],
+      "notes": "The repo already has a waterfall implementation; this catalog now treats bridge pages as a dedicated family rather than a generic contribution chart."
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "section": "Local economy",
+      "title": "Economic growth and composition of GDP",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Real GDP",
+          "family_id": "stacked_contribution_chart",
+          "notes": "Stacked contribution columns with total GDP overlay."
+        },
+        {
+          "panel": "right",
+          "title": "Real GDP trend",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 2,
+      "section": "Local economy",
+      "title": "Inflation",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "CPI and core CPI inflation",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Inflation components contribution",
+          "family_id": "stacked_contribution_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 3,
+      "section": "Local economy",
+      "title": "Consumer sentiment",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Consumer sentiment",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Consumer sentiment: Sub-indices",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 4,
+      "section": "Local economy",
+      "title": "Consumer finances",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Savings rate",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Household real disposable income growth",
+          "family_id": "stacked_contribution_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 5,
+      "section": "Local economy",
+      "title": "Business conditions and credit growth",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Business conditions",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Private sector credit growth",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 6,
+      "section": "Local economy",
+      "title": "Labour market",
+      "layout_pattern": "three_panel_asymmetric",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Unemployment and wage growth",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "top_right",
+          "title": "Vacancies and employment",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "bottom_right",
+          "title": "Participation rate",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 7,
+      "section": "Local economy",
+      "title": "Residential real estate prices",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "House prices",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Auction clearance rate and house prices",
+          "family_id": "combo_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 8,
+      "section": "Local economy",
+      "title": "Residential real estate financing",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Building approvals and financing",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Housing finance and house prices",
+          "family_id": "combo_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 9,
+      "section": "Local economy",
+      "title": "Trade",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Exports by type",
+          "family_id": "line_chart",
+          "notes": "Multi-series commodity export trend, not a stacked composition chart."
+        },
+        {
+          "panel": "right",
+          "title": "Current account",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 10,
+      "section": "Local economy",
+      "title": "Government finances",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Commonwealth budget surplus/deficit",
+          "family_id": "bar_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Commonwealth gross debt",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 11,
+      "section": "Global economy",
+      "title": "Global growth",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Real GDP forecast",
+          "family_id": "bar_chart",
+          "notes": "Cross-country forecast comparison."
+        }
+      ]
+    },
+    {
+      "page_number": 12,
+      "section": "Global economy",
+      "title": "Economic surprise indices",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Growth surprise",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 13,
+      "section": "Global economy",
+      "title": "Global economic momentum",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Composite Purchasing Managers' Index",
+          "family_id": "heatmap_matrix"
+        }
+      ]
+    },
+    {
+      "page_number": 14,
+      "section": "Global economy",
+      "title": "Global manufacturing",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Global PMI for manufacturing and services",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Global PMI for manufacturing by country",
+          "family_id": "heatmap_matrix"
+        }
+      ]
+    },
+    {
+      "page_number": 15,
+      "section": "Global economy",
+      "title": "Global inflation heatmap",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Headline consumer prices",
+          "family_id": "heatmap_matrix"
+        }
+      ]
+    },
+    {
+      "page_number": 16,
+      "section": "Global economy",
+      "title": "Global fiscal expansion",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Government debt",
+          "family_id": "bar_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Government debt profile",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 17,
+      "section": "Global economy",
+      "title": "Trade: Global trade flows",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "U.S. goods imports by market",
+          "family_id": "line_chart",
+          "notes": "Share-of-total import trends shown as multiple lines."
+        },
+        {
+          "panel": "right",
+          "title": "Chinese exports by destination",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 18,
+      "section": "Global economy",
+      "title": "Trade: U.S. tariffs",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Tariff rates",
+          "family_id": "bar_chart"
+        },
+        {
+          "panel": "right",
+          "title": "U.S. tariff rates by market",
+          "family_id": "stacked_bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 19,
+      "section": "Global economy",
+      "title": "U.S.: GDP and inflation",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Real GDP",
+          "family_id": "stacked_contribution_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Inflation",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 20,
+      "section": "Global economy",
+      "title": "U.S.: Labour market",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Unemployment rate and wage growth",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Nonfarm payroll gains",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 21,
+      "section": "Global economy",
+      "title": "U.S.: Survey data",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Consumer expectations",
+          "family_id": "combo_chart",
+          "notes": "Consumer expectations plotted alongside inflation expectations."
+        },
+        {
+          "panel": "right",
+          "title": "Business confidence",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 22,
+      "section": "Global economy",
+      "title": "Eurozone: GDP and inflation",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Real GDP",
+          "family_id": "stacked_contribution_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Inflation",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 23,
+      "section": "Global economy",
+      "title": "Eurozone: Growth indicators",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Eurozone activity",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Retail sales and consumer confidence",
+          "family_id": "combo_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 24,
+      "section": "Global economy",
+      "title": "Japan: GDP and inflation",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Real GDP",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Inflation",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 25,
+      "section": "Global economy",
+      "title": "Japan: Growth indicators",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Tankan business conditions",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Income and consumer spending",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 26,
+      "section": "Global economy",
+      "title": "China: GDP and inflation",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Real GDP",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Inflation",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 27,
+      "section": "Global economy",
+      "title": "China: Investment",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Fixed asset investment",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Fixed asset investment by sector",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 28,
+      "section": "Global economy",
+      "title": "China: Monetary policy and credit growth",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Key policy rates",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Chinese credit impulse",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 29,
+      "section": "Global economy",
+      "title": "China: Property market",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Housing prices and volumes",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Housing inventory across city tiers",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 30,
+      "section": "Global economy",
+      "title": "China: Anti-involution",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Producer prices and industrial profits",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Capacity utilisation by industry",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 31,
+      "section": "Equities",
+      "title": "World equity market returns",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "World equity market returns",
+          "family_id": "ranked_tile_matrix"
+        }
+      ]
+    },
+    {
+      "page_number": 32,
+      "section": "Equities",
+      "title": "Global equities: Source of return and valuations",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Source of return",
+          "family_id": "stacked_contribution_chart",
+          "notes": "Return decomposition by EPS, multiples, dividends and currency with a total-return marker."
+        },
+        {
+          "panel": "right",
+          "title": "Global valuations",
+          "family_id": "range_snapshot_chart",
+          "notes": "Historical range, long-run average, and current valuation marker."
+        }
+      ]
+    },
+    {
+      "page_number": 33,
+      "section": "Equities",
+      "title": "Global equities: Earnings and revisions",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Earnings growth",
+          "family_id": "bar_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Earnings growth estimates",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 34,
+      "section": "Equities",
+      "title": "Global equities: Cyclical vs. defensive",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Cyclicals vs. defensive",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Equity sector correlation changes in bond yields",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 35,
+      "section": "Equities",
+      "title": "Global equities: Dividends",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Dividend growth estimates",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Global dividend yields",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 36,
+      "section": "Equities",
+      "title": "Australia equity valuation",
+      "layout_pattern": "single_panel_with_table",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "ASX 200 Index: Forward P/E ratio",
+          "family_id": "line_chart"
+        }
+      ],
+      "non_chart_elements": ["summary_table"]
+    },
+    {
+      "page_number": 37,
+      "section": "Equities",
+      "title": "Australia sector earnings and valuations",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "ASX 200 earnings per share growth estimates",
+          "family_id": "bar_marker_overlay",
+          "notes": "Sector bars with previous-estimate revision markers."
+        },
+        {
+          "panel": "right",
+          "title": "ASX 200 valuation",
+          "family_id": "range_snapshot_chart",
+          "notes": "Historical range, average line, and current marker, with an axis break."
+        }
+      ]
+    },
+    {
+      "page_number": 38,
+      "section": "Equities",
+      "title": "Australia valuations",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "ASX 200 dividend yield vs. bond yield",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "ASX 200 valuations",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 39,
+      "section": "Equities",
+      "title": "U.S. sector earnings and valuations",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "S&P 500 earnings per share growth estimates",
+          "family_id": "bar_marker_overlay",
+          "notes": "Sector bars with previous-estimate revision markers."
+        },
+        {
+          "panel": "right",
+          "title": "S&P 500 valuation",
+          "family_id": "range_snapshot_chart",
+          "notes": "Historical range, average line, and current marker, with an axis break."
+        }
+      ]
+    },
+    {
+      "page_number": 40,
+      "section": "Equities",
+      "title": "U.S. equities: Mega-cap valuations and earnings",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "P/E ratio of the top 10 and remaining companies in S&P 500",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Earnings growth",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 41,
+      "section": "Equities",
+      "title": "U.S. equities: Margins",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "S&P 500 profit margins",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "S&P 500 margins by sector",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 42,
+      "section": "Equities",
+      "title": "U.S. equities: AI capex and application",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Capex from the major AI hyperscalers",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Business using AI to produce goods and services",
+          "family_id": "stacked_bar_chart",
+          "notes": "Horizontal segment bars across time snapshots and next-six-month expectations."
+        }
+      ]
+    },
+    {
+      "page_number": 43,
+      "section": "Equities",
+      "title": "Europe sector earnings and valuations",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "MSCI EMU earnings per share growth estimates",
+          "family_id": "bar_marker_overlay",
+          "notes": "Sector bars with previous-estimate revision markers."
+        },
+        {
+          "panel": "right",
+          "title": "MSCI EMU valuation",
+          "family_id": "range_snapshot_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 44,
+      "section": "Equities",
+      "title": "European equities: Sector performance and valuation",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Performance of select equity sectors",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Europe relative valuation",
+          "family_id": "range_snapshot_chart",
+          "notes": "Horizontal historical discount/premium bars with a current marker."
+        }
+      ]
+    },
+    {
+      "page_number": 45,
+      "section": "Equities",
+      "title": "Japan sector earnings and valuations",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "MSCI Japan earnings per share growth estimates",
+          "family_id": "bar_marker_overlay",
+          "notes": "Sector bars with previous-estimate revision markers."
+        },
+        {
+          "panel": "right",
+          "title": "MSCI Japan valuation",
+          "family_id": "range_snapshot_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 46,
+      "section": "Equities",
+      "title": "Japan equities: Performance drivers",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Correlation between JPY currency and equity market",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Buyback activity",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 47,
+      "section": "Equities",
+      "title": "Emerging market equity valuations and returns",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "MSCI Emerging Market Index: Price-to-book ratio",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "MSCI Emerging Market Index: Price-to-book and returns",
+          "family_id": "scatter_chart",
+          "render_path": "hybrid",
+          "notes": "Scatter uses reference guides for forward-return reading."
+        }
+      ]
+    },
+    {
+      "page_number": 48,
+      "section": "Equities",
+      "title": "Emerging market revenues and USD",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Geographical revenue exposure",
+          "family_id": "stacked_bar_chart"
+        },
+        {
+          "panel": "right",
+          "title": "EM equity relative performance to USD",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 49,
+      "section": "Fixed income",
+      "title": "Fixed income sector returns",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Fixed income sector returns",
+          "family_id": "ranked_tile_matrix"
+        }
+      ]
+    },
+    {
+      "page_number": 50,
+      "section": "Fixed income",
+      "title": "Government bond yields and subsequent returns",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Government bond yields",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Global fixed income yields and subsequent return",
+          "family_id": "scatter_chart",
+          "render_path": "hybrid",
+          "notes": "Includes a prominent current-yield reference line."
+        }
+      ]
+    },
+    {
+      "page_number": 51,
+      "section": "Fixed income",
+      "title": "Yield curve",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Bond spreads",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "U.S. term premium",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 52,
+      "section": "Fixed income",
+      "title": "U.S. real yields and inflation expectations",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "U.S. 10-year Treasury yield",
+          "family_id": "stacked_contribution_chart",
+          "notes": "Yield decomposition between nominal and real components."
+        },
+        {
+          "panel": "right",
+          "title": "Market-based inflation expectations",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 53,
+      "section": "Fixed income",
+      "title": "Central bank policy rates",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Central bank key policy rates",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Policy easing and expected rate cuts",
+          "family_id": "stacked_bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 54,
+      "section": "Fixed income",
+      "title": "Fixed income yields",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Nominal yields",
+          "family_id": "bar_marker_overlay",
+          "notes": "Sectioned yield bars with max-yield markers and a footer duration table."
+        }
+      ],
+      "non_chart_elements": ["duration_footer_table", "section_headers"]
+    },
+    {
+      "page_number": 55,
+      "section": "Fixed income",
+      "title": "Fixed income interest rate sensitivity",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Impact of a 1% rise or fall in interest rates",
+          "family_id": "floating_range_bar"
+        }
+      ]
+    },
+    {
+      "page_number": 56,
+      "section": "Fixed income",
+      "title": "Hedging costs and yields",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Cost of hedging to U.S. dollar investment",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Hedged and unhedged 10-year government bond yields",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 57,
+      "section": "Fixed income",
+      "title": "Fixed income valuations",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Spreads across fixed income sub-sectors",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 58,
+      "section": "Fixed income",
+      "title": "Global investment-grade credit",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Global investment-grade credit",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "U.S. investment-grade credit return composition",
+          "family_id": "stacked_contribution_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 59,
+      "section": "Fixed income",
+      "title": "U.S. high yield: Spread and default rate",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "U.S. high yield spread and default rate",
+          "family_id": "combo_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 60,
+      "section": "Fixed income",
+      "title": "Emerging market debt",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Emerging market bond yields",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Real 10-year government bond yields",
+          "family_id": "bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 61,
+      "section": "Other asset classes",
+      "title": "Oil market",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Price of oil",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Contribution to global oil production",
+          "family_id": "waterfall_chart",
+          "notes": "Bridge-style decomposition from core producers to total world output."
+        }
+      ]
+    },
+    {
+      "page_number": 62,
+      "section": "Other asset classes",
+      "title": "Iron ore",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Iron ore price",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "China steel production",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 63,
+      "section": "Other asset classes",
+      "title": "Gold",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Gold and real rates",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Gold demand by sector",
+          "family_id": "stacked_bar_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 64,
+      "section": "Other asset classes",
+      "title": "Australian dollar",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Commodity prices and FX",
+          "family_id": "combo_chart"
+        },
+        {
+          "panel": "right",
+          "title": "Short rates and FX",
+          "family_id": "combo_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 65,
+      "section": "Other asset classes",
+      "title": "Global currencies",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "Currency movements",
+          "family_id": "bar_chart"
+        },
+        {
+          "panel": "right",
+          "title": "U.S. dollar index and interest rate differential",
+          "family_id": "combo_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 66,
+      "section": "Other asset classes",
+      "title": "Volatility",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Equity and bond market volatility",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 67,
+      "section": "Other asset classes",
+      "title": "Alternative asset correlations, returns and yields",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Correlations, returns and yields",
+          "family_id": "bubble_chart",
+          "render_path": "hybrid",
+          "notes": "Bubble labels and the bubble-size explainer block are hybrid overlay concerns."
+        }
+      ]
+    },
+    {
+      "page_number": 68,
+      "section": "Investing principles",
+      "title": "Asset class returns (AUD)",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Asset class returns (AUD)",
+          "family_id": "ranked_tile_matrix"
+        }
+      ]
+    },
+    {
+      "page_number": 69,
+      "section": "Investing principles",
+      "title": "Annual equity returns and intra-year declines",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "ASX 200 Index intra-year declines vs. calendar year returns",
+          "family_id": "bar_marker_overlay"
+        }
+      ]
+    },
+    {
+      "page_number": 70,
+      "section": "Investing principles",
+      "title": "Portfolio returns and stock-bond contribution",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Annual returns on a 60/40 stock-bond portfolio",
+          "family_id": "stacked_contribution_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 71,
+      "section": "Investing principles",
+      "title": "Stock-bond correlation",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Correlations between stocks and sovereign bonds",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 72,
+      "section": "Investing principles",
+      "title": "The power of compounding",
+      "layout_pattern": "two_panel",
+      "charts": [
+        {
+          "panel": "left",
+          "title": "$5,000 invested annually with 5% growth per year",
+          "family_id": "line_chart"
+        },
+        {
+          "panel": "right",
+          "title": "One-off $5,000 investment with/without income reinvested",
+          "family_id": "line_chart"
+        }
+      ]
+    },
+    {
+      "page_number": 73,
+      "section": "Investing principles",
+      "title": "Time, diversification and the volatility of returns",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Range of equity, bond and blended total returns",
+          "family_id": "floating_range_bar"
+        }
+      ]
+    },
+    {
+      "page_number": 74,
+      "section": "Investing principles",
+      "title": "Life expectancy",
+      "layout_pattern": "single_panel",
+      "charts": [
+        {
+          "panel": "full",
+          "title": "Probability of reaching ages 80 and 90",
+          "family_id": "bar_chart"
+        }
+      ]
+    }
+  ]
+}

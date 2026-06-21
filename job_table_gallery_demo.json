@@ -1,0 +1,241 @@
+{
+  "mode": "composer",
+  "theme": "dashboard_shell_16_9",
+  "aspect_ratio": "16:9",
+  "pages": [
+    {
+      "layout": "title_light",
+      "data": {
+        "title": "Table Gallery",
+        "subtitle": "Current table-like page components for tuning",
+        "date": "2026-04-20"
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "Holding Detail Panel",
+        "section": "Table Gallery",
+        "page_label": "01",
+        "source": "Generated from holding_detail family",
+        "body": {
+          "family": "holding_detail",
+          "subtitle": "前十大重仓股票",
+          "summary_text": "展示重仓股票的权重变化与估值快照。",
+          "headers": [
+            "股票代码",
+            "股票名称",
+            "占基金资产净值比例",
+            "较上期持股数变化",
+            "近1年涨跌幅",
+            "PE",
+            "申万行业"
+          ],
+          "rows": [
+            ["600519.SH", "贵州茅台", "9.82%", "增加", "6.4%", "24.1", "食品饮料"],
+            ["00700.HK", "腾讯控股", "8.73%", "不变", "14.2%", "18.5", "互联网"],
+            ["09988.HK", "阿里巴巴", "7.66%", "减少", "11.3%", "15.7", "互联网"],
+            ["601888.SH", "中国中免", "6.21%", "增加", "-8.4%", "27.8", "商贸零售"],
+            ["300750.SZ", "宁德时代", "4.95%", "不变", "21.6%", "22.4", "电力设备"],
+            ["000333.SZ", "美的集团", "4.31%", "增加", "18.2%", "16.9", "家用电器"]
+          ]
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "Award Timeline Panel",
+        "section": "Table Gallery",
+        "page_label": "02",
+        "source": "Generated from award_timeline_panel family",
+        "body": {
+          "family": "award_timeline_panel",
+          "headers": ["获奖时间", "获得奖项", "获奖时经理"],
+          "rows": []
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "Selection Timing Grid",
+        "section": "Table Gallery",
+        "page_label": "03",
+        "source": "Generated from selection_timing_grid family",
+        "body": {
+          "family": "selection_timing_grid",
+          "section_titles": ["选股能力", "择时能力"],
+          "level_labels": ["不显著", "一般", "强"],
+          "row_labels": ["成立以来", "近两年", "近三年", "近五年"],
+          "sections": [
+            ["一般", "一般", "强", "强"],
+            ["不显著", "一般", "一般", "强"]
+          ]
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "Regime Table Panel",
+        "section": "Table Gallery",
+        "page_label": "04",
+        "source": "Generated from regime_table_panel family",
+        "body": {
+          "family": "regime_table_panel",
+          "top_title": "市场阶段比较",
+          "bottom_title": "区间收益表现",
+          "chart_height_ratio": 0.40,
+          "chart_spec": {
+            "df": [
+              {"日期": "2025-01-31", "基金": 0.010, "沪深300": 0.004},
+              {"日期": "2025-02-28", "基金": 0.030, "沪深300": 0.018},
+              {"日期": "2025-03-31", "基金": 0.027, "沪深300": 0.015},
+              {"日期": "2025-04-30", "基金": 0.029, "沪深300": 0.017},
+              {"日期": "2025-05-31", "基金": 0.018, "沪深300": 0.011},
+              {"日期": "2025-06-30", "基金": 0.025, "沪深300": 0.016}
+            ],
+            "categories_col": "日期",
+            "series_entries": [
+              {"key": "基金", "name": "易方达蓝筹精选混合", "role": "fund", "type": "line"},
+              {"key": "沪深300", "name": "沪深300", "role": "benchmark", "type": "line"}
+            ],
+            "events": [
+              {"start": "2025-01-31", "end": "2025-02-28", "label": "快速上涨", "color": "E07138"},
+              {"start": "2025-03-31", "end": "2025-04-30", "label": "震荡市场", "color": "E0C470"},
+              {"start": "2025-05-31", "end": "2025-06-30", "label": "再次探底", "color": "5282CC"}
+            ],
+            "show_event_labels": false
+          },
+          "table_headers": ["起止日期", "当前基金", "沪深300"],
+          "table_rows": [
+            ["2018-01-23 ~ 2018-12-18", "-3.96%", "-4.55%"],
+            ["2018-12-19 ~ 2019-04-03", "27.23%", "28.57%"],
+            ["2019-04-04 ~ 2020-03-17", "13.00%", "-7.77%"],
+            ["2020-03-18 ~ 2020-07-09", "61.11%", "30.49%"],
+            ["2020-07-14 ~ 2021-03-10", "23.34%", "3.10%"]
+          ]
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "Table Plus Chart Composite",
+        "section": "Table Gallery",
+        "page_label": "05",
+        "source": "Generated from table_plus_chart_composite family",
+        "body": {
+          "family": "table_plus_chart_composite",
+          "chart_family": "score_overlay",
+          "left_title": "换手率及相对得分",
+          "right_title": "重仓股占比",
+          "chart_ratio": 0.64,
+          "chart_spec": {
+            "df": [
+              {"报告期": "2024-12-31", "换手率": 0.41, "同类中位数": 0.36, "相对得分": 70},
+              {"报告期": "2025-03-31", "换手率": 0.39, "同类中位数": 0.34, "相对得分": 68},
+              {"报告期": "2025-06-30", "换手率": 0.45, "同类中位数": 0.33, "相对得分": 74},
+              {"报告期": "2025-09-30", "换手率": 0.38, "同类中位数": 0.32, "相对得分": 66}
+            ],
+            "categories_col": "报告期",
+            "raw_series": [
+              {"key": "换手率", "name": "换手率(左轴)", "type": "line", "role": "raw"},
+              {"key": "同类中位数", "name": "同类基金中位数", "type": "line", "role": "median"}
+            ],
+            "score_series": [
+              {"key": "相对得分", "name": "换手率_相对得分(右轴)", "type": "line", "role": "score"}
+            ],
+            "raw_number_format": "0%",
+            "score_number_format": "0"
+          },
+          "headers": ["报告期", "重仓股市值占基金净值比", "占股票市值比"],
+          "table_rows": [
+            ["2024-12-31", "54.2%", "57.8%"],
+            ["2025-03-31", "55.1%", "58.6%"],
+            ["2025-06-30", "56.4%", "60.2%"],
+            ["2025-09-30", "55.7%", "59.5%"]
+          ]
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "Factor Attribution Panel",
+        "section": "Table Gallery",
+        "page_label": "06",
+        "source": "Generated from factor_attribution_panel family",
+        "body": {
+          "family": "factor_attribution_panel",
+          "chart_family": "attribution_decomposition",
+          "sidebar_title": "关键贡献项",
+          "chart_spec": {
+            "df": [
+              {"阶段": "期初收益", "贡献": 8.5, "度量": "total"},
+              {"阶段": "全A因子", "贡献": 1.4, "度量": "relative"},
+              {"阶段": "风格因子", "贡献": 0.9, "度量": "relative"},
+              {"阶段": "行业因子", "贡献": 0.6, "度量": "relative"},
+              {"阶段": "个股选择", "贡献": 1.1, "度量": "relative"},
+              {"阶段": "期末收益", "贡献": 12.5, "度量": "total"}
+            ],
+            "categories_col": "阶段",
+            "value_col": "贡献",
+            "measure_col": "度量"
+          },
+          "summary_items": [
+            {"label": "最大正贡献", "value": "全A因子 +1.4", "note": "市场 beta 为本期主驱动", "accent": "10B981"},
+            {"label": "Alpha 来源", "value": "个股选择 +1.1", "note": "个股选择贡献高于行业因子", "accent": "5679CC"},
+            {"label": "结构结论", "value": "系统性 > 选股 > 行业", "note": "风格与行业贡献相对平稳", "accent": "C292F4"}
+          ],
+          "bullets": [
+            "系统性因子仍是主要贡献来源。",
+            "个股选择贡献为正，具备 alpha 贡献。",
+            "行业与风格贡献均为辅助项。"
+          ]
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "Dual Chart Panel",
+        "section": "Table Gallery",
+        "page_label": "07",
+        "source": "Generated from dual_chart_panel family",
+        "body": {
+          "family": "dual_chart_panel",
+          "left_title": "行业分布变化",
+          "left_chart_family": "distribution_plus_history",
+          "left_chart_spec": {
+            "df": [
+              {"报告期": "2024-12-31", "消费": 0.55, "医药": 0.14},
+              {"报告期": "2025-03-31", "消费": 0.58, "医药": 0.12},
+              {"报告期": "2025-06-30", "消费": 0.57, "医药": 0.10}
+            ],
+            "mode": "history",
+            "categories_col": "报告期",
+            "series_columns": ["消费", "医药"],
+            "chart_type": "area"
+          },
+          "right_title": "行业累计收益",
+          "right_chart_family": "performance_compare",
+          "right_chart_spec": {
+            "df": [
+              {"行业": "消费", "基金": 0.18, "基准": 0.12},
+              {"行业": "医药", "基金": 0.09, "基准": 0.05}
+            ],
+            "categories_col": "行业",
+            "series_entries": [
+              {"key": "基金", "name": "基金收益", "role": "fund", "type": "bar"},
+              {"key": "基准", "name": "基准收益", "role": "benchmark", "type": "bar"}
+            ],
+            "number_format": "0%"
+          }
+        }
+      }
+    }
+  ],
+  "output": {"path": "table_gallery_demo.pptx"}
+}

@@ -221,29 +221,7 @@ class PptEngine:
         3. 注入 defaults（全部仍为 dict，安全合并）
         4. 统一转对象（顶层 + 嵌套）
         """
-        resolved = dict(data)
-
-        # Step 1: 顶层 datasource 解析
-        ds_key = None
-        if "datasource" in resolved:
-            ds_key = "datasource"
-        elif "source" in resolved and resolved["source"] in dfs:
-            ds_key = "source"
-        if ds_key:
-            resolved["df"] = dfs[resolved.pop(ds_key)]
-
-        # Step 2: 嵌套 datasource 解析（不转 config 对象）
-        for key in ("left", "right", "top", "bottom"):
-            if key in resolved and isinstance(resolved[key], dict):
-                sub = dict(resolved[key])
-                sub_ds_key = None
-                if "datasource" in sub:
-                    sub_ds_key = "datasource"
-                elif "source" in sub and sub["source"] in dfs:
-                    sub_ds_key = "source"
-                if sub_ds_key:
-                    sub["df"] = dfs[sub.pop(sub_ds_key)]
-                resolved[key] = sub
+        resolved = self._resolve_nested_sources(dict(data), dfs)
 
         # Step 3: 注入 defaults（全部仍为 dict，安全合并）
         if default_layout_config:
@@ -254,6 +232,31 @@ class PptEngine:
         for key in ("left", "right", "top", "bottom"):
             if key in resolved and isinstance(resolved[key], dict):
                 self._resolve_config_objects(resolved[key])
+
+        return resolved
+
+    def _resolve_nested_sources(self, node, dfs: Dict[str, pd.DataFrame]):
+        """递归解析任意嵌套 dict/list 里的 datasource/source 引用。"""
+
+        if isinstance(node, list):
+            return [self._resolve_nested_sources(item, dfs) for item in node]
+
+        if not isinstance(node, dict):
+            return node
+
+        resolved = dict(node)
+        ds_key = None
+        if "datasource" in resolved:
+            ds_key = "datasource"
+        elif "source" in resolved and resolved["source"] in dfs:
+            ds_key = "source"
+
+        if ds_key:
+            resolved["df"] = dfs[resolved.pop(ds_key)]
+
+        for key, value in list(resolved.items()):
+            if isinstance(value, (dict, list)):
+                resolved[key] = self._resolve_nested_sources(value, dfs)
 
         return resolved
 
@@ -309,7 +312,7 @@ class PptEngine:
 
         # date_axis_config 用预设名解析
         if "date_axis_config" in kwargs and isinstance(kwargs["date_axis_config"], str):
-            from pptfi.chart_builder.date_axis import (
+            from pptfi.chart_builder import (
                 DAILY_TICKS, WEEKLY_TICKS, BIWEEKLY_TICKS,
                 MONTHLY_TICKS, QUARTERLY_TICKS, YEARLY_TICKS,
             )

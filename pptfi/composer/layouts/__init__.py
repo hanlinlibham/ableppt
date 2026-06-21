@@ -12,6 +12,16 @@ from .waterfall import layout_waterfall
 from .xy import layout_bubble, layout_scatter
 from .gtm import (layout_gtm_panels, layout_gtm_cover, layout_gtm_toc,
                   layout_gtm_quilt, layout_gtm_chart_text)
+from .range_snapshot import layout_range_snapshot
+from .shell import (
+    layout_chapter_divider_16_9,
+    layout_dashboard_shell_16_9,
+    layout_factsheet_shell_4_3,
+    layout_profile_factsheet_4_3,
+    layout_research_shell_4_3,
+    layout_section_cover_4_3,
+    layout_summary_shell_16_9,
+)
 from .diagram import (layout_process_flow, layout_timeline, layout_pyramid,
                       layout_comparison, layout_icon_grid, layout_matrix,
                       layout_composite)
@@ -38,6 +48,14 @@ LAYOUT_REGISTRY = {
     "gtm_chart_text": layout_gtm_chart_text,
     "scatter": layout_scatter,
     "bubble": layout_bubble,
+    "range_snapshot": layout_range_snapshot,
+    "research_shell_4_3": layout_research_shell_4_3,
+    "factsheet_shell_4_3": layout_factsheet_shell_4_3,
+    "dashboard_shell_16_9": layout_dashboard_shell_16_9,
+    "summary_shell_16_9": layout_summary_shell_16_9,
+    "section_cover_4_3": layout_section_cover_4_3,
+    "chapter_divider_16_9": layout_chapter_divider_16_9,
+    "profile_factsheet_4_3": layout_profile_factsheet_4_3,
     # Diagram 布局 (基于 blocks 可组合)
     "process_flow": layout_process_flow,
     "timeline": layout_timeline,

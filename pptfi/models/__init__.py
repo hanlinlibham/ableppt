@@ -2,6 +2,14 @@
 Pydantic 数据模型
 """
 
+from pptfi.models.chart_catalog import (
+    DEFAULT_JP_DEMO_CHART_CATALOG_PATH,
+    ChartCatalog,
+    ChartFamily,
+    PageChart,
+    ReferencePage,
+    load_jp_demo_chart_catalog,
+)
 from pptfi.models.job import (
     Job,
     TemplateSpec,
@@ -14,7 +22,12 @@ from pptfi.models.job import (
 )
 
 __all__ = [
+    "DEFAULT_JP_DEMO_CHART_CATALOG_PATH",
+    "ChartCatalog",
+    "ChartFamily",
     "Job",
+    "PageChart",
+    "ReferencePage",
     "TemplateSpec",
     "DataSource",
     "SlideSpec",
@@ -22,5 +35,5 @@ __all__ = [
     "TableSpec",
     "ChartSpec",
     "OutputSpec",
+    "load_jp_demo_chart_catalog",
 ]
-

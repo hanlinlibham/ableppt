@@ -1,0 +1,17 @@
+{
+  "mode": "composer",
+  "theme": "dashboard_shell_16_9",
+  "aspect_ratio": "16:9",
+  "pages": [
+    {
+      "layout": "chapter_divider_16_9",
+      "data": {
+        "title": "Equity Market Outlook",
+        "chapter_no": "02",
+        "subtitle": "Positioning, valuations and regime shifts",
+        "footer_note": "Internal draft divider page"
+      }
+    }
+  ],
+  "output": {"path": "chapter_divider_demo.pptx"}
+}

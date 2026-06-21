@@ -17,14 +17,7 @@ class CsvConnector(BaseConnector):
         if not spec.path:
             raise ValueError("CSV connector requires 'path' parameter")
 
-        # 支持相对路径和绝对路径（相对路径优先 CWD，回退 data_dir）
-        file_path = Path(spec.path)
-        if not file_path.is_absolute():
-            cwd_path = Path.cwd() / file_path
-            if cwd_path.exists():
-                file_path = cwd_path
-            else:
-                file_path = settings.data_dir / file_path
+        file_path = _resolve_local_path(spec.path)
 
         if not file_path.exists():
             raise FileNotFoundError(f"CSV file not found: {file_path}")
@@ -40,14 +33,7 @@ class XlsxConnector(BaseConnector):
         if not spec.path:
             raise ValueError("XLSX connector requires 'path' parameter")
 
-        # 相对路径优先 CWD，回退 data_dir
-        file_path = Path(spec.path)
-        if not file_path.is_absolute():
-            cwd_path = Path.cwd() / file_path
-            if cwd_path.exists():
-                file_path = cwd_path
-            else:
-                file_path = settings.data_dir / file_path
+        file_path = _resolve_local_path(spec.path)
 
         if not file_path.exists():
             raise FileNotFoundError(f"Excel file not found: {file_path}")
@@ -59,3 +45,24 @@ class XlsxConnector(BaseConnector):
 ConnectorFactory.register("csv", CsvConnector)
 ConnectorFactory.register("xlsx", XlsxConnector)
 
+
+def _resolve_local_path(raw_path: str) -> Path:
+    """Resolve local datasource paths without duplicating the `data/` segment."""
+
+    file_path = Path(raw_path)
+    if file_path.is_absolute():
+        return file_path
+
+    candidates = [
+        Path.cwd() / file_path,
+        settings.base_dir / file_path,
+    ]
+
+    if file_path.parts and file_path.parts[0] != "data":
+        candidates.append(settings.data_dir / file_path)
+
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+
+    return candidates[0] if candidates else file_path

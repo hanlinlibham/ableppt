@@ -40,6 +40,18 @@ ConnectorFactory 通过 `type` 字段自动路由到对应的连接器。
 }
 ```
 
+### sql — SQLite / SQL 查询连接器
+
+适合将高频 API 数据先落本地数据库，再通过 SQL 读取绘图。
+
+```json
+{
+  "type": "sql",
+  "conn": "pptfi/data/tushare_market.sqlite",
+  "query": "SELECT ts_code, name, trade_date, close FROM index_bars WHERE ts_code = '000300.SH' ORDER BY trade_date"
+}
+```
+
 支持的 `api_name`:
 - `index_daily`: 指数日线数据（需 `ts_code` 或 `index_code`）
 - `pro_bar`: 通用日线数据，前复权（需 `ts_code`）

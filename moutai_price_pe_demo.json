@@ -1,0 +1,16 @@
+{
+  "family": "performance_compare",
+  "title": "贵州茅台收盘价与PE",
+  "subtitle": "个股双折线双轴，用于看价格与估值的同步和背离。",
+  "csv_path": "data/market_gallery/moutai_price_pe.csv",
+  "categories_col": "日期",
+  "series": [
+    {"key": "PE", "name": "PE(右轴)", "role": "benchmark", "type": "line", "axis": "secondary"},
+    {"key": "收盘价", "name": "收盘价(左轴)", "role": "fund", "type": "line", "axis": "primary"}
+  ],
+  "number_format": "#,##0.0",
+  "secondary_number_format": "0.0",
+  "secondary_axis_font_size_pt": 8,
+  "line_width_pt": 1.5,
+  "date_number_format": "yyyy-mm"
+}

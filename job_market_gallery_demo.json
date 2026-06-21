@@ -1,0 +1,154 @@
+{
+  "mode": "composer",
+  "theme": "dashboard_shell_16_9",
+  "aspect_ratio": "16:9",
+  "datasources": {
+    "returns_trend": {"type": "csv", "path": "data/market_gallery/returns_trend.csv"},
+    "rolling_vol": {"type": "csv", "path": "data/market_gallery/rolling_vol.csv"},
+    "drawdown": {"type": "csv", "path": "data/market_gallery/drawdown.csv"},
+    "monthly_returns": {"type": "csv", "path": "data/market_gallery/monthly_returns.csv"},
+    "index_summary": {"type": "csv", "path": "data/market_gallery/index_summary.csv"},
+    "latest_stock_valuation": {"type": "csv", "path": "data/market_gallery/latest_stock_valuation.csv"}
+  },
+  "pages": [
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "收益走势",
+        "insight": "以宽基指数收益归一化后的相对走势作为收益页起点，用来校准图例、标题、plot-area 和网格系统。",
+        "section": "Market Gallery",
+        "page_label": "01",
+        "source": "Source: Tushare -> SQLite cache",
+        "body": {
+          "family": "performance_compare",
+          "source": "returns_trend",
+          "categories_col": "日期",
+          "series": [
+            {"key": "沪深300", "name": "沪深300", "role": "fund", "type": "line"},
+            {"key": "中证500", "name": "中证500", "role": "peer", "type": "line"},
+            {"key": "中证1000", "name": "中证1000", "role": "benchmark", "type": "line"},
+            {"key": "创业板指", "name": "创业板指", "role": "synthetic", "type": "line"}
+          ],
+          "number_format": "0.0%"
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "收益波动走势",
+        "insight": "用 21 日滚动年化波动率替代网页里的风险页，检验多序列折线在 16:9 下的密度与图例安置。",
+        "section": "Market Gallery",
+        "page_label": "02",
+        "source": "Source: Tushare -> SQLite cache",
+        "body": {
+          "family": "performance_compare",
+          "source": "rolling_vol",
+          "categories_col": "日期",
+          "series": [
+            {"key": "沪深300", "name": "沪深300", "role": "fund", "type": "line"},
+            {"key": "中证500", "name": "中证500", "role": "peer", "type": "line"},
+            {"key": "中证1000", "name": "中证1000", "role": "benchmark", "type": "line"},
+            {"key": "创业板指", "name": "创业板指", "role": "synthetic", "type": "line"}
+          ],
+          "number_format": "0.0%"
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "区间最大回撤",
+        "insight": "回撤页和收益走势使用同一主框架，但对纵轴下限、网格和线条节奏更敏感，适合单独精调。",
+        "section": "Market Gallery",
+        "page_label": "03",
+        "source": "Source: Tushare -> SQLite cache",
+        "body": {
+          "family": "performance_compare",
+          "source": "drawdown",
+          "categories_col": "日期",
+          "series": [
+            {"key": "沪深300", "name": "沪深300", "role": "fund", "type": "line"},
+            {"key": "中证500", "name": "中证500", "role": "peer", "type": "line"},
+            {"key": "中证1000", "name": "中证1000", "role": "benchmark", "type": "line"},
+            {"key": "创业板指", "name": "创业板指", "role": "synthetic", "type": "line"}
+          ],
+          "number_format": "0.0%"
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "月度收益对比",
+        "insight": "月度收益暂用条形对比页承接，后续可以继续抽象到更专门的 distribution family。",
+        "section": "Market Gallery",
+        "page_label": "04",
+        "source": "Source: Tushare -> SQLite cache",
+        "body": {
+          "family": "performance_compare",
+          "source": "monthly_returns",
+          "categories_col": "月份",
+          "series": [
+            {"key": "沪深300", "name": "沪深300", "role": "fund", "type": "bar"},
+            {"key": "中证500", "name": "中证500", "role": "peer", "type": "bar"},
+            {"key": "中证1000", "name": "中证1000", "role": "benchmark", "type": "bar"},
+            {"key": "创业板指", "name": "创业板指", "role": "synthetic", "type": "bar"}
+          ],
+          "number_format": "0.0%"
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "收益与波动双图",
+        "insight": "把同一批指数的年化收益与年化波动放在一页，方便直接判断收益/风险交换关系。",
+        "section": "Market Gallery",
+        "page_label": "05",
+        "source": "Source: Tushare -> SQLite cache",
+        "body": {
+          "family": "dual_chart_panel",
+          "left_title": "年化收益率",
+          "left_chart_family": "performance_compare",
+          "left_chart_spec": {
+            "source": "index_summary",
+            "categories_col": "指数",
+            "series": [
+              {"key": "年化收益率", "name": "年化收益率", "role": "fund", "type": "bar"}
+            ],
+            "number_format": "0.0%"
+          },
+          "right_title": "年化波动率",
+          "right_chart_family": "performance_compare",
+          "right_chart_spec": {
+            "source": "index_summary",
+            "categories_col": "指数",
+            "series": [
+              {"key": "年化波动率", "name": "年化波动率", "role": "benchmark", "type": "bar"}
+            ],
+            "number_format": "0.0%"
+          }
+        }
+      }
+    },
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "最新估值快照表",
+        "insight": "用真数据先落一个可调的估值快照表，后续可以继续演化成条形/矩阵等更强表达。",
+        "section": "Market Gallery",
+        "page_label": "06",
+        "source": "Source: Tushare -> SQLite cache",
+        "body": {
+          "family": "holding_detail",
+          "subtitle": "最新股票估值快照",
+          "summary_text": "按总市值降序展示代表性股票的最新估值与收盘价。",
+          "source": "latest_stock_valuation",
+          "headers": ["股票代码", "股票名称", "日期", "收盘价", "PE", "PB", "总市值"]
+        }
+      }
+    }
+  ],
+  "output": {"path": "market_gallery_demo.pptx"}
+}

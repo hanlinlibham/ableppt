@@ -19,7 +19,9 @@ def build_parser() -> argparse.ArgumentParser:
             "  pptfi parse-waterfall output/waterfall_demo.pptx\n"
             "  pptfi render-scatter scatter_demo.json output/scatter_demo.pptx\n"
             "  pptfi render-bubble bubble_demo.json output/bubble_demo.pptx\n"
-            "  pptfi render job_demo_company_a.json\n"
+            "  pptfi render-range-snapshot range_snapshot_demo.json output/range_snapshot_demo.pptx\n"
+            "  pptfi render-family performance_compare_demo.json output/performance_compare_demo.pptx\n"
+            "  pptfi render job_hikvision.json\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -73,6 +75,14 @@ def build_parser() -> argparse.ArgumentParser:
     describe_bubble.add_argument("--slide-idx", type=int, default=0)
     describe_bubble.add_argument("--shape-idx", type=int, default=0)
 
+    describe_range_snapshot = subparsers.add_parser(
+        "parse-range-snapshot",
+        help="Recover range snapshot semantics from PPT",
+    )
+    describe_range_snapshot.add_argument("input")
+    describe_range_snapshot.add_argument("--slide-idx", type=int, default=0)
+    describe_range_snapshot.add_argument("--shape-idx", type=int, default=0)
+
     parse_ppt = subparsers.add_parser("parse-ppt", help="Parse PPT into JSON")
     parse_ppt.add_argument("input")
     parse_ppt.add_argument("output", nargs="?")
@@ -111,6 +121,20 @@ def build_parser() -> argparse.ArgumentParser:
     )
     render_bubble.add_argument("config", help="Bubble JSON spec, e.g. bubble_demo.json")
     render_bubble.add_argument("output", help="Output PPTX path")
+
+    render_range_snapshot = subparsers.add_parser(
+        "render-range-snapshot",
+        help="Render a standalone range snapshot chart PPT from a chart-engine JSON spec",
+    )
+    render_range_snapshot.add_argument("config", help="Range snapshot JSON spec")
+    render_range_snapshot.add_argument("output", help="Output PPTX path")
+
+    render_family = subparsers.add_parser(
+        "render-family",
+        help="Render a standalone semantic chart family PPT from a JSON spec",
+    )
+    render_family.add_argument("config", help="Semantic family JSON spec")
+    render_family.add_argument("output", help="Output PPTX path")
 
     fetch = subparsers.add_parser("fetch-data", help="Load datasources and export CSVs")
     fetch.add_argument("--config", required=True)
@@ -200,6 +224,11 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 0
 
+        if args.command == "parse-range-snapshot":
+            result = operations.parse_range_snapshot(args.input, slide_idx=args.slide_idx, shape_idx=args.shape_idx)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
+
         if args.command == "parse-ppt":
             result = operations.parse_ppt(args.input, output_json=args.output)
             print(json.dumps(result, ensure_ascii=False, indent=2 if args.output is None else None))
@@ -236,6 +265,16 @@ def main(argv: list[str] | None = None) -> int:
 
         if args.command == "render-bubble":
             result = operations.render_bubble(args.config, args.output)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
+
+        if args.command == "render-range-snapshot":
+            result = operations.render_range_snapshot(args.config, args.output)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
+
+        if args.command == "render-family":
+            result = operations.render_family(args.config, args.output)
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 0
 

@@ -1,0 +1,38 @@
+{
+  "mode": "composer",
+  "theme": "research_shell_4_3",
+  "aspect_ratio": "4:3",
+  "pages": [
+    {
+      "layout": "factsheet_shell_4_3",
+      "data": {
+        "title": "Fixed income valuations",
+        "region": "U.S.",
+        "page_label": "41",
+        "source": "Source: Demo factsheet shell",
+        "summary_cards": [
+          {"label": "10Y Treasury", "value": "4.29%"},
+          {"label": "IG OAS", "value": "119bps"},
+          {"label": "HY OAS", "value": "404bps"},
+          {"label": "EMD Yield", "value": "8.12%"}
+        ],
+        "body_title": "Valuation snapshot",
+        "body": {
+          "family": "performance_compare",
+          "categories_col": "期限",
+          "series": [
+            {"key": "当前", "name": "当前收益率", "role": "fund", "type": "bar"},
+            {"key": "中位数", "name": "历史中位数", "role": "benchmark", "type": "line"}
+          ],
+          "rows": [
+            {"期限": "2Y", "当前": 0.041, "中位数": 0.027},
+            {"期限": "5Y", "当前": 0.040, "中位数": 0.030},
+            {"期限": "10Y", "当前": 0.043, "中位数": 0.033}
+          ],
+          "number_format": "0.0%"
+        }
+      }
+    }
+  ],
+  "output": {"path": "factsheet_shell_demo.pptx"}
+}

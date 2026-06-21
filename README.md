@@ -22,6 +22,19 @@
   - waterfall
   - scatter
   - bubble
+  - range snapshot（支持 `orientation=horizontal`）
+  - semantic families（`performance_compare`、`distribution_plus_history`、`score_overlay`、`event_timeline`、`style_box` 等）
+  - matrix/tile families（`ranked_tile_matrix`、`heatmap_matrix`）
+  - composite page family（`table_plus_chart_composite`）
+  - attribution panel family（`factor_attribution_panel`）
+  - regime panel family（`regime_table_panel`）
+  - people/info families（`manager_timeline_profile`、`award_timeline_panel`）
+  - judgment families（`selection_timing_grid`）
+  - detail panel families（`holding_detail`）
+  - dual chart panel family（`dual_chart_panel`）
+  - page shells（`research_shell_4_3`、`dashboard_shell_16_9`）
+  - advanced page shells（`factsheet_shell_4_3`、`summary_shell_16_9`）
+  - shell variants（`section_cover_4_3`、`chapter_divider_16_9`、`profile_factsheet_4_3`）
 - 用 DeckLinter 审计输出结果
 
 典型场景：
@@ -61,6 +74,13 @@ pptfi render job_demo_company_a.json
 pptfi validate-ppt output/样例公司A竞争壁垒分析.pptx --json
 ```
 
+### Tushare -> SQLite 数据准备
+
+```bash
+python scripts/build_tushare_sqlite.py --output pptfi/data/tushare_market.sqlite
+python scripts/fetch_data.py --config tushare_sqlite_datasources.json --output output/sqlite_exports
+```
+
 ### 模板工作流
 
 ```bash
@@ -79,6 +99,35 @@ pptfi parse-scatter output/scatter-demo.pptx
 
 pptfi render-bubble bubble_demo.json output/bubble-demo.pptx
 pptfi parse-bubble output/bubble-demo.pptx
+
+pptfi render-range-snapshot range_snapshot_demo.json output/range-snapshot-demo.pptx
+pptfi parse-range-snapshot output/range-snapshot-demo.pptx
+
+pptfi render-range-snapshot range_snapshot_sector_demo.json output/range-snapshot-sector-demo.pptx
+
+pptfi render-family performance_compare_demo.json output/performance-compare-demo.pptx
+pptfi render-family distribution_history_demo.json output/distribution-history-demo.pptx
+pptfi render-family score_overlay_demo.json output/score-overlay-demo.pptx
+pptfi render-family event_timeline_demo.json output/event-timeline-demo.pptx
+pptfi render-family style_box_demo.json output/style-box-demo.pptx
+pptfi render-family ranked_tile_matrix_demo.json output/ranked-tile-matrix-demo.pptx
+pptfi render-family heatmap_matrix_demo.json output/heatmap-matrix-demo.pptx
+pptfi render-family table_plus_chart_composite_demo.json output/table-plus-chart-composite-demo.pptx
+pptfi render-family factor_attribution_panel_demo.json output/factor-attribution-panel-demo.pptx
+pptfi render-family regime_table_panel_demo.json output/regime-table-panel-demo.pptx
+pptfi render-family manager_timeline_profile_demo.json output/manager-timeline-profile-demo.pptx
+pptfi render-family award_timeline_panel_demo.json output/award-timeline-panel-demo.pptx
+pptfi render-family selection_timing_grid_demo.json output/selection-timing-grid-demo.pptx
+pptfi render-family holding_detail_demo.json output/holding-detail-demo.pptx
+pptfi render-family dual_chart_panel_demo.json output/dual-chart-panel-demo.pptx
+
+pptfi render job_research_shell_demo.json
+pptfi render job_dashboard_shell_demo.json
+pptfi render job_factsheet_shell_demo.json
+pptfi render job_summary_shell_demo.json
+pptfi render job_section_cover_demo.json
+pptfi render job_chapter_divider_demo.json
+pptfi render job_profile_factsheet_demo.json
 ```
 
 ### Composer 页面示例
@@ -87,6 +136,8 @@ pptfi parse-bubble output/bubble-demo.pptx
 pptfi render job_waterfall_demo.json
 pptfi render job_scatter_demo.json
 pptfi render job_bubble_demo.json
+pptfi render job_range_snapshot_demo.json
+pptfi render job_range_snapshot_sector_demo.json
 ```
 
 ## SDK Quickstart
@@ -94,15 +145,19 @@ pptfi render job_bubble_demo.json
 ```python
 from pptfi import (
     render_job,
+    render_family,
     render_waterfall,
     render_scatter,
     render_bubble,
+    render_range_snapshot,
 )
 
 render_job("job_demo_company_a.json")
 render_waterfall("waterfall_demo.json", "output/waterfall-demo.pptx")
 render_scatter("scatter_demo.json", "output/scatter-demo.pptx")
 render_bubble("bubble_demo.json", "output/bubble-demo.pptx")
+render_range_snapshot("range_snapshot_demo.json", "output/range-snapshot-demo.pptx")
+render_family("performance_compare_demo.json", "output/performance-compare-demo.pptx")
 ```
 
 ## 系统边界
@@ -140,6 +195,17 @@ from pptfi.chart_builder import create_combo_chart
 - waterfall
 - scatter
 - bubble
+- range snapshot（当前 vertical / horizontal 都可）
+- semantic families:
+  - `performance_compare`
+  - `distribution_plus_history`
+  - `style_box`
+  - `style_allocation`
+  - `factor_exposure`
+  - `score_overlay`
+  - `concentration`
+  - `event_timeline`
+  - `attribution_decomposition`
 - round-trip parse
 
 ### 通过 `pptfi`
@@ -148,6 +214,7 @@ from pptfi.chart_builder import create_combo_chart
 - `waterfall` composer 布局
 - `scatter` composer 布局
 - `bubble` composer 布局
+- `range_snapshot` composer 布局
 - standalone chart-family CLI
 
 ## GTM 页面编排（Flow G）
@@ -245,7 +312,8 @@ python scripts/rebuild_ppt.py parsed.json output.pptx
 
 适合：
 
-- 单张 waterfall / scatter / bubble
+- 单张 waterfall / scatter / bubble / range snapshot
+- 单张 semantic family 图表
 - 快速验证图表能力
 - 作为后续页面嵌入前的独立验证
 
@@ -255,6 +323,7 @@ python scripts/rebuild_ppt.py parsed.json output.pptx
 pptfi render-waterfall waterfall_demo.json output/waterfall-demo.pptx
 pptfi render-scatter scatter_demo.json output/scatter-demo.pptx
 pptfi render-bubble bubble_demo.json output/bubble-demo.pptx
+pptfi render-range-snapshot range_snapshot_demo.json output/range-snapshot-demo.pptx
 ```
 
 ## 仓库里的现成示例
@@ -266,19 +335,51 @@ pptfi render-bubble bubble_demo.json output/bubble-demo.pptx
 - `job_waterfall_demo.json`
 - `job_scatter_demo.json`
 - `job_bubble_demo.json`
+- `job_range_snapshot_demo.json`
+- `job_range_snapshot_sector_demo.json`
+- `job_research_shell_demo.json`
+- `job_dashboard_shell_demo.json`
+- `job_factsheet_shell_demo.json`
+- `job_summary_shell_demo.json`
+- `job_section_cover_demo.json`
+- `job_chapter_divider_demo.json`
+- `job_profile_factsheet_demo.json`
 
 ### Standalone 图表 spec
 
 - `waterfall_demo.json`
 - `scatter_demo.json`
 - `bubble_demo.json`
+- `range_snapshot_demo.json`
+- `range_snapshot_sector_demo.json`
+- `performance_compare_demo.json`
+- `distribution_history_demo.json`
+- `style_allocation_demo.json`
+- `factor_exposure_demo.json`
+- `score_overlay_demo.json`
+- `concentration_demo.json`
+- `event_timeline_demo.json`
+- `style_box_demo.json`
+- `attribution_decomposition_demo.json`
+- `ranked_tile_matrix_demo.json`
+- `heatmap_matrix_demo.json`
+- `table_plus_chart_composite_demo.json`
+- `factor_attribution_panel_demo.json`
+- `regime_table_panel_demo.json`
+- `manager_timeline_profile_demo.json`
+- `award_timeline_panel_demo.json`
+- `selection_timing_grid_demo.json`
+- `holding_detail_demo.json`
+- `dual_chart_panel_demo.json`
 
 ### 数据样例
 
 - `data/waterfall_attribution.csv`
 - `data/risk_return_points.csv`
-- `data/company_a_*.csv`
-- `data/company_b_*.csv`
+- `data/range_snapshot_valuation.csv`
+- `data/range_snapshot_sector_valuation.csv`
+- `data/hikvision_*.csv`
+- `data/gigadevice_*.csv`
 
 ### 输出目录
 
@@ -299,6 +400,16 @@ pptfi/
 ├── *.json               # sample jobs / specs
 └── output/              # generated artifacts (gitignored)
 ```
+
+## 参考 deck 建模
+
+`jp_demo.pdf` 已经被抽象为一份可校验的 chart-family catalog，用来定义后续 `pptchartengine` / `composer` 的覆盖目标，而不是把 PDF 当成一次性的视觉参考。
+
+- 说明文档：`reference/jp-demo-chart-model.md`
+- machine-readable catalog：`reference/jp_demo_chart_catalog.json`
+- HTML atlas：`reference/jp-demo-chart-atlas.html`
+- atlas 生成脚本：`scripts/render_chart_catalog_atlas.py`
+- SDK loader：`from pptfi import load_jp_demo_chart_catalog`
 
 ## 测试
 

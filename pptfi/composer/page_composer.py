@@ -23,6 +23,13 @@ _SKIP_FOOTER_LAYOUTS = frozenset({
     "conclusion_dark",
     "section_divider",
     "gtm_panels", "gtm_cover", "gtm_toc", "gtm_quilt", "gtm_chart_text",  # GTM 自带骨架
+    "research_shell_4_3",
+    "dashboard_shell_16_9",
+    "factsheet_shell_4_3",
+    "summary_shell_16_9",
+    "section_cover_4_3",
+    "chapter_divider_16_9",
+    "profile_factsheet_4_3",
 })
 
 

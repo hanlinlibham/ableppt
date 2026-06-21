@@ -1,0 +1,13 @@
+sector,range_min,range_max,average,current
+Energy,0.40,0.95,0.68,0.69
+Utilities,0.48,1.24,0.77,0.74
+Materials,0.80,1.42,1.08,1.08
+Financials,0.45,1.12,0.75,1.12
+Cons. Disc,0.90,1.64,1.27,1.38
+Real Estate,1.05,1.62,1.28,1.39
+MSCI Japan,0.90,1.55,1.28,1.55
+Industrials,0.98,1.70,1.38,1.69
+Cons. Staples,1.18,2.62,2.01,1.92
+Health Care,1.22,3.02,2.18,2.12
+Comm. Services,0.98,2.58,1.72,2.39
+Info Tech,1.02,3.00,1.85,2.84

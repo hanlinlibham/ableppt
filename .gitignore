@@ -13,3 +13,7 @@ venv/
 # generated outputs
 output/*
 !output/.gitkeep
+
+# generated tushare DB (regenerable via scripts/build_tushare_sqlite.py)
+*.sqlite
+data/tushare_market.sqlite

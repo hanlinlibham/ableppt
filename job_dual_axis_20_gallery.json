@@ -1,0 +1,952 @@
+{
+  "mode": "composer",
+  "theme": "dashboard_shell_16_9",
+  "aspect_ratio": "16:9",
+  "datasources": {
+    "idx_amount_000300_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000300.SH' ORDER BY trade_date"
+    },
+    "idx_amount_000905_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000905.SH' ORDER BY trade_date"
+    },
+    "idx_amount_000852_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000852.SH' ORDER BY trade_date"
+    },
+    "idx_amount_000016_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000016.SH' ORDER BY trade_date"
+    },
+    "idx_amount_399006_SZ": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '399006.SZ' ORDER BY trade_date"
+    },
+    "idx_amount_000688_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, amount / 1000000000.0 AS 成交额万亿元 FROM index_bars WHERE ts_code = '000688.SH' ORDER BY trade_date"
+    },
+    "idx_cumret_000300_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000300.SH' ORDER BY trade_date"
+    },
+    "idx_cumret_000905_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000905.SH' ORDER BY trade_date"
+    },
+    "idx_cumret_000852_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000852.SH' ORDER BY trade_date"
+    },
+    "idx_cumret_000016_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000016.SH' ORDER BY trade_date"
+    },
+    "idx_cumret_399006_SZ": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '399006.SZ' ORDER BY trade_date"
+    },
+    "idx_cumret_000688_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT trade_date AS 日期, close AS 指数点位, close / FIRST_VALUE(close) OVER (ORDER BY trade_date) - 1.0 AS 累计收益率 FROM index_bars WHERE ts_code = '000688.SH' ORDER BY trade_date"
+    },
+    "stk_turnover_600519_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '600519.SH' ORDER BY b.trade_date"
+    },
+    "stk_turnover_300750_SZ": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '300750.SZ' ORDER BY b.trade_date"
+    },
+    "stk_turnover_000333_SZ": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '000333.SZ' ORDER BY b.trade_date"
+    },
+    "stk_turnover_601318_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.turnover_rate AS 换手率 FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '601318.SH' ORDER BY b.trade_date"
+    },
+    "stk_pe_600519_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '600519.SH' ORDER BY b.trade_date"
+    },
+    "stk_pe_300750_SZ": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '300750.SZ' ORDER BY b.trade_date"
+    },
+    "stk_pe_000333_SZ": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '000333.SZ' ORDER BY b.trade_date"
+    },
+    "stk_pe_601318_SH": {
+      "type": "sql",
+      "conn": "pptfi/data/tushare_market.sqlite",
+      "query": "SELECT b.trade_date AS 日期, b.close AS 收盘价, d.pe AS PE FROM stock_bars b JOIN stock_daily_basic d ON b.ts_code = d.ts_code AND b.trade_date = d.trade_date WHERE b.ts_code = '601318.SH' ORDER BY b.trade_date"
+    }
+  },
+  "pages": [
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "沪深300点位与成交额",
+        "insight": "line + bar 双轴，用于比较指数水平和交易热度。",
+        "source": "idx_amount_000300_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "成交额万亿元",
+            "name": "成交额(右轴, 万亿元)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 01"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "中证500点位与成交额",
+        "insight": "line + bar 双轴，用于比较指数水平和交易热度。",
+        "source": "idx_amount_000905_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "成交额万亿元",
+            "name": "成交额(右轴, 万亿元)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 02"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "中证1000点位与成交额",
+        "insight": "line + bar 双轴，用于比较指数水平和交易热度。",
+        "source": "idx_amount_000852_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "成交额万亿元",
+            "name": "成交额(右轴, 万亿元)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 03"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "上证50点位与成交额",
+        "insight": "line + bar 双轴，用于比较指数水平和交易热度。",
+        "source": "idx_amount_000016_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "成交额万亿元",
+            "name": "成交额(右轴, 万亿元)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 04"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "创业板指点位与成交额",
+        "insight": "line + bar 双轴，用于比较指数水平和交易热度。",
+        "source": "idx_amount_399006_SZ",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "成交额万亿元",
+            "name": "成交额(右轴, 万亿元)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 05"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "科创50点位与成交额",
+        "insight": "line + bar 双轴，用于比较指数水平和交易热度。",
+        "source": "idx_amount_000688_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "成交额万亿元",
+            "name": "成交额(右轴, 万亿元)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 06"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "沪深300点位与累计收益率",
+        "insight": "line + line 双轴，用于比较价格水平和累计收益变化。",
+        "source": "idx_cumret_000300_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "累计收益率",
+            "name": "累计收益率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0%",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 07"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "中证500点位与累计收益率",
+        "insight": "line + line 双轴，用于比较价格水平和累计收益变化。",
+        "source": "idx_cumret_000905_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "累计收益率",
+            "name": "累计收益率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0%",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 08"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "中证1000点位与累计收益率",
+        "insight": "line + line 双轴，用于比较价格水平和累计收益变化。",
+        "source": "idx_cumret_000852_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "累计收益率",
+            "name": "累计收益率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0%",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 09"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "上证50点位与累计收益率",
+        "insight": "line + line 双轴，用于比较价格水平和累计收益变化。",
+        "source": "idx_cumret_000016_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "累计收益率",
+            "name": "累计收益率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0%",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 10"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "创业板指点位与累计收益率",
+        "insight": "line + line 双轴，用于比较价格水平和累计收益变化。",
+        "source": "idx_cumret_399006_SZ",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "累计收益率",
+            "name": "累计收益率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0%",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 11"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "科创50点位与累计收益率",
+        "insight": "line + line 双轴，用于比较价格水平和累计收益变化。",
+        "source": "idx_cumret_000688_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "累计收益率",
+            "name": "累计收益率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "指数点位",
+            "name": "指数点位(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0%",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 12"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "贵州茅台收盘价与换手率",
+        "insight": "个股 time-series 双轴，用于比较价格和交易活跃度。",
+        "source": "stk_turnover_600519_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "换手率",
+            "name": "换手率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 13"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "宁德时代收盘价与换手率",
+        "insight": "个股 time-series 双轴，用于比较价格和交易活跃度。",
+        "source": "stk_turnover_300750_SZ",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "换手率",
+            "name": "换手率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 14"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "美的集团收盘价与换手率",
+        "insight": "个股 time-series 双轴，用于比较价格和交易活跃度。",
+        "source": "stk_turnover_000333_SZ",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "换手率",
+            "name": "换手率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 15"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "中国平安收盘价与换手率",
+        "insight": "个股 time-series 双轴，用于比较价格和交易活跃度。",
+        "source": "stk_turnover_601318_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "换手率",
+            "name": "换手率(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 16"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "贵州茅台收盘价与PE",
+        "insight": "个股双折线双轴，用于看价格与估值的同步和背离。",
+        "source": "stk_pe_600519_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "PE",
+            "name": "PE(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 17"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "宁德时代收盘价与PE",
+        "insight": "个股双折线双轴，用于看价格与估值的同步和背离。",
+        "source": "stk_pe_300750_SZ",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "PE",
+            "name": "PE(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 18"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "美的集团收盘价与PE",
+        "insight": "个股双折线双轴，用于看价格与估值的同步和背离。",
+        "source": "stk_pe_000333_SZ",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "PE",
+            "name": "PE(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 19"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "中国平安收盘价与PE",
+        "insight": "个股双折线双轴，用于看价格与估值的同步和背离。",
+        "source": "stk_pe_601318_SH",
+        "categories_col": "日期",
+        "series_config": [
+          {
+            "key": "PE",
+            "name": "PE(右轴)",
+            "type": "bar",
+            "axis": "secondary"
+          },
+          {
+            "key": "收盘价",
+            "name": "收盘价(左轴)",
+            "type": "line",
+            "axis": "primary"
+          }
+        ],
+        "style_config": {
+          "color_scheme": "jp_finance",
+          "line_width_pt": 1.5,
+          "marker_style": "none"
+        },
+        "layout_config": {
+          "value_axis_config": {
+            "number_format": "#,##0.0",
+            "font_name": "黑体",
+            "font_size_pt": 9
+          },
+          "secondary_value_axis_config": {
+            "number_format": "0.0",
+            "font_name": "黑体",
+            "font_size_pt": 8
+          },
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: sqlite cache | Dual Axis Gallery 20"
+      }
+    }
+  ],
+  "output": {
+    "path": "dual_axis_20_gallery.pptx"
+  }
+}

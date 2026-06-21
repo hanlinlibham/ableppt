@@ -1,0 +1,24 @@
+{
+  "csv_path": "data/range_snapshot_sector_valuation.csv",
+  "categories_col": "sector",
+  "min_col": "range_min",
+  "max_col": "range_max",
+  "average_col": "average",
+  "current_col": "current",
+  "orientation": "vertical",
+  "title": "S&P 500 valuation",
+  "subtitle": "Forward price-to-earnings ratio",
+  "range_color": "5F6772",
+  "average_color": "87A330",
+  "current_color": "1E88E5",
+  "number_format": "0.0x",
+  "show_average_ticks": true,
+  "show_current_markers": true,
+  "show_current_labels": true,
+  "axis_break": {
+    "value": 30.0,
+    "compress_ratio": 0.22,
+    "tick_values": [0, 5, 10, 15, 20, 25, 30, 50],
+    "categories": ["Energy", "Info Tech"]
+  }
+}

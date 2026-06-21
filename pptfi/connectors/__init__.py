@@ -4,6 +4,7 @@
 
 from pptfi.connectors.base import BaseConnector, ConnectorFactory
 from pptfi.connectors.csv_connector import CsvConnector, XlsxConnector
+from pptfi.connectors.sql_connector import SqlConnector
 from pptfi.connectors.tushare_connector import TushareConnector
 
 __all__ = [
@@ -11,6 +12,6 @@ __all__ = [
     "ConnectorFactory",
     "CsvConnector",
     "XlsxConnector",
+    "SqlConnector",
     "TushareConnector",
 ]
-

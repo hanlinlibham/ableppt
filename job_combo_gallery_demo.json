@@ -1,0 +1,122 @@
+{
+  "mode": "composer",
+  "theme": "dashboard_shell_16_9",
+  "aspect_ratio": "16:9",
+  "datasources": {
+    "hs300_close_amount": {"type": "csv", "path": "data/market_gallery/hs300_close_amount.csv"},
+    "hs300_close_vol": {"type": "csv", "path": "data/market_gallery/hs300_close_vol.csv"},
+    "valuation_dual": {"type": "csv", "path": "data/market_gallery/valuation_dual.csv"},
+    "index_summary": {"type": "csv", "path": "data/market_gallery/index_summary.csv"},
+    "hs300_monthly_signal": {"type": "csv", "path": "data/market_gallery/hs300_monthly_signal.csv"}
+  },
+  "pages": [
+    {
+      "layout": "dashboard_shell_16_9",
+      "data": {
+        "title": "组合图画廊",
+        "insight": "这一组页面专门用来调柱状+折线+面积的组合图，不再混入其他表型组件。",
+        "section": "Combo Gallery",
+        "page_label": "00",
+        "source": "Source: Tushare -> SQLite cache"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "指数点位与成交额",
+        "insight": "标准 bar + line 双轴页，用于校准双轴 tick、图例和柱宽。",
+        "source": "hs300_close_amount",
+        "categories_col": "日期",
+        "series_config": [
+          {"key": "成交额(万亿元)", "name": "成交额(右轴, 万亿元)", "type": "bar", "axis": "secondary"},
+          {"key": "指数点位", "name": "指数点位(左轴)", "type": "line", "axis": "primary"}
+        ],
+        "style_config": {"color_scheme": "jp_finance", "line_width_pt": 1.5, "marker_style": "none"},
+        "layout_config": {
+          "value_axis_config": {"number_format": "#,##0", "font_name": "黑体", "font_size_pt": 9},
+          "secondary_value_axis_config": {"number_format": "0.0", "font_name": "黑体", "font_size_pt": 8},
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: 沪深300 from Tushare sqlite cache"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "指数点位与波动率",
+        "insight": "area + line 双轴页，用面积托住波动率，用折线表现指数点位。",
+        "source": "hs300_close_vol",
+        "categories_col": "日期",
+        "series_config": [
+          {"key": "波动率", "name": "21日年化波动率(右轴)", "type": "area", "axis": "secondary"},
+          {"key": "指数点位", "name": "指数点位(左轴)", "type": "line", "axis": "primary"}
+        ],
+        "style_config": {"color_scheme": "jp_finance", "line_width_pt": 1.5, "marker_style": "none"},
+        "layout_config": {
+          "value_axis_config": {"number_format": "#,##0", "font_name": "黑体", "font_size_pt": 9},
+          "secondary_value_axis_config": {"number_format": "0.0%", "font_name": "黑体", "font_size_pt": 8},
+          "date_axis_config": "monthly"
+        },
+        "footnote": "Source: rolling volatility from Tushare sqlite cache"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "股票估值与市值双轴",
+        "insight": "bar + two-line 双轴页，用来调多折线和一根右轴柱的平衡。",
+        "source": "valuation_dual",
+        "categories_col": "股票",
+        "series_config": [
+          {"key": "总市值(万亿元)", "name": "总市值(右轴, 万亿元)", "type": "bar", "axis": "secondary"},
+          {"key": "PE", "name": "PE(左轴)", "type": "line", "axis": "primary"},
+          {"key": "PB", "name": "PB(左轴)", "type": "line", "axis": "primary"}
+        ],
+        "style_config": {"color_scheme": "jp_finance", "line_width_pt": 1.5, "marker_style": "none"},
+        "layout_config": {
+          "value_axis_config": {"number_format": "0.0", "font_name": "黑体", "font_size_pt": 9},
+          "secondary_value_axis_config": {"number_format": "0.0", "font_name": "黑体", "font_size_pt": 8}
+        },
+        "footnote": "Source: latest valuation from Tushare sqlite cache"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "年化收益与波动双轴",
+        "insight": "bar + line 双轴的横截面对比页，适合调小样本分类轴和数值轴权重。",
+        "source": "index_summary",
+        "categories_col": "指数",
+        "series_config": [
+          {"key": "年化波动率", "name": "年化波动率(右轴)", "type": "bar", "axis": "secondary"},
+          {"key": "年化收益率", "name": "年化收益率(左轴)", "type": "line", "axis": "primary"}
+        ],
+        "style_config": {"color_scheme": "jp_finance", "line_width_pt": 1.5, "marker_style": "none"},
+        "layout_config": {
+          "value_axis_config": {"number_format": "0.0%", "font_name": "黑体", "font_size_pt": 9},
+          "secondary_value_axis_config": {"number_format": "0.0%", "font_name": "黑体", "font_size_pt": 8}
+        },
+        "footnote": "Source: annualized metrics from Tushare sqlite cache"
+      }
+    },
+    {
+      "layout": "chart_full",
+      "data": {
+        "title": "月度收益与三月均值",
+        "insight": "column + line 同轴页，适合调月份标签密度和柱线共存关系。",
+        "source": "hs300_monthly_signal",
+        "categories_col": "月份",
+        "series_config": [
+          {"key": "月度收益", "name": "月度收益", "type": "bar", "axis": "primary"},
+          {"key": "3月均值", "name": "3月均值", "type": "line", "axis": "primary"}
+        ],
+        "style_config": {"color_scheme": "jp_finance", "line_width_pt": 1.5, "marker_style": "none"},
+        "layout_config": {
+          "value_axis_config": {"number_format": "0.0%", "font_name": "黑体", "font_size_pt": 9}
+        },
+        "footnote": "Source: monthly signal from Tushare sqlite cache"
+      }
+    }
+  ],
+  "output": {"path": "combo_gallery_demo.pptx"}
+}
