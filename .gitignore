@@ -9,6 +9,8 @@ dist/
 *.egg-info/
 .venv/
 venv/
+.env
+*.env
 
 # generated outputs
 output/*
@@ -17,3 +19,6 @@ output/*
 # generated tushare DB (regenerable via scripts/build_tushare_sqlite.py)
 *.sqlite
 data/tushare_market.sqlite
+
+# local scratch / experiments (e.g. golden-theme deck trials)
+gold_deck/
